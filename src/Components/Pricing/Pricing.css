@@ -1,0 +1,464 @@
+/* New Pricing css --------------------------------------- */
+.main_pricing_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 60px;
+  background-color: #101010;
+  padding: 30px 0;
+  padding-bottom: 100px;
+}
+
+.pricingIntroContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 60px;
+  gap: 41px;
+}
+
+.main_pricing_wrapper > section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+/* Texts ------------ */
+.text01_pricing_box {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 50px;
+  line-height: 61px;
+  color: #ffffff;
+}
+
+.text02_pricing_box {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.435em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: -35px;
+}
+
+.headers1_pricing {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 36px;
+  color: #ffffff;
+}
+
+.pricingIntroContainer > p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 140%;
+  text-align: center;
+  color: #ffffff;
+  width: 619px;
+}
+
+.pricing_design01 {
+  width: 262px;
+  height: 53px;
+  background: #18181b;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #f5051b;
+}
+
+/* Card design css ---------------------------- */
+
+.cardDesign_pricing {
+  box-sizing: border-box;
+  width: 356px;
+  height: 538px;
+  background: #18181b;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 23px;
+  position: relative;
+  gap: 23px;
+}
+
+.cardDesign_pricing > section {
+  border-bottom: 1px solid #27272a;
+  height: 138px;
+  display: flex;
+  padding: 18px 20px;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.cardDesignPricingText01 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #71717a;
+}
+
+.cardDesignPricingText03 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 36px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  display: inline;
+}
+
+.cardDesignPricingText04 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 77px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: #ffffff;
+  display: inline;
+}
+
+.cardDesignPricingText05 {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.points_section_pricing_card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 14px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+}
+
+.cardDesign_pricing > button {
+  width: 161px;
+  height: 36px;
+  background: #f5051b;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 30px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+}
+
+.cardDesignPricingText02 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Eligibility ---------------------- */
+
+.eligibilty_pricing i {
+  color: white;
+}
+
+.eligibility_pricingpage {
+  margin: 132px 0;
+  padding-top: 80px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.eligibility_pricingpage > p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+  text-align: center;
+  color: #ffffff;
+}
+
+.eligibility_pricingpage > span {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+  text-align: center;
+  color: #ffffff;
+}
+
+.eligibility_pricingpage > button {
+  width: 188px;
+  height: 44px;
+  background: #ff0000;
+  border-radius: 6px;
+  border: none;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* FAQ section --------------------------------- */
+
+.faq_pricing_wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 115px;
+}
+
+.faq_pricing_text01 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 140%;
+  color: #ffffff;
+}
+
+/* accordian test ------- */
+.accordion {
+  width: 730px;
+}
+
+.accordion-item {
+  background: #18181b;
+  width: 100%;
+  margin: 1.2rem 0;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+  -webkit-user-select: none;
+  border-radius: 3px;
+}
+
+.accordion-item-header {
+  padding: 0.5rem 3rem 0.5rem 1rem;
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  background: #18181b;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  color: #ffffff;
+}
+
+.accordion-item-header::after {
+  content: "\002B";
+  font-size: 1.3rem;
+  position: absolute;
+  right: 1rem;
+}
+
+.accordion-item-header.active::after {
+  content: "\2212";
+}
+
+.accordion-item-body {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: rgba(255, 255, 255, 0.5);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.accordion-item-body-content {
+  padding: 1rem;
+  line-height: 1.5rem;
+  /* border-top: 1px solid;
+  border-image: linear-gradient(to right, transparent, #34495e, transparent) 1; */
+}
+
+@media (max-width: 600px) {
+  .main_pricing_wrapper {
+    padding: 40px 0;
+    gap: 28px;
+    padding-bottom: 65px;
+  }
+
+  .main_pricing_wrapper > section {
+    width: 100%;
+  }
+
+  .pricingIntroContainer {
+    gap: 26px;
+    margin-top: 45px;
+  }
+
+  .pricingIntroContainer > p {
+    width: 80%;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+  }
+
+  .text01_pricing_box {
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .text02_pricing_box {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0.435em;
+    text-align: center;
+    margin-top: -21px;
+  }
+
+  .headers1_pricing {
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .pricing_design01 {
+    width: 160px;
+    height: 48px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  /* Pricing Cards ------------ */
+  .cardDesign_pricing {
+    padding: 0 17px;
+    gap: 10px;
+    min-width: 317px;
+    max-width: 384px;
+    width: 80%;
+    height: 478px;
+    margin-bottom: 35px;
+  }
+
+  .points_section_pricing_card{
+    gap: 10px;
+  }
+
+  /* Eligibility section ---------- */
+
+  .eligibility_pricingpage > p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 147.52%;
+    width: 80%;
+  }
+
+  .eligibility_pricingpage > span {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 178.52%;
+  }
+
+  .eligibility_pricingpage > button {
+    width: 192px;
+    height: 40px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  /* Faq's Sections --------- */
+  .faq_pricing_wrapper {
+    margin-top: 80px;
+  }
+
+  .faq_pricing_text01 {
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+  }
+
+  .faq_pricing_text02 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 147.52%;
+  }
+
+  .accordion {
+    min-width: 330px;
+    width: 85%;
+  }
+
+  .accordion-item-header {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 0.5rem 3rem 0.5rem 0.8rem;
+  }
+
+  .accordion-item-body {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 150%;
+  }
+
+  .accordion-item-body-content {
+    padding: 0.8rem;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 150%;
+  }
+}

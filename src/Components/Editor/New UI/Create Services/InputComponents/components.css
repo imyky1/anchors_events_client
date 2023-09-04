@@ -1,0 +1,377 @@
+/* placeholder */
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+/* container types ------------------------------ */
+.textfiled_container_01 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  position: relative;
+}
+
+.radiofiled_container_01 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload_default_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* labels type ----------------------------------------- */
+.label_type_01 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  margin-bottom: 6px;
+}
+
+.label_type_02 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-right: 10px;
+}
+
+.label_type_03{
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 16px;
+color: rgba(0, 0, 0, 0.5);
+margin-top: 10px;
+
+}
+
+/* input type --------------------------------------------- */
+.input_type_01 {
+  background: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  /* width: 465px; */
+  width: 100%;
+  height: 45px;
+  padding: 0 12px;
+  box-sizing: border-box;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #2c1e1e;
+}
+
+.input_type_01:focus {
+  outline: #2196f3 solid 1px;
+}
+
+.verifiedComponent01{
+  position: absolute;
+  right: 13px;
+  top: 66%;
+}
+
+.input_type_02 {
+  height: 120px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px dashed #000000;
+  border-radius: 13px;
+  cursor: pointer;
+}
+
+.input_type_02 > i {
+  color: #00000080;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.input_type_02 > span {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 15px;
+  color: #000000;
+  margin-bottom: 7px;
+}
+
+.input_type_02 > p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 0 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.input_type_03 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  flex-grow: 1;
+  padding: 3px;
+  border: none;
+  outline: none;
+  margin-left: -3px;
+}
+
+div.ck-editor.ck.ck-reset {
+  width: 100%;
+  /* height: 175px; */
+  background: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgb(0 0 0);
+}
+
+/* Dropdown css ------------------------------------------------------------------------------------------- */
+
+.dropdown_input_01 {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown_input_01 > i {
+  position: absolute;
+  right: 12px;
+}
+
+.dropdown_menu_options {
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 5px 0;
+  position: absolute;
+  top: 70px;
+  z-index: 99;
+}
+
+.dropdown_menu_options > span {
+  width: 95%;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #2c1e1e;
+  height: 36px;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.dropdown_menu_options > span:hover {
+  background: #e1e1e1;
+}
+
+/* radio switch css ----------------------------------------------------------------------------- */
+
+/* 1st-------------------- */
+
+/* The switch - the box around the slider */
+.switch_type_01 {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 14px;
+}
+
+/* Hide default HTML checkbox */
+.switch_type_01 input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider_type_01 {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #b1b1b1;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider_type_01:before {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  left: -1px;
+  bottom: -3px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  background: #fafafa;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+input:checked + .slider_type_01:before {
+  background-color: #000000;
+}
+
+input:checked + .slider_type_01 {
+  background-color: #232426a1;
+}
+
+input:focus + .slider_type_01 {
+  box-shadow: 0 0 1px #232426a1;
+}
+
+input:checked + .slider_type_01:before {
+  -webkit-transform: translateX(17px);
+  -ms-transform: translateX(17px);
+  transform: translateX(17px);
+}
+
+/* Rounded sliders */
+.slider_type_01.round_type_01 {
+  border-radius: 10px;
+}
+
+.slider_type_01.round_type_01:before {
+  border-radius: 50%;
+}
+
+/* Buttons csss ------------------------------------------ */
+
+.button_01_css {
+  width: 164px;
+  height: 36px;
+  background: #000000;
+  border-radius: 8px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* tags section --------------------------------------------------- */
+
+.tags01_box {
+  display: inline-flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+  row-gap: 15px;
+  width: 100%;
+  min-height: 130px;
+  background: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 15px;
+  box-sizing: border-box;
+  max-height: 172px;
+}
+
+.tags01_box > span {
+  background: #e3e3e3;
+  border-radius: 20px;
+  display: inline-block;
+  margin-right: 6px;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 4px 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+.tags01_box > span > i {
+  color: #a6a6a6;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+
+
+/* Ck editor css ------------ */
+
+.ck-editor__editable_inline {
+  min-height: 90px;
+  padding: 0 12px !important;
+}
+
+.quill-editor{
+  height:100%;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.ql-container{
+  min-height: 90px;
+  border-radius: 0 0 5px 5px;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+}
+
+.ql-toolbar{
+  border-radius: 5px 5px 0 0;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+}

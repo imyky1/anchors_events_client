@@ -1,0 +1,503 @@
+.creator_modal_outside_container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.creator_modal_info {
+  width: 280px;
+  height: 390px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 13px;
+  position: fixed;
+  right: 28px;
+  top: 70px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  -webkit-user-select: none;
+  z-index: 99;
+}
+
+/* profile section cretor info --------------------------------------------------------------------- */
+
+.profile_section_creator_info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 15px;
+  margin-top: 20px;
+}
+
+.profile_section_creator_info_image {
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  margin-bottom: 5px;
+}
+
+.profile_section_creator_info > span {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  margin-bottom: 7px;
+}
+
+.profile_section_creator_info > div {
+  display: grid;
+  width: 63%;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 13px;
+}
+
+.profile_section_creator_info > div > span {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.profile_section_creator_info > button {
+  width: 130px;
+  height: 32px;
+  background: #000000;
+  border-radius: 32px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  cursor: pointer;
+  border: none;
+}
+
+.hover_span_modal_creatorinfo:hover {
+  color: #0083fe;
+  cursor: pointer;
+}
+
+/* options creator info side modal --------------------------------------- */
+
+.options_creator_profile_info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 11px;
+  margin-top: 17px;
+}
+
+.options_creator_profile_info > div {
+  width: 100%;
+  height: 32px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  padding: 7px 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+.options_creator_profile_info > div:hover {
+  background: #e1e1e1;
+}
+
+/* logout option on creator info */
+
+.logout_button_modal {
+  color: #00000080;
+  width: 90%;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.logout_button_modal i {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logout_button_modal i:hover {
+  color: black;
+  transform: scale(1.05);
+}
+
+/* Creator feedback form ---------------------------- */
+
+.creator_feedback_modal_wrapper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: #00000080;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.creator_fb_box-container {
+  width: 540px;
+  height: 758px;
+  max-height: 95vh;
+  overflow-y: auto;
+  background: #ffffff;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 13px;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  position: relative;
+  animation: popoutModal2 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  padding: 15px 0;
+  box-sizing: border-box;
+}
+
+.creator_fb_box-container::-webkit-scrollbar{
+  display: none;
+}
+
+/* popoutModal animation is in the feedback user modal css */
+
+.creator_fb_main {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 13px;
+  margin: 0 auto;
+  width: 91%;
+}
+
+.creator_fb_main > section {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* text styles */
+
+.creator_fb_text01 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #000000;
+}
+
+.creator_fb_text02 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+.creator_fb_text03 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.creator_fb_stars_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  margin: 14px 5px;
+}
+
+.creator_fb_stars_box > svg {
+  font-size: 30px;
+}
+
+/* Qestion ratings -------------- */
+
+.creator_questions_ratings {
+  width: 85%;
+  padding: 0 10px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.question_creator_fb {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  width: 100%;
+}
+
+.question_creator_fb > div {
+  width: 93%;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.number_ratings_cretor_fb {
+  /* background-color: red; */
+  width: 93%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.number_ratings_cretor_fb > span {
+  width: 30px;
+  height: 30px;
+  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  /* color: #000000; */
+}
+
+.number_ratings_cretor_fb > span:hover {
+  background: #f5051b;
+  color: #ffffff;
+}
+
+.active-number-rating {
+  background: #f5051b;
+  color: #ffffff;
+}
+
+.optional_comments_questions_fb {
+  width: 93%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2px;
+  box-sizing: border-box;
+}
+
+.optional_comments_questions_fb > span {
+  font-family: "Inter";
+  font-style: italic;
+  font-weight: 200;
+  font-size: 8px;
+  line-height: 10px;
+  color: #000000;
+}
+
+.creator_fb_modal_comment {
+  background: #e6e6e7;
+  border-radius: 4px;
+  width: 100%;
+  resize: none;
+  height: 88px;
+  border: none;
+  width: 472px;
+  padding: 6px;
+  box-sizing: border-box;
+  margin-left: 7px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.creator_fb_submit {
+  width: 136px;
+  height: 32px;
+  background: #f5051b;
+  border-radius: 4px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.button_section_creator_fb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 10px;
+}
+
+.button_section_creator_fb > span {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 10px;
+  color: #f5051b;
+}
+
+
+
+.outer_class_creator_feedback {
+  display: flex;
+  width: 100%;
+  height: max-content;
+  padding: 40px 10%;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  flex-shrink: 0;
+  background: #121212;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 999999999999;
+  animation: popoutModal 0.5s ease-in-out forwards;
+}
+
+.outer_class_creator_feedback01 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.outer_class_creator_feedback02 {
+  border-radius: 16px;
+  background: #212121;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+.outer_class_creator_feedback01_first {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  flex-flow: column;
+  align-self: stretch;
+  color: var(--neutral-gray-400, #94a3b8);
+  font-family: "Gilroy-Medium",sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.outer_class_creator_feedback01_first > section {
+  color: var(--neutral-gray-100, #f1f5f9);
+  font-family: "Gilroy-SemiBold",sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.outer_class_creator_feedback02_textarea {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.outer_class_creator_feedback02_textarea textarea {
+  color: var(--neutral-gray-100, #f1f5f9);
+  font-family: "Gilroy-Medium",sans-serif;
+  width: 100%;
+  min-height: 120px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.outer_class_creator_feedback02_textarea textarea:focus{
+  outline: none;
+}
+
+
+.outer_class_creator_feedback02_textarea > section {
+  color: var(--neutral-gray-100, #f1f5f9);
+  font-family: "Gilroy-Medium",sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.outer_class_creator_feedback02_textarea textarea::placeholder {
+  color: var(--neutral-gray-500, #64748b);
+  font-family: " Gilroy-Medium";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.outer_class_creator_feedback02_textarea textarea:focus::placeholder {
+  color: transparent;
+}
+
+.outer_class_creator_feedback02_button {
+  padding: 12px 40px;
+  border-radius: 4px;
+  background: #F00;
+  color: #fff;
+  font-family: "Gilroy-Medium",sans-serif;
+  border: none;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  margin-left: 87%;;
+}

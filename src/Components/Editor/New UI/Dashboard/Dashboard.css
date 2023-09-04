@@ -1,0 +1,151 @@
+.main_dashboard_conatiner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #f8f8fa; */
+  height: 91vh;
+}
+
+.main_dashboard_conatiner > div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.text_01_dashboard {
+  font-family: "Sora";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 38px;
+  color: #000000;
+}
+
+.text_02_dashboard {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 25px;
+}
+
+.main_dashboard_conatiner > div > section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.dashboard_options {
+  height: 88px;
+  background: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  color: #000000;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.dashboard_options:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* main container box 2 */
+
+.main_dashboard_conatiner2 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0 14%;
+  box-sizing: border-box;
+  height: 91vh;
+  gap: 140px;
+  padding-top: 40px;
+}
+
+.stepper_outside_wrapper_dashboard {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stepper_outside_wrapper_dashboard > section {
+  display: flex;
+  align-items: center;
+}
+
+.main_dashboard_design_box {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.main_dashboard_design_box > section {
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px; */
+  width: 100%;
+}
+
+.each_step_stepper_dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  width: 92px;
+}
+
+.each_step_stepper_dashboard > div {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  border: 1px solid #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.changeBackgroundToBlackDashboard {
+  background-color: #121212;
+}
+
+.changeBackgroundToGreyDashboard {
+  background: #64748b;
+}
+
+.each_step_stepper_dashboard > span {
+  color: var(--neutral-gray-500, #64748b);
+  font-family: "Gilroy-Bold", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  line-height: normal;
+  position: relative;
+  top: 10px;
+  text-align: center;
+  text-wrap: nowrap;
+}
+
+.horizonal_bar_stepper_dashboard {
+  width: 96px;
+  height: 2px;
+  position: relative;
+  bottom: 8px;
+  right: 27px;
+}

@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap');
+
+:root{
+    --font: "'Inter', sans-serif"
+}
+
+*{ 
+  margin: 0;
+  padding: 0;
+  
+}
+
+/*  scroll bar css --------------------- */
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #d4d4d4; 
+  }
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #424345f7; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
