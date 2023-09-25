@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Sample.css";
 import "./Event.css";
-import { mix, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
-import Banner1 from "./images/Banner (6).png";
-import Banner2 from "./images/Banner (8).png";
-import Banner3 from "./images/Banner (9).png";
-import Banner4 from "./images/Banner (10).png";
-import Banner5 from "./images/Banner (11).png";
-import image1 from "./images/image1.png";
-import image2 from "./images/image2.png";
-import image4 from "./images/image4.png";
-import image5 from "./images/image5.png";
-import image6 from "./images/image6.png";
-import image7 from "./images/image7.png";
-import { Footer3 } from "../../../Footer/Footer2";
-import NoMobileScreen from "../../../Layouts/Error Pages/NoMobileScreen";
+import Banner1 from "./images/Banner (6)-min.webp";
+import Banner2 from "./images/Banner (8)-min.webp";
+import Banner3 from "./images/Banner (9)-min.webp";
+import Banner4 from "./images/Banner (10)-min.webp";
+import Banner5 from "./images/Banner (11)-min.webp";
 import mixpanel from "mixpanel-browser";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdEventSeat, MdKeyboardArrowDown } from "react-icons/md";
+import { TbMapSearch } from "react-icons/tb";
+import MainNewFooter from "../../../Footer/Footer";
 import { EventsNavbar } from "../../../Layouts/Navbar Creator/Navbar";
 
 const PersonalizedSection = () => {
@@ -29,12 +23,12 @@ const PersonalizedSection = () => {
     switch (index) {
       case 0:
         yoffset = 0;
-        xoffset = 140;
+        xoffset = window.screen.width > 600 ? 140 : 120;
         time = 0.2;
         break;
       case 1:
         yoffset = -40;
-        xoffset = 70;
+        xoffset = window.screen.width > 600 ? 70 : 44;
         time = 0.4;
         break;
       case 2:
@@ -44,12 +38,12 @@ const PersonalizedSection = () => {
         break;
       case 3:
         yoffset = -40;
-        xoffset = -70;
+        xoffset = window.screen.width > 600 ? -70 : -44;
         time = 0.4;
         break;
       case 4:
         yoffset = 0;
-        xoffset = -140;
+        xoffset = window.screen.width > 600 ? -140 : -120;
         time = 0.2;
         break;
     }
@@ -82,6 +76,7 @@ const PersonalizedSection = () => {
               variants={containerVariant(i)}
               initial="from" // here default type is tween and not spring because it has duration
               whileInView="to"
+              viewport={{ once: true }}
               src={e}
               alt=""
               key={i}
@@ -89,26 +84,48 @@ const PersonalizedSection = () => {
           );
         })}
       </div>
-      <h2 className="header_sample_page01">Personalized Invitation Cards</h2>
+      <h2 className="header_sample_page01">
+        Personalized Invitation Cards: Designed to Impress
+      </h2>
       <p className="header_sample_page02" style={{ textAlign: "center" }}>
-        Give your attendees a personalized touch with shareable invite cards
-        they can proudly share on their social media platforms.
+        Give Your Attendees a Personalized Touch - Shareable Invite Cards They
+        Can Proudly Share on Social Platforms!
       </p>
+      <button
+        className="button_sample_page01"
+        onClick={() => {
+          window.open("/static/success");
+          mixpanel.track("Event Page Explore a Sample 3");
+        }}
+      >
+        <TbMapSearch size={32} /> Explore a Sample
+      </button>
     </section>
   );
 };
 
 function Sample() {
-  const [openModel, setOpenModel] = useState(false);
-
-  let imgSrcSection1 = [image1, image2, image4];
-  let imgSrcSection2 = [image5, image6, image7];
-
   useEffect(() => {
-    mixpanel.track("Event Page Visit");
+    mixpanel.track("Event Page Page Visit");
   }, []);
 
-  const imgSectionVariant = (index) => {
+  const imgVariant = (scale = 1) => {
+    return {
+      from: {
+        opacity: 0,
+        scale: 0.8,
+      },
+      to: {
+        opacity: 1,
+        scale: scale,
+        transition: {
+          duration: 2,
+        },
+      },
+    };
+  };
+
+  const textVariant01 = (timedelay = 0.85) => {
     return {
       from: {
         opacity: 0,
@@ -116,100 +133,100 @@ function Sample() {
       to: {
         opacity: 1,
         transition: {
-          duration: index * 1,
-          ease: "ease",
+          duration: timedelay,
+          // ease: "ease",
         },
       },
     };
   };
 
-  const imgVariant = {
-    from: {
-      opacity: 0,
-    },
-    to: {
-      opacity: 1,
-      transition: {
-        duration: 0.85,
-        ease: "ease",
-      },
-    },
-  };
-
-  if (window.screen.width < 800) {
-    return <NoMobileScreen />;
-  }
-
   return (
     <div className="sample_page_wrapper">
       {/* Hero Section  */}
-      <section className="main_header_component_event_page">
+      <section
+        className="main_header_component_event_page"
+        style={{ position: "relative" }}
+      >
         <EventsNavbar
-          open={openModel}
-          close={() => {
-            setOpenModel(false);
-          }}
+          backgroundDark={true}
         />
 
         {/* Main detail of the component */}
 
         <div className="main_title_event_box">
-          <h1>Increase Your Event Registrations with anchors</h1>
-
-          <button
-            onClick={() => {
-              localStorage.getItem("jwtToken") &&
-              localStorage.getItem("isUser") === ""
-                ? window.open("/dashboard", "_self")
-                : window.open("/login", "_self");
-
-              mixpanel.track("Event Host Your Event");
-            }}
+          <motion.h1
+            style={window.screen.width > 600 ? { textTransform: "unset" } : {}}
+            initial="from"
+            animate="to"
+            variants={textVariant01()}
           >
-            Host Your Event
-          </button>
+            Supercharge your Event's Success with{" "}
+            <span style={{ color: "red" }}>anchors!</span>
+          </motion.h1>
 
-          <a href="#benefits">
-          <MdKeyboardArrowDown className="arrow_button_sample_page" />
-        </a>
+          <motion.section
+            className="button_event_landing"
+            initial="from"
+            animate="to"
+            variants={textVariant01(1.5)}
+          >
+            <button
+              onClick={() => {
+                localStorage.getItem("jwtToken") &&
+                localStorage.getItem("isUser") === ""
+                  ? window.open("/dashboard", "_self")
+                  : window.open("/signup/creators", "_self");
+
+                mixpanel.track("Event Page Host Your Event");
+              }}
+            >
+              <MdEventSeat size={32} /> Host Your Event
+            </button>
+
+            <span>It takes only 30 sec to create an event</span>
+          </motion.section>
         </div>
 
-
+        <a href="#benefits">
+          <MdKeyboardArrowDown className="arrow_button_sample_page" />
+        </a>
       </section>
 
       {/* benefits section ----------- */}
 
       <section className="benefits_sample_page" id="benefits">
-        <h2>Focus on the experience, while anchors handles the rest.</h2>
+        <h2>
+          Your Event, Your Spotlight –{" "}
+          <span style={{ color: "red" }}>anchors</span> Takes Care of the Rest!
+        </h2>
         <section>
           <div className="left_division_sample_page">
-            <h2 className="header_sample_page01">Stunning Event Pages</h2>
+            <h2 className="header_sample_page01">Design Stunning Pages</h2>
             <p className="header_sample_page02">
-              Captivate your audience with visually appealing event pages that
-              leave a lasting impression.
+              Immerse Your Audience in Eye-Catching Event Pages that Make a
+              Lasting Impression.
             </p>
             <button
               className="button_sample_page01"
               onClick={() => {
                 window.open("https://go.anchors.in/PvlD");
-                mixpanel.track("Event Check out Offering 1");
+                mixpanel.track("Event Page Explore a Sample 1");
               }}
             >
-              Check Out a Sample
+              <TbMapSearch size={32} /> Explore a Sample
             </button>
           </div>
           <div className="right_division_sample_page">
-            {imgSrcSection1?.map((e, i) => {
-              return (
-                <motion.img
-                  src={e}
-                  alt=""
-                  variants={imgSectionVariant(i)}
-                  initial="from" // here default type is tween and not spring because it has duration
-                  whileInView="to"
-                />
-              );
-            })}
+            <motion.img
+              src={
+                "https://anchors-assets.s3.amazonaws.com/1695190934103-Device_-_Macbook_Air_(3)-min.webp"
+              }
+              alt=""
+              variants={imgVariant(1)}
+              initial="from" // here default type is tween and not spring because it has duration
+              whileInView="to"
+              viewport={{ once: true }}
+            />
           </div>
         </section>
       </section>
@@ -217,53 +234,33 @@ function Sample() {
       <section className="sample_page_divison_section">
         <div className="left_division_sample_page">
           <h2 className="header_sample_page01">
-          Amplify your Reach with our Referral Program
+            Boost Your Reach with Our Dynamic Referral Program
           </h2>
           <p className="header_sample_page02">
-            Unlock the power of word-of-mouth marketing with our dynamic
-            referral program and climb the leaderboard for maximum reach.
+            Amplify Word-of-Mouth Impact: Reward Top Referrers, Encourage
+            Engagement & Friendly Competition!
           </p>
           <button
             className="button_sample_page01"
             onClick={() => {
-              window.open("https://www.anchors.in/static/success");
-              mixpanel.track("Event Check out Offering 2");
+              window.open("/static/success");
+              mixpanel.track("Event Page Explore a Sample 2");
             }}
           >
-            Check Out a Sample
+            <TbMapSearch size={32} /> Explore a Sample
           </button>
         </div>
         <div className="right_division_sample_page2">
-          {imgSrcSection2?.map((e, i) => {
-            return (
-              <motion.img
-                src={e}
-                alt=""
-                variants={imgSectionVariant(i)}
-                initial="from" // here default type is tween and not spring because it has duration
-                whileInView="to"
-              />
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="sharing_section_sample_page" style={{width:"88vw",marginTop:"150px"}}>
-        <motion.img
-          src={require("./images/image8.png")}
-          alt=""
-          variants={imgVariant}
-          initial="from" // here default type is tween and not spring because it has duration
-          whileInView="to"
-        />
-        <div style={{gap:"40px"}}>
-          <h2 className="header_sample_page01" style={{ textAlign: "right" }}>
-            Host Events with Upto 3 Speakers!
-          </h2>
-          <p className="header_sample_page02" style={{ textAlign: "right" }}>
-            Plan captivating events showcasing three speakers to ensure maximum
-            engagement and excitement for your audience!
-          </p>
+          <motion.img
+            src={
+              "https://anchors-assets.s3.amazonaws.com/1695190919240-iPhone_14_Pro_Mockup_2jkgcuakbau-min.webp"
+            }
+            alt=""
+            variants={imgVariant(window.screen.width < 600 ? 1.5 : 1)}
+            initial="from" // here default type is tween and not spring because it has duration
+            whileInView="to"
+            viewport={{ once: true }}
+          />
         </div>
       </section>
 
@@ -271,40 +268,70 @@ function Sample() {
       <PersonalizedSection />
 
       <section className="sharing_section_sample_page">
+        <div>
+          <h2 className="header_sample_page01">Seamless Content Sharing</h2>
+          <p className="header_sample_page02">
+            Effortless Event Content Sharing: Focus on What Matters, We Handle
+            the Rest!
+          </p>
+          <button
+            className="button_sample_page01"
+            onClick={() => {
+              window.open("/static/success");
+              mixpanel.track("Event Page Explore a Sample 4");
+            }}
+          >
+            <TbMapSearch size={32} /> Explore a Sample
+          </button>
+        </div>
         <motion.img
-          src={require("./images/image3.png")}
+          src={
+            "https://anchors-assets.s3.amazonaws.com/1695190945857-iPhone_14_Pro_Mockup_2_guccgadvhakl-min.webp"
+          }
           alt=""
-          variants={imgVariant}
+          variants={imgVariant(window.screen.width < 600 ? 1.5 : 1)}
           initial="from" // here default type is tween and not spring because it has duration
           whileInView="to"
+          viewport={{ once: true }}
         />
-        <div>
-          <h2 className="header_sample_page01" style={{ textAlign: "right" }}>
-            Effortless Content Sharing
-          </h2>
-          <p className="header_sample_page02" style={{ textAlign: "right" }}>
-            We streamline your event's design and content efforts, so you can
-            focus on what matters most.
-          </p>
-        </div>
       </section>
 
       <section className="extra_section_sample_page">
-        <h3>Are you ready to revolutionize your event hosting experience?</h3>
+        <h3>Ready to Transform Your Event Hosting Experience?</h3>
         <button
           className="button_sample_page01"
           onClick={() => {
             localStorage.getItem("jwtToken") &&
             localStorage.getItem("isUser") === ""
               ? window.open("/dashboard", "_self")
-              : window.open("/login", "_self");
-            mixpanel.track("Event Yes, I'm ready!");
+              : window.open("/signup/creators", "_self");
+            mixpanel.track("Event Page Yes, I'm ready!");
           }}
         >
           Yes, I'm ready!{" "}
         </button>
       </section>
-      <Footer3 />
+
+      <MainNewFooter
+        onEvents={true}
+        footerOptions1={[
+          {
+            title: "Event Pricing",
+            link: "https://www.anchors.in/eventpricing",
+          },
+          {
+            title: "Sample Event Page",
+            link: "https://www.anchors.in/e/how-to-become-a-product-manager",
+          },
+          {
+            title: "Sample Referral Page",
+            link: "https://www.anchors.in/static/success",
+          },
+        ]}
+        noPrivacyPolicy={false}
+        noRefund={false}
+        useEventsLogo={true}
+      />
     </div>
   );
 }

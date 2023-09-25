@@ -10,14 +10,16 @@ import { useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Moment from "moment";
 import { SuperSEO } from "react-super-seo";
+// import "../../../Earning Potential/Predictor.css"
 
 import ServiceContext from "../../../../Context/services/serviceContext";
 import { host } from "../../../../config/config";
 import { LoadTwo } from "../../../Modals/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import { HiInformationCircle } from "react-icons/hi";
+import ServiceStats2 from "./ServiceStats2";
+import { TooltipBox } from "../Create Services/InputComponents/fields_Labels";
 
-const TooltipBox = ({ text }) => <div className="tooltip-box">{text}</div>;
 
 const ServiceStats = (props) => {
   const { slug } = useParams();
@@ -162,6 +164,10 @@ const ServiceStats = (props) => {
   useEffect(() => {
     handler();
   }, [serviceInfo, eventInfo]);
+
+  if(serviceType === "event" || serviceType === "download"){
+    return <ServiceStats2 progress={props?.progress}/>
+  }
 
   return (
     <>

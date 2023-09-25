@@ -2,15 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import "./ServiceList.css";
 import ServiceContext from "../../../../Context/services/serviceContext";
 import { SuperSEO } from "react-super-seo";
-import {
-  Table,
-  TableContainer,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell,
-  Paper,
-} from "@mui/material";
 import UserIcon from "./Icons/User.svg";
 import ChartIcon from "./Icons/Chart-pie.svg";
 import Option from "./Icons/Option.svg";
@@ -20,7 +11,7 @@ import { LoadTwo } from "../../../Modals/Loading";
 import ChangeStatusModal, {
   ChangeStatus,
 } from "../../../Modals/ServiceSuccess/Modal2";
-import { Button1 } from "../Create Services/InputComponents/buttons";
+import { Button2 } from "../Create Services/InputComponents/buttons";
 import {
   AiOutlineCalendar,
   AiOutlineClockCircle,
@@ -33,13 +24,315 @@ import {
   BsTelegram,
   BsWhatsapp,
 } from "react-icons/bs";
+import {
+  BiCoinStack,
+  BiDotsVerticalRounded,
+  BiRupee,
+  BiStats,
+} from "react-icons/bi";
 import { TbSend } from "react-icons/tb";
+import { HiDownload } from "react-icons/hi";
+import { MdDateRange } from "react-icons/md";
 import mixpanel from "mixpanel-browser";
 import {
   LinkedinShareButton,
   TelegramShareButton,
   WhatsappShareButton,
 } from "react-share";
+
+const ContentCard = ({
+  i,
+  _id,
+  simg,
+  mobileSimg,
+  sname,
+  downloads,
+  date,
+  slug,
+  isPaid,
+  ssp,
+  startDate,
+  selected,
+  registrations,
+  eventCode,
+  copyURL,
+  dummyData,
+  setShareModalData,
+  stype,
+  status,
+  setOpenOption,
+  setCurrSelected,
+  setChangeStatus,
+  deleteService,
+  setOpenModel,
+  OpenOption,
+  revArray,
+}) => {
+  const navigate = useNavigate();
+
+  const openOptionsPopup = (i) => {
+    document.getElementById(`servicelist_options${i}`).style.display = "flex";
+    setOpenOption(i);
+  };
+
+  const removeOptionPopup = () => {
+    if (OpenOption !== 0) {
+      revArray.map((elem, i) => {
+        return (document.getElementById(
+          `servicelist_options${i + 1}`
+        ).style.display = "none");
+      });
+      document.getElementById(
+        `servicelist_options${OpenOption}`
+      ).style.display = "none";
+      setOpenOption(0);
+    }
+  };
+
+  const handleCheckClick = async () => {
+    setCurrSelected({ copyURL, status });
+    removeOptionPopup(); // removes popup ------------------------------
+    if (status) {
+      // means now it is checked ------------
+      setChangeStatus(0);
+      const success = await deleteService(
+        _id,
+        0,
+        selected === "events" ? "event" : "document"
+      ); // changing status of the service / eevent
+      if (success) {
+        setOpenModel(true);
+        status = false; // manually changing its value--------------
+      } else {
+        toast.error("Some error occured", {
+          position: "top-center",
+          autoClose: 2000,
+        });
+      }
+    } else {
+      // means now it is unchecked-----------------
+      setChangeStatus(1);
+      const success = await deleteService(
+        _id,
+        1,
+        selected === "events" ? "event" : "document"
+      );
+      if (success) {
+        setOpenModel(true);
+        status = true; // manually changing its value--------------
+      } else {
+        toast.error("Some error occured", {
+          position: "top-center",
+          autoClose: 2000,
+        });
+      }
+    }
+  };
+
+  return (
+    <div className="mycontent_card_for_service">
+      <img
+        src={mobileSimg ?? simg}
+        alt=""
+        onClick={() => {
+          selected === "events"
+            ? window.open(`/e/${slug}`)
+            : window.open(`/s/${slug}`);
+        }}
+      />
+      <section>
+        <div
+          style={{
+            display: "flex",
+            gap: "16px",
+            flexDirection: "column",
+            width: "100%",
+          }}
+        >
+          <h2
+            onClick={() => {
+              selected === "events"
+                ? window.open(`/e/${slug}`)
+                : window.open(`/s/${slug}`);
+            }}
+          >
+            {sname}
+          </h2>
+
+          <div className="props_mycontent_card_service">
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                mixpanel.track("Downloads");
+                selected === "events"
+                  ? !dummyData.EventDummy &&
+                    registrations !== 0 &&
+                    window.open(
+                      `/dashboard/viewUserDetails/${slug}?type=event`,
+                      "_blank"
+                    )
+                  : !dummyData.ServiceDummy &&
+                    downloads !== 0 &&
+                    window.open(`/dashboard/viewUserDetails/${slug}`, "_blank");
+              }}
+            >
+              <HiDownload /> {selected === "events" ? registrations : downloads}
+            </span>
+            <span>
+              <MdDateRange />{" "}
+              {new Date(
+                selected === "events" ? startDate : date
+              ).toLocaleString()}
+            </span>
+            <span>
+              <BiRupee /> {ssp}
+            </span>
+            <span>
+              <BiCoinStack /> {isPaid ? "Paid" : "Free"}
+            </span>
+          </div>
+        </div>
+
+        <div className="buttons_div_section_mycontent_card">
+          <button
+            onClick={() => {
+              mixpanel.track("Analysis");
+              selected === "events"
+                ? !dummyData.EventDummy &&
+                  window.open(
+                    `/dashboard/serviceStats/${slug}?type=event`,
+                    "_blank"
+                  )
+                : !dummyData.ServiceDummy &&
+                  window.open(`/dashboard/serviceStats/${slug}`, "_blank");
+            }}
+          >
+            <BiStats /> Detailed Service Analysis
+          </button>
+          <button
+            onClick={() => {
+              const pattern = /go\.anchors\.in/;
+              selected === "events"
+                ? setShareModalData({
+                    open: true,
+                    sname: sname,
+                    slug: slug,
+                    simg: simg,
+                    isEvent: selected === "events",
+                    eventCode: eventCode,
+                    link: copyURL
+                      ? pattern.test(copyURL)
+                        ? copyURL
+                        : selected === "events"
+                        ? `https://www.anchors.in/e/${slug}`
+                        : `https://www.anchors.in/s/${slug}`
+                      : selected === "events"
+                      ? `https://www.anchors.in/e/${slug}`
+                      : `https://www.anchors.in/s/${slug}`,
+                  })
+                : window.open(`/dashboard/shareTemplate/${slug}`);
+            }}
+          >
+            Share <TbSend />
+          </button>
+        </div>
+
+        <BiDotsVerticalRounded
+          onClick={() =>
+            selected === "events"
+              ? !dummyData.EventDummy && openOptionsPopup(i + 1)
+              : !dummyData.ServiceDummy && openOptionsPopup(i + 1)
+          }
+        />
+
+        {/* content card_popup */}
+        <div
+          className="servicelist_optionspopup"
+          id={`servicelist_options${i + 1}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="servicelist_wrap">
+            <div className="servicelist_popuptop">
+              {(selected !== "events" || new Date(startDate) > new Date()) && (
+                <div
+                  className="modaloptions_servicelist"
+                  onClick={() => {
+                    selected === "events"
+                      ? navigate(`/dashboard/editevent/${slug}`)
+                      : navigate(
+                          `/dashboard/editservice/${slug}/${
+                            stype === 2
+                              ? "video"
+                              : stype === 1
+                              ? "excel"
+                              : "pdf"
+                          }`
+                        );
+                  }}
+                >
+                  Edit {selected === "events" ? "Event" : "Service"}
+                </div>
+              )}
+
+              {selected !== "events" && (
+                <div
+                  className="modaloptions_servicelist"
+                  onClick={() => {
+                    navigate(
+                      `/dashboard/createservice?type=${
+                        stype === 2 ? "video" : stype === 1 ? "excel" : "pdf"
+                      }&duplicate=${slug}`
+                    );
+                    mixpanel.track("Duplicate Service", {
+                      service: slug,
+                    });
+                  }}
+                >
+                  Duplicate Service
+                </div>
+              )}
+              {/* <div
+                                  className="modaloptions_servicelist"
+                                  onClick={() => {
+                                    setCurrSelected(elem);
+                                    setOpenModel2(true);
+                                  }}
+                                >
+                                  Notify Users
+                                </div> */}
+              {selected !== "events" && (
+                <div
+                  className="modaloptions_servicelist"
+                  onClick={() => {
+                    selected === "events"
+                      ? navigate(`/dashboard/servicereviews/${slug}?type=event`)
+                      : navigate(`/dashboard/servicereviews/${slug}`);
+                  }}
+                >
+                  User Reviews
+                </div>
+              )}
+              {/* <div className="modaloptions_servicelist_status">
+                Active Status
+                <span onClick={() => handleCheckClick()}>
+                  <label className="switch_type_01">
+                    <input
+                      id={`checkbox_${i + 1}`}
+                      type="checkbox"
+                      checked={status}
+                    />
+                    <span className="slider_type_01 round_type_01"></span>
+                  </label>
+                </span>
+              </div> */}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 
 const PopupModal = ({ slug, onClose, simg, sname, link }) => {
   let message = `Greetings! Delighted to announce my event on ${sname}. Join for an unforgettable experience you won't want to miss!`;
@@ -297,6 +590,7 @@ function ServiceDetailPage(props) {
   } = useContext(ServiceContext);
   const [revArray, setrevArray] = useState([]);
   const [selected, setSelected] = useState("events");
+  const [isHoveredTooltip, setIsHoveredTooltip] = useState(false);
   const [shareModalData, setShareModalData] = useState({
     open: false,
     sname: "",
@@ -470,291 +764,73 @@ function ServiceDetailPage(props) {
           upcomingData={latestEvents?.UpcomingEvents}
         />
 
-        <div className="servicelist-table">
-          <TableContainer component={Paper}>
-            <Table aria-aria-label="Services Table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">Sr.No</TableCell>
-                  <TableCell align="center">
-                    {selected === "events" ? "Event Title" : "Service Name"}
-                  </TableCell>
-                  <TableCell align="center">Type</TableCell>
-                  <TableCell align="center">Amount</TableCell>
-                  <TableCell align="center">Event on</TableCell>
-                  <TableCell align="center">Banner</TableCell>
-                  <TableCell align="center">
-                    {selected === "events" ? "Registrations" : "Downloads"}
-                  </TableCell>
-                  <TableCell align="center">Analysis</TableCell>
-                  <TableCell align="center">Share</TableCell>
-                  <TableCell align="center">Actions</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {revArray?.map((elem, i) => {
-                  return (
-                    <>
-                      <TableRow>
-                        <TableCell align="center">{i + 1}</TableCell>
-                        <TableCell
-                          align="center"
-                          onClick={() => {
-                            window.open(
-                              `https://www.anchors.in/e/${elem?.slug}`
-                            );
-                          }}
-                          style={{ cursor: "pointer" }}
-                          onMouseOver={(e) => {
-                            e.target.style.color = "blue";
-                          }}
-                          onMouseOut={(e) => {
-                            e.target.style.color = "black";
-                          }}
-                        >
-                          {elem.sname}
-                        </TableCell>
-                        <TableCell align="center">
-                          {elem.isPaid ? "Paid" : "Free"}
-                        </TableCell>
-                        <TableCell align="center">₹{elem.ssp}</TableCell>
-                        <TableCell align="center">
-                          <span className="servicelist_getdate">
-                            <div>
-                              {" "}
-                              {getDatelist(
-                                selected === "events"
-                                  ? elem?.startDate
-                                  : elem?.date
-                              )}
-                            </div>
-                            <div>
-                              {" "}
-                              {getDatelist2(
-                                selected === "events"
-                                  ? elem?.startDate
-                                  : elem?.date
-                              )}
-                            </div>
-                          </span>
-                        </TableCell>
-                        <TableCell align="center">
-                          {selected === "events" && elem.simg === "" ? (
-                            "--"
-                          ) : (
-                            <img
-                              src={elem?.simg && elem?.simg}
-                              className="servicelistbannerimg"
-                              alt="service"
-                            ></img>
-                          )}
-                        </TableCell>
-                        <TableCell align="center">
-                          <span
-                            className="servicelist_icon"
-                            onClick={() => {
-                              mixpanel.track("Events Downloads");
-                              selected === "events"
-                                ? !dummyData.EventDummy &&
-                                  elem.registrations !== 0 &&
-                                  window.open(
-                                    `/dashboard/viewUserDetails/${elem?.slug}?type=event`,
-                                    "_blank"
-                                  )
-                                : !dummyData.ServiceDummy &&
-                                  elem.downloads !== 0 &&
-                                  window.open(
-                                    `/dashboard/viewUserDetails/${elem?.slug}`,
-                                    "_blank"
-                                  );
-                            }}
-                          >
-                            <img src={UserIcon}></img>
-                            <span className="usericonservicelist">
-                              {selected === "events"
-                                ? elem?.registrations
-                                : elem?.downloads}
-                            </span>
-                          </span>
-                        </TableCell>
-                        <TableCell align="center">
-                          <span
-                            className="servicelist_icon iconalign"
-                            onClick={() => {
-                              mixpanel.track("Events Analysis");
-                              selected === "events"
-                                ? !dummyData.EventDummy &&
-                                  window.open(
-                                    `/dashboard/serviceStats/${elem?.slug}?type=event`,
-                                    "_blank"
-                                  )
-                                : !dummyData.ServiceDummy &&
-                                  window.open(
-                                    `/dashboard/serviceStats/${elem?.slug}`,
-                                    "_blank"
-                                  );
-                            }}
-                          >
-                            <img src={ChartIcon}></img>
-                          </span>
-                        </TableCell>
-                        <TableCell align="center">
-                          <span
-                            className="servicelist_icon iconalign"
-                            onClick={() => {
-                              const pattern = /go\.anchors\.in/;
-                              setShareModalData({
-                                open: true,
-                                sname: elem?.sname,
-                                slug: elem?.slug,
-                                simg: elem?.simg,
-                                link: elem?.copyURL
-                                  ? pattern.test(elem.copyURL.length)
-                                    ? elem.copyURL
-                                    : `https://www.anchors.in/e/${elem.slug}`
-                                  : `https://www.anchors.in/e/${elem.slug}`,
-                              });
-                            }}
-                          >
-                            <TbSend size={22} color="black" />
-                          </span>
-                        </TableCell>
-                        <TableCell align="center">
-                          <span
-                            className="servicelist_icon iconalign"
-                            onClick={() =>
-                              selected === "events"
-                                ? !dummyData.EventDummy &&
-                                  openOptionsPopup(i + 1)
-                                : !dummyData.ServiceDummy &&
-                                  openOptionsPopup(i + 1)
-                            }
-                          >
-                            <img src={Option}></img>
-                          </span>
-                          <div
-                            className="servicelist_optionspopup"
-                            id={`servicelist_options${i + 1}`}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <div className="servicelist_wrap">
-                              <div className="servicelist_popuptop">
-                                {new Date(elem?.startDate) > new Date() && <div
-                                  className="modaloptions_servicelist"
-                                  onClick={() => {
-                                    selected === "events"
-                                      ? navigate(
-                                          `/dashboard/editevent/${elem.slug}`
-                                        )
-                                      : navigate(
-                                          `/dashboard/editservice/${
-                                            elem.slug
-                                          }/${
-                                            elem?.stype === 2
-                                              ? "video"
-                                              : elem?.stype === 1
-                                              ? "excel"
-                                              : "pdf"
-                                          }`
-                                        );
-                                  }}
-                                >
-                                  Edit{" "}
-                                  {selected === "events" ? "Event" : "Service"}
-                                </div>}
+<section
+          className="content_cards_main_wrapper_servicelist"
+          onMouseEnter={() => {
+            (selected === "events"
+              ? dummyData?.EventDummy
+              : dummyData?.ServiceDummy) && setIsHoveredTooltip(true);
+          }}
+          onMouseLeave={() => {
+            (selected === "events"
+              ? dummyData?.EventDummy
+              : dummyData?.ServiceDummy) && setIsHoveredTooltip(false);
+          }}
+        >
+          {revArray?.map((elem, i) => {
+            return (
+              <ContentCard
+                {...elem}
+                i={i}
+                dummyData={dummyData}
+                setShareModalData={setShareModalData}
+                selected={selected}
+                setOpenOption={setOpenOption}
+                setCurrSelected={setCurrSelected}
+                setChangeStatus={setChangeStatus}
+                deleteService={deleteService}
+                setOpenModel={setOpenModel}
+                OpenOption={OpenOption}
+                revArray={revArray}
+              />
+            );
+          })}
 
-                                {/* <div
-                                  className="modaloptions_servicelist"
-                                  onClick={() => {
-                                    navigate(
-                                      `/dashboard/createservice?type=${
-                                        elem?.stype === 2
-                                          ? "video"
-                                          : elem?.stype === 1
-                                          ? "excel"
-                                          : "pdf"
-                                      }&duplicate=${elem?.slug}`
-                                    );
-                                    mixpanel.track("Events Duplicate Service", {
-                                      service: elem?.slug,
-                                    });
-                                  }}
-                                >
-                                  Duplicate Service
-                                </div> */}
-                                {/* <div
-                                  className="modaloptions_servicelist"
-                                  onClick={() => {
-                                    setCurrSelected(elem);
-                                    setOpenModel2(true);
-                                  }}
-                                >
-                                  Notify Users
-                                </div> */}
-                                {selected !== "events" && (
-                                  <div
-                                    className="modaloptions_servicelist"
-                                    onClick={() => {
-                                      selected === "events"
-                                        ? navigate(
-                                            `/dashboard/servicereviews/${elem?.slug}?type=event`
-                                          )
-                                        : navigate(
-                                            `/dashboard/servicereviews/${elem?.slug}`
-                                          );
-                                    }}
-                                  >
-                                    User Reviews
-                                  </div>
-                                )}
-                                <div className="modaloptions_servicelist_status">
-                                  Active Status
-                                  <span onClick={() => handleCheckClick(elem)}>
-                                    <label className="switch_type_01">
-                                      <input
-                                        id={`checkbox_${i + 1}`}
-                                        type="checkbox"
-                                        checked={elem.status}
-                                      />
-                                      <span className="slider_type_01 round_type_01"></span>
-                                    </label>
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    </>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          {(selected === "events"
+            ? dummyData?.EventDummy
+            : dummyData?.ServiceDummy) &&
+            isHoveredTooltip && (
+              <div className="opacity-layer-over-table">
+                The current table contains sample data, and this is the way in
+                which your data will be presented.
+              </div>
+            )}
+        </section>
+
+        <div className="servicelist-table">
+          {(selected === "events"
+            ? dummyData?.EventDummy
+            : dummyData?.ServiceDummy) && (
+            <div className="cta_dummy_data">
+              {/* <span>
+                The current table contains sample data, and this is the way in
+                which your data will be presented.
+              </span> */}
+              <Button2
+                text={
+                  selected === "events"
+                    ? "Create your First Event"
+                    : "Create your First Service"
+                }
+                icon={<AiOutlinePlus size={18} width={30} />}
+                onClick={() => {
+                  navigate("/dashboard");
+                }}
+              />
+            </div>
+          )}
         </div>
 
-        {(selected === "events"
-          ? dummyData?.EventDummy
-          : dummyData?.ServiceDummy) && (
-          <div className="cta_dummy_data">
-            <span>
-              This is sample data , start creating your first{" "}
-              {selected === "events" ? "event" : "service"} for your data
-            </span>
-            <Button1
-              text={
-                selected === "events"
-                  ? "Create your First Event"
-                  : "Create your First Service"
-              }
-              icon={<AiOutlinePlus size={18} width={30} />}
-              width="268px"
-              onClick={() => {
-                navigate("/dashboard");
-              }}
-            />
-          </div>
-        )}
       </div>
       <ToastContainer />
 

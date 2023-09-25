@@ -33,11 +33,7 @@ function Navbar({
         }
       >
         <img
-          src={
-            whiteTheme
-              ? require("../../../Utils/Images/logo-beta-black.png")
-              : require("../../../Utils/Images/logo-events.png")
-          }
+          src={require("../../../Utils/Images/logo-events.png")}
           alt=""
           onClick={handleLogoClick}
         />
@@ -140,10 +136,7 @@ export function EventsNavbar({
         }
       >
         <img
-          src={
-            whiteTheme
-              ? require("../../../Utils/Images/logo-beta-black.png")
-              : require("../../../Utils/Images/logo-events.png")
+          src={require("../../../Utils/Images/logo-events.png")
           }
           alt=""
           onClick={handleLogoClick}

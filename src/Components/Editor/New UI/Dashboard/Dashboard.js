@@ -4,12 +4,13 @@ import { SuperSEO } from "react-super-seo";
 import "./Dashboard.css";
 import mixpanel from "mixpanel-browser";
 import { creatorContext } from "../../../../Context/CreatorState";
-import { BsFillPersonFill, BsFillStarFill,BsPersonPlus } from "react-icons/bs";
+import { BsFillPersonFill, BsFillStarFill, BsPersonPlus } from "react-icons/bs";
 import { BiGift } from "react-icons/bi";
 import { SlCalender } from "react-icons/sl";
 import Confetti from "react-confetti";
 import { ToastContainer, toast } from "react-toastify";
 import EventModel from "../../../Modals/EventModal/Event_popup";
+import { MdDone } from "react-icons/md";
 
 const DashboardStepper = ({ setOpenFirstTimeModal, reviews }) => {
   const navigate = useNavigate();
@@ -97,7 +98,6 @@ const DashboardStepper = ({ setOpenFirstTimeModal, reviews }) => {
     }
   }, [stepperData]);
 
-
   return (
     <>
       {/* {loader && <LoadTwo open={loader} />} */}
@@ -130,120 +130,91 @@ const DashboardStepper = ({ setOpenFirstTimeModal, reviews }) => {
               <div
                 className={
                   stepperData &&
-                  stepperData["Updated Profile Page"] === 1 &&
-                  "changeBackgroundToBlackDashboard"
+                  stepperData &&
+                  stepperData["Updated Profile Page"] === 1
+                    ? "changeBackgroundToBlackDashboard"
+                    : "changeBackgroundToGreyDashboard"
                 }
               >
-                <BsFillPersonFill
-                  color={
-                    stepperData && stepperData["Updated Profile Page"] === 1
-                      ? "white"
-                      : "#64748B"
-                  }
-                  size={21}
-                />
+                {stepperData && stepperData["Updated Profile Page"] === 1 ? (
+                  <MdDone color="#FFFFFF" size={21} />
+                ) : (
+                  <BsFillPersonFill color="#D0D0D0" size={21} />
+                )}
               </div>
-              <span style={stepperData && stepperData["Updated Profile Page"] === 1 ? {color:"black"} : {}}>Updated Profile Page</span>
+              <span>Updated Profile Page</span>
             </div>
 
-            <div
-              className={`horizonal_bar_stepper_dashboard ${
-                stepperData && stepperData["Updated Profile Page"] === 1
-                  ? "changeBackgroundToBlackDashboard"
-                  : "changeBackgroundToGreyDashboard"
-              }`}
-            ></div>
+            <div className={`horizonal_bar_stepper_dashboard`}></div>
             <div className="each_step_stepper_dashboard">
               <div
                 className={
-                  stepperData &&
-                  stepperData["Created First Event"] === 1 &&
-                  "changeBackgroundToBlackDashboard"
+                  stepperData && stepperData["Created First Event"] === 1
+                    ? "changeBackgroundToBlackDashboard"
+                    : "changeBackgroundToGreyDashboard"
                 }
               >
-                <SlCalender
-                  color={
-                    stepperData && stepperData["Created First Event"] === 1
-                      ? "white"
-                      : "#64748B"
-                  }
-                  size={21}
-                />
+                {stepperData && stepperData["Created First Event"] === 1 ? (
+                  <MdDone color="#FFFFFF" size={21} />
+                ) : (
+                  <SlCalender color="#D0D0D0" size={21} />
+                )}
               </div>
-              <span style={ stepperData && stepperData["Created First Event"] === 1 ? {color:"black"} : {}}>Created First Event</span>
+              <span>Created First Event</span>
             </div>
 
-            <div
-              className={`horizonal_bar_stepper_dashboard ${
-                stepperData && stepperData["Created First Event"] === 1
-                  ? "changeBackgroundToBlackDashboard"
-                  : "changeBackgroundToGreyDashboard"
-              }`}
-            ></div>
+            <div className={`horizonal_bar_stepper_dashboard`}></div>
             <div className="each_step_stepper_dashboard">
               <div
                 className={
-                  stepperData &&
-                  stepperData["Acquired 10 Registration"] === 1 &&
-                  "changeBackgroundToBlackDashboard"
+                  stepperData && stepperData["Acquired 10 Registration"] === 1
+                    ? "changeBackgroundToBlackDashboard"
+                    : "changeBackgroundToGreyDashboard"
                 }
               >
-                <BsPersonPlus
-                  color={
-                    stepperData && stepperData["Acquired 10 Registration"] === 1
-                      ? "white"
-                      : "#64748B"
-                  }
-                  size={21}
-                />
+                {stepperData && stepperData["Created First Event"] === 1 ? (
+                  <MdDone color="#FFFFFF" size={21} />
+                ) : (
+                  <BsPersonPlus color="#D0D0D0" size={21} />
+                )}
               </div>
-              <span style={stepperData && stepperData["Acquired 10 Registration"] === 1 ? {color:"black"} : {}}>Acquired 10 Registration</span>
+              <span>Acquired 10 Registration</span>
             </div>
 
-            <div
-              className={`horizonal_bar_stepper_dashboard ${
-                stepperData && stepperData["Acquired 10 Registration"] === 1
-                  ? "changeBackgroundToBlackDashboard"
-                  : "changeBackgroundToGreyDashboard"
-              }`}
-            ></div>
+            <div className={`horizonal_bar_stepper_dashboard`}></div>
             <div className="each_step_stepper_dashboard">
               <div
                 className={
-                  stepperData &&
-                  stepperData["Hosted First Event"] === 1 &&
-                  "changeBackgroundToBlackDashboard"
+                  stepperData && stepperData["Hosted First Event"] === 1
+                    ? "changeBackgroundToBlackDashboard"
+                    : "changeBackgroundToGreyDashboard"
                 }
               >
-                <BiGift
-                  color={
-                    stepperData && stepperData["Hosted First Event"] === 1
-                      ? "white"
-                      : "#64748B"
-                  }
-                  size={21}
-                />
+                {stepperData && stepperData["Created First Event"] === 1 ? (
+                  <MdDone color="#FFFFFF" size={21} />
+                ) : (
+                  <BiGift color="#D0D0D0" size={21} />
+                )}
               </div>
-              <span style={stepperData && stepperData["Hosted First Event"] === 1 ? {color:"black"} : {}}>Hosted First Event</span>
+              <span>Hosted First Event</span>
             </div>
 
-            <div
-              className={`horizonal_bar_stepper_dashboard ${
-                stepperData && stepperData["Hosted First Event"] === 1
-                  ? "changeBackgroundToBlackDashboard"
-                  : "changeBackgroundToGreyDashboard"
-              }`}
-            ></div>
+            <div className={`horizonal_bar_stepper_dashboard`}></div>
             <div className="each_step_stepper_dashboard">
               <div
-                className={reviews > 0 && "changeBackgroundToBlackDashboard"}
+                className={
+                  reviews > 0
+                    ? "changeBackgroundToBlackDashboard"
+                    : "changeBackgroundToGreyDashboard"
+                }
               >
-                <BsFillStarFill
-                  color={reviews > 0 ? "white" : "#64748B"}
-                  size={21}
-                />
+                {stepperData && stepperData["Created First Event"] === 1 ? (
+                  <MdDone color="#FFFFFF" size={21} />
+                ) : (
+                  <BsFillStarFill color="#D0D0D0" size={21} />
+                )}
               </div>
-              <span style={reviews > 0 ? {color:"black"} : {}}>Earned Review</span>
+              <span>Earned Review</span>
             </div>
           </section>
         </div>
@@ -257,12 +228,14 @@ const DashboardStepper = ({ setOpenFirstTimeModal, reviews }) => {
           <section>
             <div
               onClick={() => {
-                setOpenEventPopup(true);
-                mixpanel.track("Events Share a event");
+                navigate("createevent");
+                mixpanel.track("Event Side Share a event");
               }}
               className="dashboard_options"
             >
-              Create Event
+              <span>Host Event</span>
+
+              <p>Webinars, Workshops, Q&A!</p>
             </div>
           </section>
         </div>

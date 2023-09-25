@@ -90,41 +90,7 @@ function Home(props) {
         getRatingCreator(e).then((e1) => {
           setRating(e1);
         });
-      });
-
-      const script = document.createElement("script");
-      script.innerHTML = `
-        (function (w, d, s, c, r, a, m) {
-          w["KiwiObject"] = r;
-          w[r] =
-            w[r] ||
-            function () {
-              (w[r].q = w[r].q || []).push(arguments);
-            };
-          w[r].l = 1 * new Date();
-          a = d.createElement(s);
-          m = d.getElementsByTagName(s)[0];
-          a.async = 1;
-          a.src = c;
-          m.parentNode.insertBefore(a, m);
-        })(
-          window,
-          document,
-          "script",
-          "https://app.interakt.ai/kiwi-sdk/kiwi-sdk-17-prod-min.js?v=" +
-            new Date().getTime(),
-          "kiwi"
-        );
-        window.addEventListener("load", function () {
-          kiwi.init("", "5iLlXa3nOrSCBGdtkweRO8tws2xujgB0", {});
-        });
-      `;
-      document.body.appendChild(script);
-
-      return () => {
-        // Clean up the script when the component is unmounted
-        document.body.removeChild(script);
-      };
+      }); 
     }
     // eslint-disable-next-line
   }, [localStorage.getItem("jwtToken")]);
@@ -169,10 +135,12 @@ function Home(props) {
                 setOpenDefaultBannerModal(false);
               }}
               dataToRender={dataDefaultBanner?.fillingData}
-              setFinalData={(e) => {
+              setFinalData={(formdata,mobFormData,objectUrl) => {
                 setDataDefaultBanner({
                   ...dataDefaultBanner,
-                  finalFormData: e,
+                  finalFormData: formdata,
+                  mobileFinalFormData:mobFormData,
+                  objectUrl,
                 });
               }}
             />
@@ -207,7 +175,7 @@ function Home(props) {
                   <Routes>
                     <Route
                       path="/*"
-                      element={<EditProfile progress={props.progress} />}
+                      element={<EditProfile progress={props.progress} moreInfo={{ ...creatorData, Rating }}/>}
                     />
                   </Routes>
                 ) : (
@@ -234,26 +202,31 @@ function Home(props) {
                       path="createevent"
                       element={
                         <CreateEvent
-                          progress={props.progress}
-                          openDefaultBanner={() => {
-                            setOpenDefaultBannerModal(true);
-                          }}
-                          setDefaultBannerData={(e) =>
-                            setDataDefaultBanner({
-                              ...dataDefaultBanner,
-                              fillingData: e,
-                            })
-                          }
-                          FinalDefaultBannerFormData={
-                            dataDefaultBanner?.finalFormData
-                          }
-                          cname={allCreatorInfo?.name}
+                        progress={props.progress}
+                        openDefaultBanner={() => {
+                          setOpenDefaultBannerModal(true);
+                        }}
+                        cname={allCreatorInfo?.name ?? basicNav?.name}
+                        ctagline={allCreatorInfo?.tagLine}
+                        crating={Rating}
+                        cprofile={
+                          allCreatorInfo?.profile ?? basicNav?.photo
+                        }
+                        setDefaultBannerData={(e) =>
+                          setDataDefaultBanner({
+                            ...dataDefaultBanner,
+                            fillingData: e,
+                          })
+                        }
+                        FinalDefaultBannerFormData={
+                          dataDefaultBanner?.finalFormData
+                        }
                         />
                       }
                     />
                     <Route
                       path="editprofile"
-                      element={<EditProfile progress={props.progress} />}
+                      element={<EditProfile progress={props.progress} moreInfo={{ ...creatorData, Rating }}/>}
                     />
 
                     <Route

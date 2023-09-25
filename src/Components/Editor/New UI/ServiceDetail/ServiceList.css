@@ -4,20 +4,20 @@
   padding-top: 30px;
 }
 
-.servicelist-wrapper h1 {
+.servicelist-wrapper > h1 {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 30px;
   line-height: 36px;
-  color: #000000;
+  color: #f8f8f8;
   margin-bottom: 5px;
   -webkit-user-select: none;
 }
 
 .servicelist_wrap_span {
   font-weight: 400px;
-  color: #00000080;
+  color: #d0d0d0;
   -webkit-user-select: none;
 }
 
@@ -25,6 +25,7 @@
   display: flex;
   gap: 2.5vw;
   margin-top: 6vh;
+  color: #d0d0d0;
 }
 
 .servicelist-catItem {
@@ -35,12 +36,12 @@
 
 .servicelist-catItem:hover {
   padding-bottom: 13px;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid white;
   cursor: pointer;
 }
 .selectedlist {
   padding-bottom: 13px;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid white;
   cursor: pointer;
 }
 
@@ -54,7 +55,23 @@
 .servicelist-table {
   margin-top: 2vh;
   -webkit-user-select: none;
-  margin-bottom: 200px;
+  margin-bottom: 13%;
+  position: relative;
+}
+
+.opacity-layer-over-table {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #121212c4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #d0d0d0;
+  
 }
 
 .servicelistbannerimg {
@@ -86,13 +103,13 @@
 }
 .servicelist_getdate {
   display: block;
-  color: black;
 }
 
 .MuiTableHead-root {
   border-radius: 8px 6px 0px 0px;
-  background: var(--neutral-gray-800, #1e293b);
+  background: #282828;
   color: white;
+  border-bottom: unset;
 }
 
 .MuiTableCell-head {
@@ -101,11 +118,11 @@
 
 .MuiTableBody-root {
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
-  background: var(--neutral-gray-100, #f1f5f9);
+  background: #212121;
 }
 
 .MuiTableCell-body {
-  color: var(--neutral-gray-800, #1e293b) !important;
+  color: var(--neutral-gray-800, #f8f8f8) !important;
   font-family: "Inter" !important;
   font-size: 12px !important;
   font-style: normal !important;
@@ -115,7 +132,8 @@
 
 .servicelist_optionspopup {
   position: absolute;
-  right: 8vw;
+  right: 20px;
+  top: 20px;
   z-index: 99;
   border: 1px solid black;
   border-radius: 10px;
@@ -183,7 +201,7 @@
   display: flex;
   align-items: center;
   border-radius: 16px;
-  background: #fff;
+  background: #282828;
   box-shadow: 0px 0px 8px 0px rgba(18, 18, 18, 0.1);
   padding: 20px;
   box-sizing: border-box;
@@ -238,13 +256,11 @@
   height: 100%;
 }
 
-.live_events_wrapper_user_dashboard_page > div > section > div > span{
+.live_events_wrapper_user_dashboard_page > div > section > div > span {
   cursor: pointer;
+  color: #f8f8f8;
 }
 
-.live_events_wrapper_user_dashboard_page > div > section > div > span:hover{
-  color: purple;
-}
 
 .live_events_wrapper_user_dashboard_page > div > section > div button {
   padding: 8px 20px;
@@ -276,7 +292,7 @@
   box-sizing: border-box;
   padding: 20px;
   border-radius: 16px;
-  background: #fff;
+  background: #212121;
   box-shadow: 0px 0px 8px 0px rgba(18, 18, 18, 0.1);
 }
 
@@ -288,13 +304,13 @@
 
 .upcoming_events_wrapper_user_dashboard_page > div span {
   border-radius: 4px;
-  background: #64748b;
+  background: #282828;
   padding: 8px 16px;
   display: flex;
   align-items: center;
   gap: 8px;
 
-  color: #fff;
+  color: #d0d0d0;
   font-family: "Inter";
   font-size: 20px;
   font-style: normal;
@@ -324,7 +340,7 @@
   padding: 20px;
   box-sizing: border-box;
   border-radius: 16px;
-  background: #fff;
+  background: #282828;
   box-shadow: 0px 0px 8px 0px rgba(18, 18, 18, 0.1);
   gap: 20px;
   display: flex;
@@ -340,7 +356,7 @@
 }
 
 .upcoming_event_cards_user_dashboard_event_page > span {
-  color: var(--neutral-gray-800, #1e293b);
+  color: #f8f8f8;
   font-family: "Inter";
   font-size: 20px;
   font-style: normal;
@@ -349,7 +365,7 @@
   cursor: pointer;
 }
 
-.upcoming_event_cards_user_dashboard_event_page > span:hover{
+.upcoming_event_cards_user_dashboard_event_page > span:hover {
   color: purple;
 }
 
@@ -358,7 +374,7 @@
   align-items: flex-start;
   flex-direction: column;
   gap: 10px;
-  color: var(--neutral-gray-600, #475569);
+  color: #d0d0d0;
   font-family: "Inter";
   font-size: 16px;
   font-style: normal;
@@ -379,8 +395,8 @@
   padding: 12px 20px;
   box-sizing: border-box;
   border-radius: 4px;
-  background: #f00;
-  color: #fff;
+  background: transparent;
+  color: #a0a0a0;
   font-family: "Inter";
   font-size: 16px;
   font-style: normal;
@@ -388,14 +404,14 @@
   line-height: normal;
   border: none;
   cursor: pointer;
-  border: 1px solid #fff;
-  bottom: 40px;
+  border: 1px solid #a0a0a0;
+  bottom: 30px;
   position: absolute;
 }
 
 .upcoming_event_cards_user_dashboard_event_page > button:hover {
-  background: white;
-  color: #f00;
+  background: red;
+  color: #f8f8f8;
   border: 1px solid red;
 }
 
@@ -406,7 +422,8 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
   left: 0;
   position: fixed;
   top: 0;
@@ -414,14 +431,25 @@
   z-index: 1000;
 }
 .service_share_link_user_popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 8px;
   pointer-events: auto;
+  animation: fadeInModal 0.5s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInModal {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .service_share_link_user {
@@ -475,6 +503,7 @@
 
 .service_share_link_user_second_frame_link {
   cursor: pointer;
+  position: relative;
   user-select: none;
   color: var(--neutral-gray-200, #e2e8f0);
   font-family: "Gilroy-Medium", sans-serif;
@@ -496,10 +525,11 @@
   background-color: #333;
 }
 
-.service_share_link_user_second_frame_link > img {
+.service_share_link_user_second_frame_link > svg {
   cursor: pointer;
-  position: relative;
-  left: 56%;
+  position: absolute;
+  right: 10px;
+  color: white;
 }
 
 .service_share_link_user_second_frame_allshare {
@@ -521,4 +551,119 @@
 
 .service_share_link_user_second_frame_allshare_container > svg {
   cursor: pointer;
+}
+
+.cta_dummy_data {
+  position: absolute;
+  bottom: -140px;
+}
+
+/* My content card --------- */
+
+.mycontent_card_for_service {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  border-radius: 12px;
+  background: #212121;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 200px;
+}
+
+.mycontent_card_for_service > img {
+  height: 160px;
+  min-width: 320px;
+  max-width: 320px;
+  background-color: rgb(40, 40, 40);
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.mycontent_card_for_service > section {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  height: 160px;
+  width: 100%;
+}
+
+.mycontent_card_for_service > section > div h2 {
+  color: #d0d0d0;
+  font-family: "Gilroy-SemiBold", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 24px;
+  width: 90%;
+  cursor: pointer;
+}
+
+.mycontent_card_for_service > section > svg {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.props_mycontent_card_service {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+}
+
+.props_mycontent_card_service > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #666;
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.buttons_div_section_mycontent_card {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buttons_div_section_mycontent_card > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+
+  color: #d0d0d0;
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  border-radius: 2px;
+  background: #282828;
+  border: none;
+}
+
+
+.content_cards_main_wrapper_servicelist{
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+
 }

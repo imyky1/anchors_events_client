@@ -19,13 +19,43 @@
   position: relative;
 }
 
+.textfiled_container_02 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  /* gap: 26px; */
+  flex-direction: column;
+}
+
+.textfiled_container_02 > section {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.textfield_container_03 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  position: relative;
+  background: transparent;
+  border: 0.5px solid #475569;
+  border-radius: 5px;
+  width: 100%;
+  height: 45px;
+  box-sizing: border-box;
+  padding: 12px 20px;
+}
+
 .radiofiled_container_01 {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.upload_default_wrapper{
+.upload_default_wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,7 +69,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #000000;
+  color: #9a9a9a;
   margin-bottom: 6px;
 }
 
@@ -49,25 +79,43 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: rgba(0, 0, 0, 0.5);
+  color: #d0d0d0;
   margin-right: 10px;
 }
 
-.label_type_03{
-  font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 13px;
-line-height: 16px;
-color: rgba(0, 0, 0, 0.5);
-margin-top: 10px;
+.label_type_03 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #a0a0a0;
+  margin-top: 10px;
+}
 
+.label_type_04 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #9a9a9a;
+  margin-bottom: 6px;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.label_type_04 > svg {
+  cursor: pointer;
 }
 
 /* input type --------------------------------------------- */
 .input_type_01 {
-  background: #ffffff;
-  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  background: transparent;
+  border: 0.5px solid #475569;
   border-radius: 5px;
   /* width: 465px; */
   width: 100%;
@@ -80,14 +128,33 @@ margin-top: 10px;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #2c1e1e;
+  color: #ffffff;
+}
+
+.input_type_01[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg)
+    brightness(95%) contrast(80%);
+}
+
+.input_type_01::placeholder {
+  color: #888888;
 }
 
 .input_type_01:focus {
   outline: #2196f3 solid 1px;
 }
 
-.verifiedComponent01{
+.input_type_05 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  width: 100%;
+}
+
+.verifiedComponent01 {
   position: absolute;
   right: 13px;
   top: 66%;
@@ -107,7 +174,7 @@ margin-top: 10px;
 }
 
 .input_type_02 > i {
-  color: #00000080;
+  color: #d0d0d0;
   font-size: 25px;
   margin-bottom: 20px;
 }
@@ -128,11 +195,7 @@ margin-top: 10px;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
-  text-align: center;
   color: rgba(0, 0, 0, 0.5);
-  padding: 0 10px;
-  box-sizing: border-box;
-  width: 100%;
 }
 
 .input_type_03 {
@@ -141,12 +204,29 @@ margin-top: 10px;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #000000;
+  color: #fff;
   flex-grow: 1;
   padding: 3px;
   border: none;
   outline: none;
   margin-left: -3px;
+  background-color: transparent;
+}
+
+.input_type_03::placeholder {
+  color: #888888;
+}
+
+.input_type_04 {
+  height: 49px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px dashed #9a9a9a;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 div.ck-editor.ck.ck-reset {
@@ -262,11 +342,11 @@ div.ck-editor.ck.ck-reset {
 }
 
 input:checked + .slider_type_01:before {
-  background-color: #000000;
+  background-color: #fff;
 }
 
 input:checked + .slider_type_01 {
-  background-color: #232426a1;
+  background-color: #565656a1;
 }
 
 input:focus + .slider_type_01 {
@@ -291,10 +371,10 @@ input:checked + .slider_type_01:before {
 /* Buttons csss ------------------------------------------ */
 
 .button_01_css {
-  width: 164px;
-  height: 36px;
-  background: #000000;
-  border-radius: 8px;
+  min-width: 164px;
+  padding: 12px 20px;
+  border-radius: 4px;
+  border: 1px solid #d0d0d0;
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
@@ -302,11 +382,61 @@ input:checked + .slider_type_01:before {
   line-height: 17px;
   color: #ffffff;
   cursor: pointer;
-  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  background-color: transparent;
+  transition: transform 0.3s ease;
+}
+
+.button_01_css:hover {
+  transform: scale(1.03);
+}
+
+.button_02_css {
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #fff;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  border-radius: 8px;
+  background: var(--neutral-gray-800, #1e293b);
+  border: none;
+  width: max-content;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.button_02_css:hover {
+  transform: scale(1.03);
+}
+
+.button_03_css {
+  color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.button_03_css:hover {
+  transform: scale(1.03);
 }
 
 /* tags section --------------------------------------------------- */
@@ -319,8 +449,7 @@ input:checked + .slider_type_01:before {
   row-gap: 15px;
   width: 100%;
   min-height: 130px;
-  background: #ffffff;
-  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border: 0.5px solid #475569;
   border-radius: 5px;
   padding: 15px;
   box-sizing: border-box;
@@ -349,29 +478,172 @@ input:checked + .slider_type_01:before {
   margin-left: 10px;
 }
 
-
-
 /* Ck editor css ------------ */
 
-.ck-editor__editable_inline {
-  min-height: 90px;
-  padding: 0 12px !important;
-}
-
-.quill-editor{
-  height:100%;
+.quill-editor {
+  height: 100%;
   width: 100%;
-  background-color: white;
+  color: #ffffff;
   border-radius: 10px;
 }
 
-.ql-container{
-  min-height: 90px;
-  border-radius: 0 0 5px 5px;
-  border: 0.5px solid rgba(0, 0, 0, 0.3);
+.ql-editor.ql-blank::before {
+  color: #888888 !important;
+  font-style: normal !important;
 }
 
-.ql-toolbar{
+.ql-container {
+  min-height: 90px;
+  border-radius: 0 0 5px 5px;
+  border: 0.5px solid #9a9a9a !important;
+}
+
+.ql-toolbar {
   border-radius: 5px 5px 0 0;
-  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border: 0.5px solid #9a9a9a !important;
+}
+
+/* Select button ------------ */
+
+.select_button_type_01 {
+  color: #fff;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 12px 20px;
+  border-radius: 4px;
+  border: 1px solid #d0d0d0;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.select_button_type_01:hover {
+  background: #666;
+  border: 1px solid #666;
+}
+
+.select_button_type_01_active {
+  background: #666;
+  border: 1px solid #666;
+}
+
+.tooltip-component-box {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 1;
+  top: 30px;
+  left: 100%;
+  transform: translateX(-50%);
+  max-width: 200px; /* Adjust the maximum width as needed */
+  width: max-content; /* Ensure the width only expands to fit the content */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: #ffffff;
+  z-index: 99999;
+}
+
+.tooltip-component-box > ul {
+  padding-left: 20px;
+  margin-top: 8px;
+}
+
+.tooltip-component-box > ul li {
+  margin-bottom: 5px;
+}
+
+/* react date picker ----- */
+
+.react-datepicker-wrapper input {
+  background-color: transparent;
+  border: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+}
+
+.react-datepicker-wrapper input::placeholder {
+  color: #888888;
+}
+
+.react-datepicker-wrapper input:focus {
+  outline: none;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker-wrapper input {
+  width: 100%;
+}
+
+/* table component css ----------- */
+
+.table_component_wrapper01 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* head of table */
+.table_component_wrapper01 > section {
+  width: 100%;
+  display: grid;
+  border-radius: 12px 12px 0px 0px;
+  background: #282828;
+  padding: 18px 12px;
+  box-sizing: border-box;
+  place-items: center;
+  column-gap: 4px;
+}
+
+.table_component_wrapper01 > section > span {
+  color: #f8f8f8;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+}
+
+.table_component_wrapper01 > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #212121;
+}
+
+.table_component_body01 {
+  width: 100%;
+  display: grid;
+  padding: 18px 12px;
+  border-bottom: 0.5px solid #414141;
+  box-sizing: border-box;
+  place-items: center;
+  column-gap: 4px;
+}
+
+.table_component_body01 > span {
+  color: #d0d0d0;
+  text-align: center;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 166.667% */
 }

@@ -12,7 +12,7 @@
   font-weight: 600;
   font-size: 30px;
   line-height: 36px;
-  color: #000000;
+  color: #f0f0f0;
   -webkit-user-select: none;
 }
 
@@ -26,7 +26,7 @@
   margin-bottom: 40px;
 }
 
-.headers_section_paymentInfo > button {
+/* .headers_section_paymentInfo > button {
   width: 176px;
   height: 36px;
   background: #000000;
@@ -40,7 +40,7 @@
   color: #ffffff;
   cursor: pointer;
   border: none;
-}
+} */
 
 /* details form */
 

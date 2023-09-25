@@ -1,16 +1,36 @@
-.personalinfo_wrap {
+.edit_profile_outside_wrapper {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
   margin-left: 6%;
-  padding-top: 3%;
-  margin-right: 6%;
+  background: #121212;
+  position: relative;
+}
+
+.edit_profile_outside_wrapper_left {
+  display: flex;
+  width: 100%;
+}
+.personalinfo_wrap {
+  width: 47%;
+  padding-top: 40px;
+  padding-right: 20px;
+  box-sizing: border-box;
 }
 
 .personalinfo_top {
   display: flex;
   flex-direction: column;
-  gap: 1vh;
-  margin-bottom: 4vh;
+  gap: 1px;
+  margin-bottom: 3vh;
   position: relative;
   width: 100%;
+}
+.personalinfo_top > h1 {
+  color: #f8f8f8;
+  font-family: "Inter";
+  font-size: 24px;
+  font-style: normal;
 }
 .personalinfo_top span {
   font-weight: 300;
@@ -20,16 +40,15 @@
 .personalinfo_photosection {
   display: flex;
   flex-direction: column;
-  gap: 2vh;
-  margin-bottom: 4vh;
+  /* gap: 2vh;
+  margin-bottom: 4vh; */
 }
 .personalinfo_buttonupload {
   background-color: black;
   color: white;
   padding: 8px 20px 8px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
-  border: none;
 }
 
 .personalinfo_photocontainer {
@@ -40,25 +59,25 @@
   height: 110px;
 }
 .personalinfo_photo {
-  width: 110px;
-  height: 100%;
-  border-radius: 50%;
-  background-color: white;
+  width: 80px;
+  border-radius: 100%;
+  position: relative;
 }
 
 .personalinfo_formwrap {
   gap: 0px;
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
 }
 
 .perosnalinfo_leftform {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  width: 47%;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 20px;
+  width: 100%;
 }
 
 .perosnalinfo_leftform > div {
@@ -68,7 +87,7 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  width: 47%;
+  width: 100%;
 }
 .perosnalinfo_rightform > div {
   margin-bottom: 30px;
@@ -100,12 +119,22 @@
   background-color: #00000033;
   margin-bottom: 5vh;
 }
+.personalinfo_socialwrap_01 {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 42vw;
+}
 .personalinfo_socialwrap {
-  width: 60%;
+  width: 100%;
+  padding-top: 40px;
 }
-.personalinfo_socialwrap svg {
-  padding-top: 15px;
+.personalinfo_socialwrap > h2 {
+  color: #f8f8f8;
+  font-family: "Inter";
+  font-size: 24px;
 }
+
 .personalinfo_socialwrap span {
   padding-top: 10px;
 }
@@ -114,30 +143,24 @@
 }
 .personalinfo_sociallinks {
   display: grid;
-  grid-template-columns: 0.3fr 1fr 0.1fr;
-  gap: 2vw;
+  grid-template-columns: 32.3fr 1fr 0.1fr;
+  gap: 10px;
   margin-bottom: 2vh;
+  place-items: center;
 }
 .profileinfo_imagec {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
+  width: 80px;
+  position: relative;
+  height: 80px;
+  border-radius: 80px;
 }
 
 .personalinfo_savebutton {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  margin-top: 5vh;
-  padding-bottom: 5vh;
 }
-.personalinfo_savebutton button {
-  background-color: black;
-  color: white;
-  padding: 10px 22px 10px 22px;
-  border-radius: 10px;
-  cursor: pointer;
-}
+
 
 .edit_profile_sample_page_button {
   padding: 12px 24px;
@@ -164,110 +187,55 @@
   background-color: rgb(237, 237, 237);
 }
 
-/* Modals csss ------- */
+/* preview section  --------------- */
 
-.outside_wrapper_earning {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  background-color: #4f4e4e63;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.otp_main_container_earning {
+.live_preview_edit_profile_page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-  box-sizing: border-box;
-  gap: 40px;
-
-  width: 480px;
-  height: 396px;
-
-  background: #282828;
-  border-radius: 10px;
-}
-
-.otp_main_container_earning h2 {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 29px;
-  text-align: center;
-  color: #ffffff;
-}
-
-.outside_wrapper_earning input::placeholder {
-  color: #707070;
-  font-size: 16px;
-}
-
-.otp_main_container_earning > section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.otp_main_container_earning input {
-  display: flex;
-  flex-direction: row;
   align-items: flex-start;
-  padding: 15px 20px;
-  gap: 10px;
+  width: 38%;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  padding-left: 40px;
+  box-sizing: border-box;
+  padding-top: 40px;
+}
 
+.live_preview_modal_design {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.live_preview_modal_design > section {
+  position: relative;
+  /* background-image: url("../../../../Utils/Images/mobile-screen.png");
+  overflow: hidden;
+  background-size: "contain";
+  background-repeat: "no-repeat";
+  background-position: "center";
+  width: 100%;
+  height: 100%; */
+}
+
+.live_preview_modal_design > section > img {
   width: 360px;
-  height: 54px;
-
-  border: 1px solid #707070;
-  border-radius: 10px;
-  background-color: transparent;
-  box-sizing: border-box;
-
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-
-  color: #ffffff;
+  /* height: 85vh; */
 }
 
-.otp_main_container_earning input:focus {
-  outline: none;
-}
-
-.otp_main_container_earning > button {
-  padding: 12px 40px;
-  gap: 10px;
-  box-sizing: border-box;
-
-  border-radius: 40px;
-  border: 1px solid #fff;
-  box-shadow: 0px 4px 8px 0px rgba(31, 31, 31, 0.1);
-  background-color: transparent;
-
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
+.personalinfo_photocontainer_image_upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-
-  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  background-color: #666666;
+  border-radius: 32px;
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
 }
 
-
-.otp_main_container_earning > button:hover{
-  background-color: #f00;
-  border: 1px solid #f00;
-}
