@@ -3,8 +3,9 @@ import { CardDesign, FAQs } from "./Pricing copy";
 import { ToastContainer } from "react-toastify";
 import MainNewFooter from "../Footer/Footer";
 import { SuperSEO } from "react-super-seo";
-import NavbarCreator, { EventsNavbar } from "../Layouts/Navbar Creator/Navbar";
+import { EventsNavbar } from "../Layouts/Navbar Creator/Navbar";
 import { MdDone } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const FAQDetails = [
   {
@@ -73,6 +74,7 @@ const PricingTableData = [
 ];
 
 const TablePricing = () => {
+  const navigate = useNavigate()
   return (
     <>
       {window.screen.width > 600 ? (
@@ -125,7 +127,7 @@ const TablePricing = () => {
                   border: "1px solid #A7A7A7",
                 }}
                 onClick={()=>{
-                  window.open("https://events.anchors.in/login","_self")
+                  navigate("/login")
                 }}
               >
                 Start Free
@@ -140,7 +142,7 @@ const TablePricing = () => {
                   color: "#FFFFFF",
                 }}
                 onClick={()=>{
-                  window.open("https://events.anchors.in/login","_self")
+                  navigate("/login")
                 }}
               >
                 Host Event
@@ -241,10 +243,8 @@ const TablePricing = () => {
 function EventPricing() {
   return (
     <>
-      {/* <NavbarCreator /> */}
 
       <EventsNavbar
-        noAccount={true}
         showPricingButton={false}
         position="absolute"
       />

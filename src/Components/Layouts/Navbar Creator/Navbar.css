@@ -22,12 +22,14 @@
   gap: 19px;
 }
 
+
 .navbar_creator_wrapper01 > div > section > button {
   display: flex;
   padding: 10px 20px;
   align-items: center;
   gap: 8px;
-  border: 1px solid rgba(160, 160, 160, 0.5);
+  /* border: 1px solid rgba(160, 160, 160, 0.5); */
+  border: none;
   background: transparent;
   color: #f0f0f0;
   font-family: "Gilroy-Regular", sans-serif;
@@ -42,12 +44,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
 }
 
 .navbar_creator_wrapper01 > div > section > button:hover {
-  background-color: red;
-  border: 1px solid red;
+  color: red;
 }
 
 /* new featrue button */
@@ -128,12 +129,13 @@
   }
 
   .navbar_creator_wrapper01 > div > section > button {
-    min-width: 114px;
+    /* min-width: 114px; */
     height: 23px;
     font-weight: 300;
     font-size: 12px;
     line-height: 15px;
-    padding: 0 10px;
+    padding: 0 9px;
+    gap: 4px;
   }
 
   .new_feature_button {
@@ -154,4 +156,9 @@
     left: -19px;
     top: -7px;
   }
+
+  .navbar_creator_wrapper01 > div > section{
+    gap: 4px;
+  }
+
 }

@@ -3,11 +3,11 @@ import "./Sample.css";
 import "./Event.css";
 import { motion } from "framer-motion";
 
-import Banner1 from "./images/Banner (6)-min.webp";
-import Banner2 from "./images/Banner (8)-min.webp";
-import Banner3 from "./images/Banner (9)-min.webp";
-import Banner4 from "./images/Banner (10)-min.webp";
-import Banner5 from "./images/Banner (11)-min.webp";
+import Banner1 from "./images/Banner1.webp";
+import Banner2 from "./images/Banner2.webp";
+import Banner3 from "./images/Banner3.webp";
+import Banner4 from "./images/Banner4.webp";
+import Banner5 from "./images/Banner5.webp";
 import mixpanel from "mixpanel-browser";
 import { MdEventSeat, MdKeyboardArrowDown } from "react-icons/md";
 import { TbMapSearch } from "react-icons/tb";
@@ -84,6 +84,8 @@ const PersonalizedSection = () => {
           );
         })}
       </div>
+
+      <section>
       <h2 className="header_sample_page01">
         Personalized Invitation Cards: Designed to Impress
       </h2>
@@ -91,15 +93,16 @@ const PersonalizedSection = () => {
         Give Your Attendees a Personalized Touch - Shareable Invite Cards They
         Can Proudly Share on Social Platforms!
       </p>
-      <button
+      </section>
+      {/* <button
         className="button_sample_page01"
         onClick={() => {
-          window.open("/static/success");
+          window.open("https://www.anchors.in/static/success");
           mixpanel.track("Event Page Explore a Sample 3");
         }}
       >
         <TbMapSearch size={32} /> Explore a Sample
-      </button>
+      </button> */}
     </section>
   );
 };
@@ -175,7 +178,7 @@ function Sample() {
                 localStorage.getItem("jwtToken") &&
                 localStorage.getItem("isUser") === ""
                   ? window.open("/dashboard", "_self")
-                  : window.open("/signup/creators", "_self");
+                  : window.open("/login", "_self");
 
                 mixpanel.track("Event Page Host Your Event");
               }}
@@ -206,7 +209,7 @@ function Sample() {
               Immerse Your Audience in Eye-Catching Event Pages that Make a
               Lasting Impression.
             </p>
-            <button
+           {window.screen.width > 600 && <button
               className="button_sample_page01"
               onClick={() => {
                 window.open("https://go.anchors.in/PvlD");
@@ -214,12 +217,12 @@ function Sample() {
               }}
             >
               <TbMapSearch size={32} /> Explore a Sample
-            </button>
+            </button>}
           </div>
           <div className="right_division_sample_page">
             <motion.img
               src={
-                "https://anchors-assets.s3.amazonaws.com/1695190934103-Device_-_Macbook_Air_(3)-min.webp"
+                "https://anchors-assets.s3.amazonaws.com/1696423005715-Device_-_Macbook_Air_(5)-min.webp"
               }
               alt=""
               variants={imgVariant(1)}
@@ -228,32 +231,42 @@ function Sample() {
               viewport={{ once: true }}
             />
           </div>
+
+          {window.screen.width < 600 && <button
+              className="button_sample_page01"
+              onClick={() => {
+                window.open("https://go.anchors.in/PvlD");
+                mixpanel.track("Event Page Explore a Sample 1");
+              }}
+            >
+              <TbMapSearch size={32} /> Explore a Sample
+            </button>}
         </section>
       </section>
 
       <section className="sample_page_divison_section">
         <div className="left_division_sample_page">
-          <h2 className="header_sample_page01">
+          <h2 className="header_sample_page01" style={window.screen.width < 600 ? {width:"75%"} : {}}>
             Boost Your Reach with Our Dynamic Referral Program
           </h2>
-          <p className="header_sample_page02">
+          <p className="header_sample_page02" style={window.screen.width < 600 ? {width:"65%"} : {}}>
             Amplify Word-of-Mouth Impact: Reward Top Referrers, Encourage
             Engagement & Friendly Competition!
           </p>
-          <button
+          {window.screen.width > 600 && <button
             className="button_sample_page01"
             onClick={() => {
-              window.open("/static/success");
+              window.open("https://www.anchors.in/static/success");
               mixpanel.track("Event Page Explore a Sample 2");
             }}
           >
             <TbMapSearch size={32} /> Explore a Sample
-          </button>
+          </button>}
         </div>
         <div className="right_division_sample_page2">
           <motion.img
             src={
-              "https://anchors-assets.s3.amazonaws.com/1695190919240-iPhone_14_Pro_Mockup_2jkgcuakbau-min.webp"
+              "https://anchors-assets.s3.amazonaws.com/1696349338102-iPhone-14-Pro-Mockup-1-1.webp"
             }
             alt=""
             variants={imgVariant(window.screen.width < 600 ? 1.5 : 1)}
@@ -262,6 +275,15 @@ function Sample() {
             viewport={{ once: true }}
           />
         </div>
+        {window.screen.width < 600 && <button
+            className="button_sample_page01"
+            onClick={() => {
+              window.open("https://www.anchors.in/static/success");
+              mixpanel.track("Event Page Explore a Sample 2");
+            }}
+          >
+            <TbMapSearch size={32} /> Explore a Sample
+          </button>}
       </section>
 
       {/* Personalized section */}
@@ -274,19 +296,19 @@ function Sample() {
             Effortless Event Content Sharing: Focus on What Matters, We Handle
             the Rest!
           </p>
-          <button
+          {window.screen.width > 600 && <button
             className="button_sample_page01"
             onClick={() => {
-              window.open("/static/success");
+              window.open("https://www.anchors.in/static/success");
               mixpanel.track("Event Page Explore a Sample 4");
             }}
           >
             <TbMapSearch size={32} /> Explore a Sample
-          </button>
+          </button>}
         </div>
         <motion.img
           src={
-            "https://anchors-assets.s3.amazonaws.com/1695190945857-iPhone_14_Pro_Mockup_2_guccgadvhakl-min.webp"
+            "https://anchors-assets.s3.amazonaws.com/1696349320488-iPhone-14-Pro-Mockup-1-1-_1_.webp"
           }
           alt=""
           variants={imgVariant(window.screen.width < 600 ? 1.5 : 1)}
@@ -294,6 +316,15 @@ function Sample() {
           whileInView="to"
           viewport={{ once: true }}
         />
+        {window.screen.width < 600 && <button
+            className="button_sample_page01"
+            onClick={() => {
+              window.open("https://www.anchors.in/static/success");
+              mixpanel.track("Event Page Explore a Sample 4");
+            }}
+          >
+            <TbMapSearch size={32} /> Explore a Sample
+          </button>}
       </section>
 
       <section className="extra_section_sample_page">
@@ -304,7 +335,7 @@ function Sample() {
             localStorage.getItem("jwtToken") &&
             localStorage.getItem("isUser") === ""
               ? window.open("/dashboard", "_self")
-              : window.open("/signup/creators", "_self");
+              : window.open("/login", "_self");
             mixpanel.track("Event Page Yes, I'm ready!");
           }}
         >
@@ -317,7 +348,7 @@ function Sample() {
         footerOptions1={[
           {
             title: "Event Pricing",
-            link: "https://www.anchors.in/eventpricing",
+            link: "pricing",
           },
           {
             title: "Sample Event Page",

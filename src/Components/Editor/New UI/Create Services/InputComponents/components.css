@@ -387,11 +387,11 @@ input:checked + .slider_type_01:before {
   justify-content: center;
   gap: 10px;
   background-color: transparent;
-  transition: transform 0.3s ease;
 }
 
 .button_01_css:hover {
-  transform: scale(1.03);
+  background-color: red;
+  border: 1px solid red;
 }
 
 .button_02_css {
@@ -412,11 +412,11 @@ input:checked + .slider_type_01:before {
   border: none;
   width: max-content;
   cursor: pointer;
-  transition: transform 0.3s ease;
 }
 
 .button_02_css:hover {
-  transform: scale(1.03);
+  background-color: red;
+  border: 1px solid red;
 }
 
 .button_03_css {
@@ -436,7 +436,7 @@ input:checked + .slider_type_01:before {
 }
 
 .button_03_css:hover {
-  transform: scale(1.03);
+  color: red;
 }
 
 /* tags section --------------------------------------------------- */
@@ -646,4 +646,47 @@ input:checked + .slider_type_01:before {
   font-style: normal;
   font-weight: 500;
   line-height: 20px; /* 166.667% */
+}
+
+
+@media (max-width:600px) {
+  
+  .label_type_01{
+    font-size: 12px;
+  }
+
+  .label_type_02{
+    font-size: 12px;
+  }
+
+  .label_type_03{
+    font-size: 10px;
+  }
+
+  .label_type_04{
+    font-size: 12px;
+  }
+
+  .input_type_01{
+    font-size: 10px;
+    height: unset;
+    padding: 16px 20px;
+  }
+
+  .input_type_03{
+    font-size: 10px;
+  }
+
+  .select_button_type_01{
+    padding: 10px 20px;
+  }
+
+
+  /* buttons ------ */
+
+  .button_01_css{
+    width: 100%;
+    font-size: 12px;
+  }
+
 }

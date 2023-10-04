@@ -11,18 +11,18 @@ import { creatorContext } from "../../../../Context/CreatorState";
 import { toast, ToastContainer } from "react-toastify";
 import { feedbackcontext } from "../../../../Context/FeedbackState";
 import UserReviews from "../UserReviews/UserReviews";
-import ServiceStats from "../ServiceStats/ServiceStats";
 import Users from "../userList/Users";
 import PaymentSummary from "../Payment Summary/paymentSummary";
 import PaymentInfo from "../Payment Information/PaymentInfo";
 import { LoadOne } from "../../../Modals/Loading";
 import { linkedinContext } from "../../../../Context/LinkedinState";
 import HelpModal from "../../../Modals/ModalType01/HelpModal";
-import CreatorFeedback, { CreatorFeedbackModal } from "../../../Modals/CreatorProfile/CreatorFeedback";
+import { CreatorFeedbackModal } from "../../../Modals/CreatorProfile/CreatorFeedback";
 import DefaultBanner from "../../../Modals/Default Banner/DefaultBanner";
 import CreateEvent from "../Create Services/CreateEvent";
 import NoMobileScreen from "../../../Layouts/Error Pages/NoMobileScreen";
 import EditEvent from "../Edit Services/EditEvent";
+import ServiceStats2 from "../ServiceStats/ServiceStats2";
 
 function Home(props) {
   const location = useLocation();
@@ -281,7 +281,7 @@ function Home(props) {
 
                     <Route
                       path="servicestats/:slug"
-                      element={<ServiceStats progress={props.progress} />}
+                      element={<ServiceStats2 progress={props.progress} />}
                     />
                     <Route
                       path="paymentSummary"

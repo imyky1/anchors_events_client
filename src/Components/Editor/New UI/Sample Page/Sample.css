@@ -127,6 +127,7 @@
 .button_sample_page01:hover {
   background: red;
   border: 1px solid red;
+  color: #f8f8f8;
 }
 
 .left_division_sample_page {
@@ -157,8 +158,10 @@
 
 .right_division_sample_page2 > img {
   /* width: 490px; */
-  height: 80vh;
+  height: 60vh;
   flex-shrink: 0;
+  position: absolute;
+  right: 200px;
 }
 
 /* personalized section -------- */
@@ -211,10 +214,10 @@
 
 .sharing_section_sample_page > img {
   /* width: 490px; */
-  height: 80vh;
+  height: 60vh;
   flex-shrink: 0;
   position: absolute;
-  right: -200px;
+  right: 0px;
 }
 
 .sharing_section_sample_page > div {
@@ -278,6 +281,7 @@
 .button_event_landing > button:hover {
   background-color: red;
   border: 1px solid red;
+  color: #f8f8f8;
 }
 
 .button_event_landing > span {
@@ -296,18 +300,22 @@
     scroll-snap-type: none;
   }
 
-  .sample_page_wrapper::-webkit-scrollbar{
+  .sample_page_wrapper::-webkit-scrollbar {
     display: none;
   }
 
   .benefits_sample_page > h2 {
     font-size: 24px;
     width: 90vw;
+    margin: unset;
   }
   .benefits_sample_page {
-    gap: 40px;
-    height: fit-content;
+    gap: 60px;
     background: #161616;
+    height: 100vh;
+    padding: 30px 0;
+    box-sizing: border-box;
+    justify-content: space-evenly;
   }
   .header_sample_page01 {
     font-size: 24px;
@@ -316,39 +324,40 @@
   .benefits_sample_page > section {
     display: flex;
     flex-direction: column;
-    justify-content: unset;
     height: fit-content;
     position: relative;
-    padding-bottom: 120px;
+    gap: 60px;
+    justify-content: space-evenly;
   }
   .header_sample_page02 {
     font-size: 16px;
-    max-width: 86vw;
+    max-width: unset;
     text-align: center;
   }
   .left_division_sample_page {
     width: 98%;
     gap: 12px;
     align-items: center;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
   }
   .button_sample_page01 {
     padding: 12px 20px;
     font-size: 16px;
-    position: absolute;
-    bottom: 30px;
+    margin: unset;
+    /* position: absolute;
+    bottom: 40px; */
   }
   .right_division_sample_page {
     display: flex;
   }
   .personalized_section_sample_page {
-    gap: 12px;
-    padding-top: 126px;
-    margin-bottom: 40px;
-    height: fit-content;
-    padding-bottom: 120px;
+    gap: 123px;
+    margin-bottom: unset;
+    height: 50vh;
     background: #161616;
     position: relative;
+    padding: 70px 0;
+    flex-direction: column-reverse;
   }
   .right_division_sample_page > img {
     height: 161px;
@@ -358,49 +367,59 @@
   .sample_page_divison_section {
     display: flex;
     flex-direction: column;
-    height: fit-content;
-    margin-top: 40px;
-    padding-bottom: 140px;
     width: 100vw;
     position: relative;
+    height: 100vh;
+    padding: 40px 0;
+    justify-content: space-evenly;
+    gap: 80px;
+    /* margin-bottom: 30px; */
+    /* box-sizing: border-box; */
   }
 
-  .right_division_sample_page2{
+  .right_division_sample_page2 {
     position: unset;
   }
-  
-  .right_division_sample_page2 > img {
-    height: 275px;
-    transform: scale(1.5);
-  }
 
+  .right_division_sample_page2 > img {
+    height: 210px;
+    transform: scale(1.5);
+    position: unset;
+  }
 
   .sharing_section_sample_page {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    justify-content: center;
+    gap: 90px;
+    justify-content: space-evenly;
     align-items: center;
-    height: max-content;
-    padding-bottom: 120px;
     text-align: center;
     width: 100vw;
     position: relative;
-    margin-bottom: unset;
+    padding: unset;
+    height: 97vh;
+    padding: 30px 0;
+    box-sizing: border-box;
+    margin: unset;
+
   }
 
-  .personalized_section_sample_page > div {
-    margin-bottom: 40px;
-  }
+
   .sharing_section_sample_page > img {
     position: unset;
-    height: 275px;
-    position: relative;
-    left: -50px;
+    height: 250px;
+    /* margin: 29px 0; */
   }
 
   .personalized_section_sample_page > div > img {
     width: 30vw;
+  }
+
+  .personalized_section_sample_page > section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
   }
   .extra_section_sample_page > h3 {
     font-family: "Gilroy-SemiBold", sans-serif;
@@ -410,11 +429,9 @@
   }
   .extra_section_sample_page {
     align-items: center;
-    height: unset;
+    padding: 40px 0;
     width: 100%;
-    padding-top: 30px;
     background: #161616;
-    padding-bottom: 102px;
     position: relative;
   }
   .sharing_section_sample_page > div {
@@ -430,17 +447,16 @@
     background: #666;
   }
 
-
-  .button_event_landing > button{
+  .button_event_landing > button {
     font-size: 16px;
     padding: 16px 20px;
   }
 
-  .button_event_landing > span{
+  .button_event_landing > span {
     font-size: 12px;
   }
 
-  .arrow_button_sample_page{
+  .arrow_button_sample_page {
     bottom: 100px;
   }
 }

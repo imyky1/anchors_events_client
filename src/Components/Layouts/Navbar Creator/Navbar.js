@@ -3,6 +3,7 @@ import "./Navbar.css";
 import mixpanel from "mixpanel-browser";
 import { useNavigate } from "react-router-dom";
 import { IoIosCall } from "react-icons/io";
+import {AiOutlineArrowRight} from "react-icons/ai"
 
 function Navbar({
   noAccount = false,
@@ -169,7 +170,7 @@ export function EventsNavbar({
               <button
                 onClick={() => {
                   mixpanel.track("Events side pricing button header");
-                  window.open("https://www.anchors.in/eventpricing")
+                  window.open("https://events.anchors.in/pricing")
                 }}
               > Pricing
               </button>
@@ -190,7 +191,8 @@ export function EventsNavbar({
               >
                 {localStorage.getItem("jwtToken")
                   ? "My Account"
-                  : "Get Started"}
+                  : "Get Started Free"}
+                  <AiOutlineArrowRight size={window.screen.width > 600 ? 16 : 12}/>
               </button>
             )}
           </section>

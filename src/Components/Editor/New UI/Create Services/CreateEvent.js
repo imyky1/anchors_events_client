@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import "./Canvas.css";
-import "./Create.css"
+import "./Create.css";
 import { Button1, Button3 } from "./InputComponents/buttons";
 import {
-  Dropdown1,
   Editor1,
-  Tags1,
   TextField1,
   RadioField1,
   UploadField3,
@@ -14,7 +12,9 @@ import {
 } from "./InputComponents/fields_Labels";
 import ServiceContext from "../../../../Context/services/serviceContext";
 import { toast } from "react-toastify";
-import { CongratsServiceModal } from "../../../Modals/ServiceSuccess/Modal";
+import {
+  NewCongratsServiceModal,
+} from "../../../Modals/ServiceSuccess/Modal";
 import { LoadTwo } from "../../../Modals/Loading";
 import { creatorContext } from "../../../../Context/CreatorState";
 // imports for image cropping
@@ -26,10 +26,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Cropper from "react-easy-crop";
 import { SuperSEO } from "react-super-seo";
 import mixpanel from "mixpanel-browser";
-import { BsPlus } from "react-icons/bs";
+import { BsArrowLeftShort, BsPlus } from "react-icons/bs";
 
-import DateIcon from "./calendar.svg";
-import TimeIcon from "./clock.svg";
 import PNGIMG from "../../../../Utils/Images/default_user.png";
 import { toBlob } from "html-to-image";
 import CreateEventDemo from "./CreateServiceDemo";
@@ -39,6 +37,8 @@ import {
   AiOutlineArrowRight,
 } from "react-icons/ai";
 import { PersonalizedInviteeCard } from "../../../Modals/Default Banner/DefaultBanner";
+import { host } from "../../../../config/config";
+import { useNavigate } from "react-router-dom";
 
 const FirstPage = ({
   data,
@@ -63,27 +63,18 @@ const FirstPage = ({
           />
 
           <TextField1
-            label="Title of Event"
+            label="Event Title"
             name="sname"
             id="sname"
             required={true}
+            maxLength={80}
             value={data?.sname}
-            placeholder="Enter Title Here"
+            placeholder="Keep it catchy"
             onChange={handleChange}
           />
 
-          {/* <TextField1
-            label="Event Date"
-            name="date"
-            type="date"
-            id="date"
-            required={true}
-            value={data?.date}
-            onChange={handleChange}
-          /> */}
-
           <DatePicker1
-            label="Event Date"
+            label="Date of Event"
             name="date"
             type="date"
             id="date"
@@ -105,7 +96,7 @@ const FirstPage = ({
             }}
           >
             <TextField1
-              label="Event Start Time"
+              label="Start Time"
               name="startTime"
               type="time"
               id="startTime"
@@ -115,7 +106,7 @@ const FirstPage = ({
               onChange={handleChange}
             />
             <TextField1
-              label="Event End Time"
+              label="End Time"
               name="endTime"
               type="time"
               id="endTime"
@@ -178,12 +169,16 @@ const FirstPage = ({
             }}
           >
             <TextField1
-              label={data?.stype === "Offline" ? "Venue" : "Meet Link"}
+              label="Location"
               name="meetlink"
               id="meetlink"
               required={true}
               value={data?.meetlink}
-              placeholder="Enter Title Here"
+              placeholder={
+                data?.stype === "Offline"
+                  ? "Enter Venue Details"
+                  : "Add Video Conferencing Link"
+              }
               onChange={handleChange}
             />
             <TextField1
@@ -193,7 +188,7 @@ const FirstPage = ({
               id="eventSeatCapacity"
               name="eventSeatCapacity"
               value={data?.eventSeatCapacity}
-              placeholder="Enter the number of seats in the event"
+              placeholder="Enter Maximum Capacity"
               onChange={handleChange}
             />
           </section>
@@ -249,9 +244,9 @@ const SecondPage = ({
         onClose={() => {
           setopenInviteeCard(false);
         }}
-        data={{...data,cname,cprofile}}
-        speakersArray = {speakersArray}
-        speakersImagesArray = {speakersImagesArray}
+        data={{ ...data, cname, cprofile }}
+        speakersArray={speakersArray}
+        speakersImagesArray={speakersImagesArray}
       />
 
       <section className="create_form_box">
@@ -287,17 +282,17 @@ const SecondPage = ({
                       label="Name"
                       name="name"
                       id="name"
-                      placeholder="Enter name"
+                      placeholder="Enter display name"
                       value={allCreatorInfo?.name}
                     />
 
                     <UploadField3
-                      label="Profile Image"
+                      label="Profile Picture"
                       id={`speakerImage0`}
                       info={
                         isSpeakerSelected
                           ? "Profile Image Selected"
-                          : "File Size Limit 15 MB Formats - jpg,png"
+                          : "File size limit - 15MB, Formats - jpg, jpeg, png"
                       }
                       onChange={() => {
                         return null;
@@ -326,10 +321,10 @@ const SecondPage = ({
                   </div>
                   <div className="create_speaker_toggle_spacing0">
                     <TextField1
-                      label="Designation"
+                      label="Tagline"
                       name="designation"
                       id="designation"
-                      placeholder="Enter designation"
+                      placeholder="Add a tagline"
                       value={allCreatorInfo?.tagLine}
                     />
                   </div>
@@ -371,7 +366,7 @@ const SecondPage = ({
                             : speakersArray[index]?.name
                         }
                         id={`name${isSpeakerSelected ? index + 1 : index}`}
-                        placeholder="Enter name"
+                        placeholder="Enter display name"
                         onChange={(e) => {
                           handleSpeakerChange(
                             e.target.value,
@@ -382,11 +377,11 @@ const SecondPage = ({
                       />
 
                       <UploadField3
-                        label="Profile Image"
+                        label="Profile Picture"
                         id={`speakerImage${
                           isSpeakerSelected ? index + 1 : index
                         }`}
-                        info="File Size Limit 15 MB Formats - jpg,png"
+                        info="File size limit - 15MB, Formats - jpg, jpeg, png"
                         FileType=".jpg,.png,.jpeg"
                         onChange={() => {
                           return null;
@@ -423,7 +418,7 @@ const SecondPage = ({
                     </div>
                     <div className="create_speaker_toggle_spacing0">
                       <TextField1
-                        label="Designation"
+                        label="Tagline"
                         name="designation"
                         value={
                           isSpeakerSelected
@@ -433,7 +428,7 @@ const SecondPage = ({
                         id={`designation${
                           isSpeakerSelected ? index + 1 : index
                         }`}
-                        placeholder="Enter designation"
+                        placeholder="Add a tagline"
                         onChange={(e) =>
                           handleSpeakerChange(
                             e.target.value,
@@ -477,8 +472,8 @@ const SecondPage = ({
           )}
 
           <Editor1
-            label={`Describe your Event`}
-            placeholder={`Caption your Event`}
+            label={`Add Event Description`}
+            placeholder={`Summarize your Event`}
             info="A brief description gives your audience some context"
             Content={Content}
             required={true}
@@ -486,10 +481,11 @@ const SecondPage = ({
           />
 
           <Editor1
-            label={`Benefits of leaderboard`}
-            placeholder={`Caption your Event`}
-            info="A brief description gives your audience some context"
+            label="Leaderboard Rewards Customization"
+            placeholder="Define top 3 benefits. Keep 'em creative!"
+            info="Rewarding top referrers encourages engagement"
             Content={data?.benefits}
+            helperText="Leaderboard ranks your audience by referrals. Rewarding top ones with benefits promotes engagement and competition"
             id="benefits"
             required={true}
             setContent={(e) => setdata({ ...data, benefits: e })}
@@ -505,18 +501,20 @@ const SecondPage = ({
             }}
           >
             <UploadField3
-              label="Upload Banner Image"
+              label="Upload a Banner"
               id="asdas"
-              info="File Size Limit 15 MB Formats - jpg,png"
+              info="File size limit - 15 MB, Format - jpg, jpeg, png"
+              helperText="this is visible on social media platforms when your event is shared"
               FileType=".jpg,.png,.jpeg"
               onChange={setBannerImage}
               onChangeFunction={handleChangeFileBanner}
             />
             <UploadField3
-              label={`Upload your Preview Video`}
+              label="Upload a Teaser"
               id="asd1515"
               onChange={setEventVideo}
-              info="File Size Limit 500 MB Formats -Avi,mp4"
+              helperText="helps engage a wider audience. Use an AI tool for ease."
+              info="File size limit - 500 MB, Format - mp4, avi"
               FileType=".mp4,.avi,.mov"
             />
           </section>
@@ -538,21 +536,20 @@ const SecondPage = ({
           icon={<AiOutlineArrowRight />}
           onClick={onSubmit}
         />
-        <Button3
+        {window.screen.width > 600 && <Button3
           text="Previous"
           icon={<AiOutlineArrowLeft />}
           onClick={() => {
             setCurrentPage(1);
           }}
-        />
+        />}
       </section>
     </>
   );
 };
 
-function CreateEvent2({ progress, cname, ctagline, crating, cprofile }) {
-  const params = new URLSearchParams(window.location.search);
-
+function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
+  const navigate = useNavigate()
   const [multipleSpeakers, setMultipleSpeakers] = useState(false); // tells if the evnt page has the multiple speaker option
   const [speakersArray, setSpeakersArray] = useState([{}]);
   const [isSpeakerSelected, setIsSpeakerSelected] = useState(false);
@@ -608,7 +605,6 @@ function CreateEvent2({ progress, cname, ctagline, crating, cprofile }) {
   const [BannerImage, setBannerImage] = useState();
   const [seatCapacity, setSeatCapacity] = useState("Enter Manually");
   const [EventVideo, setEventVideo] = useState();
-  const [controlSubmitButtonValue, setControlSubmitButtonValue] = useState(0);
 
   const handleChangeFileBanner = (e) => {
     mixpanel.track("Browse banner");
@@ -807,7 +803,6 @@ function CreateEvent2({ progress, cname, ctagline, crating, cprofile }) {
     setOpenLoading(true); // true on loader
     progress(0);
 
-
     if (
       data.sname.length > 3 &&
       data?.stype &&
@@ -819,7 +814,11 @@ function CreateEvent2({ progress, cname, ctagline, crating, cprofile }) {
       data?.eventSeatCapacity > 0
     ) {
       if (timeToHours(data?.endTime) > timeToHours(data?.startTime)) {
-        if ((data?.ssp <= data?.smrp && data?.smrp > 0) || paid === "Free") {
+        if (
+          (parseInt(data?.ssp) <= parseInt(data?.smrp) &&
+            parseInt(data?.smrp) > 0) ||
+          paid === "Free"
+        ) {
           if (checkSpeakers) {
             if (Content?.length > 10) {
               if (multipleSpeakers) {
@@ -889,15 +888,11 @@ function CreateEvent2({ progress, cname, ctagline, crating, cprofile }) {
                 }
               } catch (error) {
                 setOpenLoading(false);
-                if (controlSubmitButtonValue === 0) {
-                  onSubmit();
-                } else {
-                  toast.error(`Server side error please try after some time`, {
-                    position: "top-center",
-                    autoClose: 2000,
-                  });
-                }
-                setControlSubmitButtonValue(controlSubmitButtonValue + 1);
+                console.log(error);
+                toast.error(`Server side error please try after some time`, {
+                  position: "top-center",
+                  autoClose: 2000,
+                });
               }
             } else {
               setOpenLoading(false);
@@ -1016,7 +1011,7 @@ function CreateEvent2({ progress, cname, ctagline, crating, cprofile }) {
         if (element) {
           dataURI = await getImageDataUri(element);
         } else {
-          dataURI = allCreatorInfo?.profile;
+          dataURI = `${host}/api/file/proxyImage?imageUrl=${allCreatorInfo?.profile}`;
         }
         imgtag.src = dataURI;
       }
@@ -1041,127 +1036,439 @@ function CreateEvent2({ progress, cname, ctagline, crating, cprofile }) {
     window.scrollTo(0, 0);
   }, [currentPage]);
 
+  // event banner color code -------
+  let colorCodes = [
+    "#121212",
+    "linear-gradient(142deg, #231919 0.94%, #002A3B 47.59%, #121212 98.41%)",
+    "linear-gradient(142deg, #231919 0.94%, #300 47.59%, #121212 98.41%)",
+    "linear-gradient(142deg, #231919 0.94%, #091800 47.59%, #121212 98.41%)",
+    "linear-gradient(142deg, #231919 0.94%, #002F2C 47.59%, #121212 98.41%",
+  ];
+
   return (
     <>
       {openLoading && <LoadTwo open={openLoading} />}
 
       {showPopup?.open && (
-        <CongratsServiceModal type="Event" link={showPopup?.link} />
+        <NewCongratsServiceModal
+          type="event"
+          link={showPopup?.link}
+          slug={showPopup?.slug}
+        />
       )}
 
-      {/* Banners default ------- */}
+      {/* default banner */}
       <div className="default_previewer_wrapper" style={{ zIndex: "-10" }}>
         {/* Html banner ------------------------------- */}
-        {multipleSpeakers ? (
-          <div className="personalized_card_wrapper" ref={htmlElementRef}>
-            <img src={require("./back2.jpeg")} alt="background" />
-            <div className="texting_layer_banner">
-              <section className="left_side_text">
-                <h1>{data?.sname}</h1>
-                <span>
-                  by{" "}
-                  {speakersArray?.map((e, index) => {
-                    return (
-                      <span key={index}>
-                        {" "}
-                        {`${e?.name?.split(" ")[0]}${
-                          index !== speakersArray?.length - 2 &&
-                          index !== speakersArray?.length - 1
-                            ? ", "
-                            : ""
-                        } ${index === speakersArray?.length - 2 ? "&" : ""}`}
-                      </span>
-                    );
-                  })}
-                </span>
-              </section>
+        <section
+          className="event_invite_card_wrapper"
+          ref={htmlElementRef}
+          style={{
+            background:
+              colorCodes[Math.floor(Math.random() * colorCodes.length)],
+          }}
+        >
+          <div>
+            {/* user section data  */}
+            <section id="invite-card-opacity-layer-160"></section>
+            <section id="invite-card-opacity-layer-123"></section>
+            <section id="invite-card-opacity-layer-87"></section>
 
-              <section className="date_time_section_banner">
+            {speakersArray[0]?.name ? (
+              <>
                 <div>
-                  <img src={DateIcon} alt="" />
-                  <span>{getDate(data?.date)}</span>
-                </div>
-                <div>
-                  <img src={TimeIcon} alt="" />
-                  <span>{`${convertTime(data?.startTime)} - 
-          ${convertTime(data?.endTime)}`}</span>
-                </div>
-              </section>
+                  {/* event title section ----------- */}
+                  <section
+                    className="event_title_data_event_invite_card_multiple_speakers"
+                    style={{ position: "unset", margin: "auto" }}
+                  >
+                    <h3>{data?.sname}</h3>
 
-              <div className="all_speaker_details_section">
-                {speakersArray?.map((e, i) => {
-                  return (
-                    <section
-                      className="creator_profile_banner_multiple"
-                      key={i}
+                    <span>Hosted by {allCreatorInfo?.name}</span>
+                  </section>
+                </div>
+
+                {/* event date and time section ----------- */}
+                <div
+                  style={{
+                    position: "absolute",
+                    right: "32px",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <section className="event_date_data_event_invite_card">
+                    <span>
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g id="vuesax/linear/calendar">
+                          <g id="vuesax/linear/calendar_2">
+                            <g id="calendar">
+                              <path
+                                id="Vector"
+                                d="M8 2V5"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_2"
+                                d="M16 2V5"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_3"
+                                d="M3.5 9.08997H20.5"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_4"
+                                d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_5"
+                                d="M15.6947 13.7H15.7037"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_6"
+                                d="M15.6947 16.7H15.7037"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_7"
+                                d="M11.9955 13.7H12.0045"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_8"
+                                d="M11.9955 16.7H12.0045"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_9"
+                                d="M8.29431 13.7H8.30329"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_10"
+                                d="M8.29431 16.7H8.30329"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </svg>{" "}
+                      {getDate(data?.date)}
+                    </span>
+
+                    <span>
+                      {" "}
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g id="ci:clock">
+                          <path
+                            id="Vector"
+                            d="M12 7V12H17M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12C21 14.3869 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.3869 21 12 21Z"
+                            stroke="white"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </g>
+                      </svg>
+                      {convertTime(data?.startTime) +
+                        "-" +
+                        convertTime(data?.endTime)}
+                    </span>
+                  </section>
+
+                  {/* event speaker section ----------- */}
+                  <section className="event_invite_multiple_speakers_details_section">
+                    <h4
+                      style={{
+                        left:
+                          speakersArray.length > 0
+                            ? (speakersArray?.length - 1) * 5 + "px"
+                            : "",
+                      }}
                     >
-                      <div className="text_box_creator_name_multiple">
-                        <h4>Speaker</h4>
-                        <span>{e?.name}</span>
-                      </div>
-                      <div className="creator_image_cover_banner_multiple">
-                        <img
-                          id={`speakersBannerImage${i}`}
-                          src=""
-                          alt=""
-                          onError={({ currentTarget }) => {
-                            currentTarget.onerror = null; // prevents looping
-                            currentTarget.src = PNGIMG;
-                          }}
-                        />
-                      </div>
+                      Speakers
+                    </h4>
+                    <section>
+                      {speakersArray?.map((speaker, index) => {
+                        return (
+                          <div
+                            key={index}
+                            style={{
+                              left: `${
+                                (speakersArray.length - (index + 1)) * 10
+                              }px`,
+                              zIndex: `${
+                                (speakersArray.length - (index + 1)) * 4
+                              }`,
+                            }}
+                          >
+                            <div>
+                              <img
+                                id={`speakersBannerImage${index}`}
+                                src={
+                                  speakersImagesArray[index]
+                                    ? URL.createObjectURL(
+                                        speakersImagesArray[index]
+                                      )
+                                    : speaker?.isCreator
+                                    ? `${host}/api/file/proxyImage?imageUrl=${allCreatorInfo?.profile}`
+                                    : PNGIMG
+                                }
+                                alt=""
+                              />
+                            </div>
+                            <span>{speaker?.name}</span>
+                          </div>
+                        );
+                      })}
                     </section>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="personalized_card_wrapper" ref={htmlElementRef}>
-            <img src={require("./back.png")} alt="background" />
-            <div className="texting_layer_banner">
-              <section className="left_side_text">
-                <h1>{data?.sname}</h1>
-                <span>by {allCreatorInfo?.name}</span>
-              </section>
-
-              <section className="creator_profile_banner">
-                <div className="text_box_creator_name">
-                  <h4>Speaker</h4>
-                  <span>{allCreatorInfo?.name}</span>
+                  </section>
                 </div>
-                <div className="creator_image_cover_banner">
-                  <img
-                    src={allCreatorInfo?.profile}
-                    alt=""
-                    onError={({ currentTarget }) => {
-                      currentTarget.onerror = null; // prevents looping
-                      currentTarget.src = PNGIMG;
-                    }}
-                  />
-                </div>
-              </section>
-
-              <section className="date_time_section_banner">
+              </>
+            ) : (
+              <>
                 <div>
-                  <img src={DateIcon} alt="" />
-                  <span>{getDate(data?.date)}</span>
+                  {/* event title section ----------- */}
+
+                  <section
+                    className="event_title_data_event_invite_card"
+                    style={{ position: "unset", margin: "auto" }}
+                  >
+                    <h3>{data?.sname}</h3>
+
+                    <span>Hosted by {allCreatorInfo?.name}</span>
+                  </section>
                 </div>
-                <div>
-                  <img src={TimeIcon} alt="" />
-                  <span>{`${convertTime(data?.startTime)} - 
-            ${convertTime(data?.endTime)}`}</span>
+
+                {/* event date and time section ----------- */}
+                <div
+                  style={{
+                    position: "absolute",
+                    right: "32px",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <section className="event_date_data_event_invite_card">
+                    <span>
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g id="vuesax/linear/calendar">
+                          <g id="vuesax/linear/calendar_2">
+                            <g id="calendar">
+                              <path
+                                id="Vector"
+                                d="M8 2V5"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_2"
+                                d="M16 2V5"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_3"
+                                d="M3.5 9.08997H20.5"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_4"
+                                d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_5"
+                                d="M15.6947 13.7H15.7037"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_6"
+                                d="M15.6947 16.7H15.7037"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_7"
+                                d="M11.9955 13.7H12.0045"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_8"
+                                d="M11.9955 16.7H12.0045"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_9"
+                                d="M8.29431 13.7H8.30329"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                id="Vector_10"
+                                d="M8.29431 16.7H8.30329"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </svg>{" "}
+                      {getDate(data?.date)}
+                    </span>
+
+                    <span>
+                      {" "}
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g id="ci:clock">
+                          <path
+                            id="Vector"
+                            d="M12 7V12H17M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12C21 14.3869 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.3869 21 12 21Z"
+                            stroke="white"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </g>
+                      </svg>
+                      {convertTime(data?.startTime) +
+                        "-" +
+                        convertTime(data?.endTime)}
+                    </span>
+                  </section>
+
+                  {/* event speaker section ----------- */}
+
+                  <section className="event_speaker_data_event_invite_card">
+                    <span>
+                      {allCreatorInfo?.name}, <span>Speaker</span>
+                    </span>
+                    <div>
+                      <img
+                        src={`${host}/api/file/proxyImage?imageUrl=${allCreatorInfo?.profile}`}
+                        alt=""
+                        onError={({ currentTarget }) => {
+                          currentTarget.onerror = null; // prevents looping
+                          currentTarget.src = PNGIMG;
+                        }}
+                      />
+                    </div>
+                  </section>
                 </div>
-              </section>
-            </div>
+              </>
+            )}
           </div>
-        )}
+        </section>
       </div>
 
       <div className="create_service_outside_wrapper">
+        {/* MObile ui navbar ---------------- */}
+        {window.screen.width < 600 && (
+          <section className="navbar_ui_covering_section_mobile_active">
+            <BsArrowLeftShort size={22} onClick={()=>{
+              if(currentPage === 1){
+                navigate(-1)
+              }
+              else{
+                setCurrentPage(currentPage-1)
+              }
+            }}/>
+            Host an Event!
+          </section>
+        )}
+
         <div className="main_create_container_new_conatiner_live_demo">
           {/* Heading of the create section ------------------------ */}
-          {currentPage === 1 && (
+          {window.screen.width > 600 && currentPage === 1 && (
             <section className="heading_create_box">
               <div>
                 <h1 className="create_text_01">Host an Event!</h1>
@@ -1214,7 +1521,7 @@ function CreateEvent2({ progress, cname, ctagline, crating, cprofile }) {
           )}
         </div>
 
-        <div className="live_preview_edit_profile_page">
+       {window.screen.width > 600 && <div className="live_preview_edit_profile_page">
           <div className="live_preview_modal_design">
             <section>
               <img
@@ -1235,7 +1542,7 @@ function CreateEvent2({ progress, cname, ctagline, crating, cprofile }) {
               />
             </section>
           </div>
-        </div>
+        </div>}
       </div>
 
       {/* Live preview Section ------------- */}
@@ -1316,4 +1623,4 @@ function CreateEvent2({ progress, cname, ctagline, crating, cprofile }) {
   );
 }
 
-export default CreateEvent2;
+export default CreateEvent;

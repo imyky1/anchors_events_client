@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./defaultBanner.css";
 import "../../Editor/New UI/Create Services/Canvas.css";
+import "../../Editor/New UI/Create Services/Canvas.css";
 import { ToastContainer, toast } from "react-toastify";
 import excel from "./TestImage/excel.svg";
 import excelL from "./TestImage/excellarge.svg";
@@ -229,15 +230,24 @@ function DefaultBanner2({ open, onClose, dataToRender, setFinalData }) {
   );
 }
 
-export const PersonalizedInviteeCard = ({
+export const PersonalizedInviteeCard= ({
   open,
   onClose,
   data,
   speakersArray,
-  speakersImagesArray
+  speakersImagesArray,
 }) => {
-   // Default banner fucntion -------------
-   const convertTime = (inputTime) => {
+  // Default banner fucntion -------------
+
+  let colorCodes = [
+    "#121212",
+    "linear-gradient(142deg, #231919 0.94%, #002A3B 47.59%, #121212 98.41%)",
+    "linear-gradient(142deg, #231919 0.94%, #300 47.59%, #121212 98.41%)",
+    "linear-gradient(142deg, #231919 0.94%, #091800 47.59%, #121212 98.41%)",
+    "linear-gradient(142deg, #231919 0.94%, #002F2C 47.59%, #121212 98.41%",
+  ];
+
+  const convertTime = (inputTime) => {
     if (inputTime) {
       var timeParts = inputTime?.split(":");
       var hours = parseInt(timeParts[0]);
@@ -274,356 +284,413 @@ export const PersonalizedInviteeCard = ({
   return (
     <>
       <div className="default_previewer_wrapper">
+        {/* card ----------- */}
+
         <div>
-          {/* Html banner ------------------------------- */}
-          {speakersArray[0]?.name ? (
-            <div class="personalized_card_wrapper">
-              <img
-                src={
-                  "https://anchors-assets.s3.amazonaws.com/1692550675052-back2.jpeg"
-                }
-                alt="background"
-              />
-              <div class="texting_layer_banner">
-                <section class="left_side_text">
-                  <h1>{data?.sname}</h1>
-                  <span>by {data?.cname}</span>
-                </section>
-                <section class="date_time_section_banner_multiple">
+          <section
+            className="event_invite_card_wrapper"
+            style={{
+              background:
+                colorCodes[Math.floor(Math.random() * colorCodes.length)],
+            }}
+          >
+            <div>
+              {/* user section data  */}
+              <section id="invite-card-opacity-layer-160"></section>
+              <section id="invite-card-opacity-layer-123"></section>
+              <section id="invite-card-opacity-layer-87"></section>
+
+              {speakersArray[0]?.name ? (
+                <>
                   <div>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                    {/* event title section ----------- */}
+                    <section className="event_title_data_event_invite_card_multiple_speakers">
+                      <h3>{data?.sname}</h3>
+
+                      <span>Hosted by {data?.cname}</span>
+                    </section>
+
+                    {/* user data section ------- */}
+                    <section
+                      className={`${
+                        speakersArray[0]?.name
+                          ? "multiple_speakers_event_invite_card_userdata"
+                          : ""
+                      } user_data_event_invite_card`}
                     >
-                      <g id="vuesax/linear/calendar">
-                        <g id="vuesax/linear/calendar_2">
-                          <g id="calendar">
+                      <img
+                        src="https://www.shareicon.net/data/512x512/2016/09/15/829459_man_512x512.png"
+                        alt=""
+                      />
+
+                      <div>
+                        <h4>David Rathore</h4>
+                        <span>attending this event.</span>
+                      </div>
+                    </section>
+                  </div>
+
+                  {/* event date and time section ----------- */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: "32px",
+                      alignItems: "flex-end",
+                    }}
+                  >
+                    <section className="event_date_data_event_invite_card">
+                      <span>
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g id="vuesax/linear/calendar">
+                            <g id="vuesax/linear/calendar_2">
+                              <g id="calendar">
+                                <path
+                                  id="Vector"
+                                  d="M8 2V5"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-miterlimit="10"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_2"
+                                  d="M16 2V5"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-miterlimit="10"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_3"
+                                  d="M3.5 9.08997H20.5"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-miterlimit="10"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_4"
+                                  d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-miterlimit="10"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_5"
+                                  d="M15.6947 13.7H15.7037"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_6"
+                                  d="M15.6947 16.7H15.7037"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_7"
+                                  d="M11.9955 13.7H12.0045"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_8"
+                                  d="M11.9955 16.7H12.0045"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_9"
+                                  d="M8.29431 13.7H8.30329"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_10"
+                                  d="M8.29431 16.7H8.30329"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </g>
+                            </g>
+                          </g>
+                        </svg>{" "}
+                        {getDate(data?.date)}
+                      </span>
+
+                      <span>
+                        {" "}
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g id="ci:clock">
                             <path
                               id="Vector"
-                              d="M8 2V5"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_2"
-                              d="M16 2V5"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_3"
-                              d="M3.5 9.08997H20.5"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_4"
-                              d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_5"
-                              d="M15.6947 13.7H15.7037"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_6"
-                              d="M15.6947 16.7H15.7037"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_7"
-                              d="M11.9955 13.7H12.0045"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_8"
-                              d="M11.9955 16.7H12.0045"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_9"
-                              d="M8.29431 13.7H8.30329"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_10"
-                              d="M8.29431 16.7H8.30329"
+                              d="M12 7V12H17M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12C21 14.3869 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.3869 21 12 21Z"
                               stroke="white"
                               stroke-width="1.5"
                               stroke-linecap="round"
                               stroke-linejoin="round"
                             />
                           </g>
-                        </g>
-                      </g>
-                    </svg>
+                        </svg>
+                        {convertTime(data?.startTime) +
+                          "-" +
+                          convertTime(data?.endTime)}
+                      </span>
+                    </section>
 
-                    <span>{getDate(data?.date)}</span>
-                  </div>
-                  <div>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="ci:clock">
-                        <path
-                          id="Vector"
-                          d="M12 7V12H17M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12C21 14.3869 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.3869 21 12 21Z"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                    </svg>
-
-                    <span>{convertTime(data?.startTime) + "-" + convertTime(data?.endTime)}</span>
-                  </div>
-                </section>
-                <div class="all_speaker_details_section">
-                  {speakersArray?.map((speaker, index) => {
-                    return (
-                      <section class="creator_profile_banner_multiple">
-                        <div class="text_box_creator_name_multiple">
-                          <h4>Speaker</h4>
-                          <span>{speaker.name}</span>
-                        </div>
-                        <div class="creator_image_cover_banner_multiple">
-                          <img
-                            src={
-                              speakersImagesArray[index]
-                                ? URL.createObjectURL(
+                    {/* event speaker section ----------- */}
+                    <section className="event_invite_multiple_speakers_details_section">
+                      <h4
+                        style={{
+                          left:
+                            speakersArray.length > 0
+                              ? (speakersArray?.length - 1) * 5 + "px"
+                              : "",
+                        }}
+                      >
+                        Speakers
+                      </h4>
+                      <section>
+                        {speakersArray?.map((speaker, index) => {
+                          return (
+                            <div
+                              style={{
+                                left: `${
+                                  (speakersArray.length - (index + 1)) * 10
+                                }px`,
+                                zIndex: `${
+                                  (speakersArray.length - (index + 1)) * 4
+                                }`,
+                              }}
+                            >
+                              <div>
+                                <img
+                                  src={
                                     speakersImagesArray[index]
-                                  )
-                                : speaker?.isCreator
-                                ? data?.cprofile
-                                : PNGIMG
-                            }
-                            alt=""
-                          />
-                        </div>
+                                      ? URL.createObjectURL(
+                                          speakersImagesArray[index]
+                                        )
+                                      : speaker?.isCreator
+                                      ? data?.cprofile
+                                      : PNGIMG
+                                  }
+                                  alt=""
+                                />
+                              </div>
+                              <span>{speaker?.name}</span>
+                            </div>
+                          );
+                        })}
                       </section>
-                    );
-                  })}
-                </div>
-                <section class="user_profile_banner_multiple">
-                  <div class="text_box_user_name_multiple">
-                    <span>David Rathore</span>
+                    </section>
                   </div>
-                  <div class="user_image_cover_banner_multiple">
-                    <img
-                      src="https://www.shareicon.net/data/512x512/2016/09/15/829459_man_512x512.png"
-                      alt=""
-                    />
-                  </div>
-                  <h3>JOIN ALONG WITH ME!</h3>
-                </section>
-              </div>
-            </div>
-          ) : (
-            <div class="personalized_card_wrapper">
-              <img
-                src={
-                  "https://anchors-assets.s3.amazonaws.com/1692550675052-back2.jpeg"
-                }
-                alt="background"
-              />
-              <div class="texting_layer_banner">
-                <section class="left_side_text">
-                  <h1>{data?.sname}</h1>
-                  <span>by {data?.cname}</span>
-                </section>
-
-                <section class="creator_profile_banner">
-                  <div class="text_box_creator_name">
-                    <h4>Speaker</h4>
-                    <span>{data?.cname}</span>
-                  </div>
-                  <div class="creator_image_cover_banner">
-                    <img src={data?.cprofile} alt="" />
-                  </div>
-                </section>
-
-                <section class="user_profile_banner">
-                  <div class="text_box_user_name">
-                    <span>David Rathore</span>
-                  </div>
-                  <div class="user_image_cover_banner">
-                    <img
-                      src="https://www.shareicon.net/data/512x512/2016/09/15/829459_man_512x512.png"
-                      alt=""
-                      onError={({ currentTarget }) => {
-                        currentTarget.onerror = null; // prevents looping
-                        currentTarget.src = PNGIMG;
-                      }}
-                    />
-                  </div>
-
-                  <h3>JOIN ALONG WITH ME!</h3>
-                </section>
-
-                <section class="date_time_section_banner_single">
+                </>
+              ) : (
+                <>
                   <div>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="vuesax/linear/calendar">
-                        <g id="vuesax/linear/calendar_2">
-                          <g id="calendar">
+                    <section className="user_data_event_invite_card">
+                      <img
+                        src="https://www.shareicon.net/data/512x512/2016/09/15/829459_man_512x512.png"
+                        alt=""
+                      />
+
+                      <div>
+                        <h4>David Rathore</h4>
+                        <span>attending this event.</span>
+                      </div>
+                    </section>
+
+                    {/* event title section ----------- */}
+
+                    <section className="event_title_data_event_invite_card">
+                      <h3>{data?.sname}</h3>
+
+                      <span>Hosted by {data?.cname}</span>
+                    </section>
+                  </div>
+
+                  {/* event date and time section ----------- */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: "32px",
+                      alignItems: "flex-end",
+                    }}
+                  >
+                    <section className="event_date_data_event_invite_card">
+                      <span>
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g id="vuesax/linear/calendar">
+                            <g id="vuesax/linear/calendar_2">
+                              <g id="calendar">
+                                <path
+                                  id="Vector"
+                                  d="M8 2V5"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-miterlimit="10"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_2"
+                                  d="M16 2V5"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-miterlimit="10"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_3"
+                                  d="M3.5 9.08997H20.5"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-miterlimit="10"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_4"
+                                  d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-miterlimit="10"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_5"
+                                  d="M15.6947 13.7H15.7037"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_6"
+                                  d="M15.6947 16.7H15.7037"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_7"
+                                  d="M11.9955 13.7H12.0045"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_8"
+                                  d="M11.9955 16.7H12.0045"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_9"
+                                  d="M8.29431 13.7H8.30329"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  id="Vector_10"
+                                  d="M8.29431 16.7H8.30329"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </g>
+                            </g>
+                          </g>
+                        </svg>{" "}
+                        {getDate(data?.date)}
+                      </span>
+
+                      <span>
+                        {" "}
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g id="ci:clock">
                             <path
                               id="Vector"
-                              d="M8 2V5"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_2"
-                              d="M16 2V5"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_3"
-                              d="M3.5 9.08997H20.5"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_4"
-                              d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_5"
-                              d="M15.6947 13.7H15.7037"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_6"
-                              d="M15.6947 16.7H15.7037"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_7"
-                              d="M11.9955 13.7H12.0045"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_8"
-                              d="M11.9955 16.7H12.0045"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_9"
-                              d="M8.29431 13.7H8.30329"
-                              stroke="white"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              id="Vector_10"
-                              d="M8.29431 16.7H8.30329"
+                              d="M12 7V12H17M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12C21 14.3869 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.3869 21 12 21Z"
                               stroke="white"
                               stroke-width="1.5"
                               stroke-linecap="round"
                               stroke-linejoin="round"
                             />
                           </g>
-                        </g>
-                      </g>
-                    </svg>
-                    <span>{getDate(data?.date)}</span>
+                        </svg>
+                        {convertTime(data?.startTime) +
+                          "-" +
+                          convertTime(data?.endTime)}
+                      </span>
+                    </section>
+
+                    {/* event speaker section ----------- */}
+
+                    <section className="event_speaker_data_event_invite_card">
+                      <span>
+                        {data?.cname}, <span>Speaker</span>
+                      </span>
+                      <div>
+                        <img src={data?.cprofile} alt="" />
+                      </div>
+                    </section>
                   </div>
-                  <div>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="ci:clock">
-                        <path
-                          id="Vector"
-                          d="M12 7V12H17M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12C21 14.3869 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.3869 21 12 21Z"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                    </svg>
-                    <span>{convertTime(data?.startTime) + "-" + convertTime(data?.endTime)}</span>
-                  </div>
-                </section>
-              </div>
+                </>
+              )}
             </div>
-          )}
+          </section>
+
           <section className="default_options_sections">
             {/* <div>
               <span
@@ -672,5 +739,6 @@ export const PersonalizedInviteeCard = ({
     </>
   );
 };
+
 
 export default DefaultBanner2;
