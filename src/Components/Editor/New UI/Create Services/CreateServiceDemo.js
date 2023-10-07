@@ -1,14 +1,7 @@
-import { LazyLoadImage } from "react-lazy-load-image-component";
+
 import "../EditProfile/Preview.css";
 import "../Sample Page/Event.css"
-import "../Sample Page/Sample.css"
 import { useEffect } from "react";
-
-import ExcelIcon from "../../../../Utils/Icons/excel-service.svg";
-import VideoIcon from "../../../../Utils/Icons/video-service.svg";
-import DocIcon from "../../../../Utils/Icons/doc-service.svg";
-import TrendIcon from "../../../../Utils/Icons/trend-service.svg";
-import { AiOutlineArrowRight } from "react-icons/ai";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { RiStarSFill } from "react-icons/ri";
 import PNGIMG from "../../../../Utils/Images/default_user.png";
@@ -101,7 +94,7 @@ const CreateEventDemo = ({
 
         <div
           className="event_page_outside_wrapper"
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%",background:"#000000" }}
         >
           <section
             className="main_header_component_event_page"
@@ -343,7 +336,7 @@ const CreateEventDemo = ({
                 >
                   <section className="right_side_creator_profile_event_page">
                     <img
-                      src={cprofile}
+                      src={cprofile ?? PNGIMG}
                       alt=""
                       onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
@@ -351,7 +344,7 @@ const CreateEventDemo = ({
                       }}
                     />
                     <span>{cname}</span>
-                    <p>{ctagline}</p>
+                    <p style={{width:"70%"}}>{ctagline}</p>
                     <div>
                       <RiStarSFill size={16} /> {crating}/5
                     </div>
@@ -417,6 +410,5 @@ const CreateEventDemo = ({
     </div>
   );
 };
-
 
 export default CreateEventDemo;

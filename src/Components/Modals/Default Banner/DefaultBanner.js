@@ -682,7 +682,7 @@ export const PersonalizedInviteeCard= ({
                         {data?.cname}, <span>Speaker</span>
                       </span>
                       <div>
-                        <img src={data?.cprofile} alt="" />
+                        <img src={data?.cprofile ?? PNGIMG} alt="" />
                       </div>
                     </section>
                   </div>

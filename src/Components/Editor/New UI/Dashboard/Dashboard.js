@@ -8,7 +8,7 @@ import { BsFillPersonFill, BsFillStarFill, BsPersonPlus } from "react-icons/bs";
 import { BiGift } from "react-icons/bi";
 import { SlCalender } from "react-icons/sl";
 import Confetti from "react-confetti";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import EventModel from "../../../Modals/EventModal/Event_popup";
 import { MdDone } from "react-icons/md";
 
@@ -118,11 +118,11 @@ const DashboardStepper = ({ setOpenFirstTimeModal, reviews }) => {
       <div className="main_dashboard_conatiner2">
         <div className="stepper_outside_wrapper_dashboard">
           <h2 className="text_01_dashboard">
-            Hi {allCreatorInfo?.name?.split(" ")[0]}, Welcome to anchors!
+          Welcome {allCreatorInfo?.name?.split(" ")[0]}!
           </h2>
           <span className="text_02_dashboard" style={{ textAlign: "left" }}>
-            Begin your Anchors journey by following the milestones outlined
-            below to get started!
+          Your creative journey starts here. Explore premium content and
+            events.
           </span>
 
           <section>
@@ -220,12 +220,7 @@ const DashboardStepper = ({ setOpenFirstTimeModal, reviews }) => {
         </div>
 
         <div className="main_dashboard_design_box">
-          <h2 className="text_01_dashboard">Create your Event</h2>
-          <span className="text_02_dashboard">
-            Easily organize events, whether you're an individual speaker or
-            coordinating with multiple speakers.
-          </span>
-          <section>
+        <section>
             <div
               onClick={() => {
                 navigate("createevent");

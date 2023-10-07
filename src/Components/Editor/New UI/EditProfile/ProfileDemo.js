@@ -53,7 +53,7 @@ const PreviewDemo = ({
 
         <section className="live_demo_main_creator_details">
           <LazyLoadImage
-            src={newImage ?? profile}
+            src={newImage ?? profile ?? PNGIMG}
             alt={name}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping

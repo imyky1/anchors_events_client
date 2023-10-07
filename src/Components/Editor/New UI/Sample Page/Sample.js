@@ -13,6 +13,7 @@ import { MdEventSeat, MdKeyboardArrowDown } from "react-icons/md";
 import { TbMapSearch } from "react-icons/tb";
 import MainNewFooter from "../../../Footer/Footer";
 import { EventsNavbar } from "../../../Layouts/Navbar Creator/Navbar";
+import { ToastContainer } from "react-toastify";
 
 const PersonalizedSection = () => {
   const containerVariant = (index) => {
@@ -108,6 +109,8 @@ const PersonalizedSection = () => {
 };
 
 function Sample() {
+  const [openLoginModalFromOutside, setOpenLoginModalFromOutside] = useState(false)
+
   useEffect(() => {
     mixpanel.track("Event Page Page Visit");
   }, []);
@@ -152,6 +155,8 @@ function Sample() {
       >
         <EventsNavbar
           backgroundDark={true}
+          openLoginModalValue = {openLoginModalFromOutside}
+          setOpenLoginModalFromOutside={setOpenLoginModalFromOutside}
         />
 
         {/* Main detail of the component */}
@@ -178,7 +183,7 @@ function Sample() {
                 localStorage.getItem("jwtToken") &&
                 localStorage.getItem("isUser") === ""
                   ? window.open("/dashboard", "_self")
-                  : window.open("/login", "_self");
+                  : setOpenLoginModalFromOutside(true)
 
                 mixpanel.track("Event Page Host Your Event");
               }}
@@ -335,7 +340,7 @@ function Sample() {
             localStorage.getItem("jwtToken") &&
             localStorage.getItem("isUser") === ""
               ? window.open("/dashboard", "_self")
-              : window.open("/login", "_self");
+              : setOpenLoginModalFromOutside(true)
             mixpanel.track("Event Page Yes, I'm ready!");
           }}
         >
@@ -363,6 +368,8 @@ function Sample() {
         noRefund={false}
         useEventsLogo={true}
       />
+
+      <ToastContainer theme="dark" limit={1}/>
     </div>
   );
 }

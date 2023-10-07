@@ -7,6 +7,8 @@
   scroll-behavior: smooth;
 }
 
+.sample_page_wrapper::-webkit-scrollbar{display: none;}
+
 .arrow_button_sample_page {
   color: white;
   font-size: 35px;

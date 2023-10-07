@@ -67,7 +67,6 @@ const FirstPage = ({
             name="sname"
             id="sname"
             required={true}
-            maxLength={80}
             value={data?.sname}
             placeholder="Keep it catchy"
             onChange={handleChange}
@@ -821,7 +820,7 @@ function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
         ) {
           if (checkSpeakers) {
             if (Content?.length > 10) {
-              if (multipleSpeakers) {
+              if (speakersArray[0]?.name) {
                 await SaveSpeakerImages();
               }
               try {

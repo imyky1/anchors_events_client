@@ -23,7 +23,7 @@ const CreatorState = (props) => {
   // ROUTE 3 : UPDATE/Create User Info
   const setCreatorInfo = async (info) => {
     const response = await fetch(
-      `${host}/api/creator/update/info`,
+      `${host}/api/creator/eventside/update/info`,
 
       {
         method: "POST",
@@ -491,7 +491,6 @@ const CreatorState = (props) => {
       })
 
       const json = await response.json()
-      console.log(json)
       return json
 
     } catch (error) {

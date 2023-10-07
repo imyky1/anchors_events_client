@@ -1,0 +1,210 @@
+.checklist_outside_wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 99;
+  display: flex;
+  justify-content: flex-end;
+  background: #12121261;
+  box-sizing: border-box;
+}
+
+.checklist_main_container {
+  width: 37vw;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  background: #212121;
+  height: 100vh;
+  gap: 20px;
+  box-sizing: border-box;
+  padding: 0 40px;
+  padding-top: 160px;
+  animation: fadeInFromRight 0.8s ease forwards;
+}
+
+@keyframes fadeInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.checklist_main_container > h2 {
+  color: #fff;
+  font-family: "Gilroy-SemiBold", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.checklist_main_container > span {
+  color: #d0d0d0;
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: -12px;
+}
+
+.checklist_main_container > p {
+  color: #fff;
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checklist_main_container > p span {
+  color: #fff;
+  font-family: "Gilroy-Bold", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.checklist_main_container > p span:hover {
+  color: red;
+}
+
+.button_section_login_modal {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.button_section_login_modal > button {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #a0a0a0;
+  background-color: transparent;
+  padding: 18px 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  color: #d0d0d0;
+  font-family: "Gilroy-SemiBold", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.button_section_login_modal > button svg {
+  font-size: 24px;
+}
+
+.button_section_login_modal > button:hover {
+  background-color: #121212;
+  border: 1px solid #a0a0a0;
+}
+
+.button_section_login_modal > section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button_section_login_modal > section > label {
+  color: #fff;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 133.333% */
+}
+
+/* input field */
+
+.login_modal_input_field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+.login_modal_input_field > input {
+  border-radius: 6px;
+  border: 1px solid #a0a0a0;
+  padding: 16px 20px;
+  width: 100%;
+  background-color: transparent;
+  box-sizing: border-box;
+
+  color: #d0d0d0;
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.login_modal_input_field > input:focus {
+  outline: none;
+}
+
+.login_modal_input_field > input::placeholder {
+  color: #d0d0d04d;
+  font-size: 16px;
+}
+
+.login_modal_input_field > section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+
+  color: #d0d0d0;
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.button01_login_modal {
+  border-radius: 8px;
+  border: 1px solid #fff;
+  width: 100%;
+  padding: 20px;
+  cursor: pointer;
+  background-color: transparent;
+
+  color: #fff;
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 20px;
+}
+
+.button01_login_modal:hover {
+  background-color: red;
+  border: 1px solid red;
+}

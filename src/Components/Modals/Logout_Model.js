@@ -10,24 +10,14 @@ function Logout_Model() {
   const [openModel, setopenModel] = useState(true);
 
   const logout = () => {
-    if (localStorage.getItem("isUser") === "") {
-      localStorage.removeItem("isUser");
-      localStorage.removeItem("jwtToken");
-      localStorage.removeItem("from");
-      localStorage.removeItem("url");
-      localStorage.removeItem("user");
-      localStorage.removeItem("c_id");
-      mixpanel.reset();
-      navigate("/");
-    } else {
-      mixpanel.track("Clicked Logout By User");
-      localStorage.removeItem("isUser");
-      localStorage.removeItem("jwtToken");
-      localStorage.removeItem("from");
-      localStorage.removeItem("user");
-      mixpanel.reset();
-      navigate(localStorage.getItem("url"));
-    }
+    localStorage.removeItem("isUser");
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("from");
+    localStorage.removeItem("url");
+    localStorage.removeItem("user");
+    localStorage.removeItem("c_id");
+    mixpanel.reset();
+    navigate("/");
     toast.success("Logged Out successfully", {
       position: "top-center",
       autoClose: 2000,

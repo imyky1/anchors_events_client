@@ -92,7 +92,7 @@ const MainNewFooter = ({
                 <div
                   className="home_page_outer_nine_body_0212_individual"
                   onClick={() => {
-                    window.open("/privacy-policy");
+                    window.open("https://www.anchors.in/privacy-policy");
                   }}
                 >
                   Privacy Policy
@@ -102,7 +102,7 @@ const MainNewFooter = ({
               <div
                 className="home_page_outer_nine_body_0212_individual"
                 onClick={() => {
-                  window.open("/termsConditions");
+                  window.open("https://www.anchors.in/termsConditions");
                 }}
               >
                 Terms & Conditions
@@ -112,7 +112,7 @@ const MainNewFooter = ({
               <div
                 className="home_page_outer_nine_body_0212_individual"
                 onClick={() => {
-                  window.open("/aboutUs");
+                  window.open("https://www.anchors.in/aboutUs");
                 }}
               >
                 About Us
@@ -122,7 +122,7 @@ const MainNewFooter = ({
               <div
                 className="home_page_outer_nine_body_0212_individual"
                 onClick={() => {
-                  window.open("/contactUs");
+                  window.open("https://www.anchors.in/contactUs");
                 }}
               >
                 Contact Us
@@ -132,7 +132,7 @@ const MainNewFooter = ({
               <div
                 className="home_page_outer_nine_body_0212_individual"
                 onClick={() => {
-                  window.open("/refundPolicy");
+                  window.open("https://www.anchors.in/refundPolicy");
                 }}
               >
                 Refund Policy

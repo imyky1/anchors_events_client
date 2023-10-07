@@ -2,6 +2,7 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "./Navbar.css";
 import mixpanel from "mixpanel-browser";
+import PNGIMG from "../../../../Utils/Images/default_user.png"
 
 function Navbar({ ChangeModalState, ModalState, userData, alternateInfo }) {
   // handles the openeing of the creator modal
@@ -22,12 +23,12 @@ function Navbar({ ChangeModalState, ModalState, userData, alternateInfo }) {
             ? alternateInfo?.profile
             : userData?.photo
             ? userData?.photo
-            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHaAfOzOEovz1u7rsIMbl_SzAAxk99xlyxAVJ4r3475UvmyHLFVZSZkaGSbLFc5PNRO3A&usqp=CAU"
+            : PNGIMG
         }
         alt=""
         onError={({ currentTarget }) => {
           currentTarget.onerror = null; // prevents looping
-          currentTarget.src = require("../../../../Utils/Images/default_user.png");
+          currentTarget.src = PNGIMG;
         }}
       />
 

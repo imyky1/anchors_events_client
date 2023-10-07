@@ -73,7 +73,7 @@ function Modal1({
                     mixpanel.track("Events Profile Services");
                   }}
                 >
-                  {moreInfo ? moreInfo?.Services : "--"} Events
+                  {moreInfo ? moreInfo?.Events : "--"} Events
                 </span>
               </div>
               <button

@@ -49,6 +49,7 @@ const ContentCard = ({
   sname,
   downloads,
   date,
+  createdOn,
   slug,
   isPaid,
   ssp,
@@ -132,14 +133,7 @@ const ContentCard = ({
   };
 
   const getDateTime = () => {
-    let dateStr = new Date(selected === "events" ? startDate : date);
-
-    if (selected === "events") {
-      let timeStr = time?.startTime?.split(":");
-      dateStr.setHours(timeStr && timeStr[0]);
-      dateStr.setMinutes(timeStr && timeStr[1]);
-    }
-
+    let dateStr = new Date(selected === "events" ? createdOn : date);
     return dateStr.toLocaleString();
   };
 

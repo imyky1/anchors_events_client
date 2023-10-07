@@ -367,10 +367,6 @@
   cursor: pointer;
 }
 
-.upcoming_event_cards_user_dashboard_event_page > span:hover {
-  color: purple;
-}
-
 .upcoming_event_cards_user_dashboard_event_page > div {
   display: flex;
   align-items: flex-start;

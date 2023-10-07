@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import mixpanel from "mixpanel-browser";
 import { useNavigate } from "react-router-dom";
 import { IoIosCall } from "react-icons/io";
 import {AiOutlineArrowRight} from "react-icons/ai"
+import LoginModal from "../../Modals/LoginModal/LoginModal";
 
 function Navbar({
   noAccount = false,
@@ -114,9 +115,13 @@ export function EventsNavbar({
   backgroundDark = false,
   newfeature = false,
   showPricingButton = true,
-  position="unset"
+  position="unset",
+  openLoginModalValue = false,
+  setOpenLoginModalFromOutside
 }) {
   const navigate = useNavigate();
+
+  const [openLoginModal, setOpenLoginModal] = useState(false)
 
   // Functions --------------------
   const handleLogoClick = () => {
@@ -124,8 +129,26 @@ export function EventsNavbar({
     navigate(`/`);
   };
 
+  useEffect(() => {
+    setOpenLoginModal(openLoginModalValue)
+  }, [openLoginModalValue])
+
+
+  // open login directly -------------------
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("openLogin")) {
+      setOpenLoginModal(true)
+    }
+
+  }, [])
+  
+
   return (
     <>
+    {openLoginModal&& <LoginModal open={openLoginModal} toClose={()=>{setOpenLoginModal(false);setOpenLoginModalFromOutside(false)}} ModalType="login"/>}
+
       <section
         className="navbar_creator_wrapper01"
         style={
@@ -186,7 +209,7 @@ export function EventsNavbar({
                         : "Event Side Clicked Get Started on Navbar"
                     }`
                   );
-                  !localStorage.getItem("jwtToken") ? navigate("/login") : navigate("/dashboard")
+                  !localStorage.getItem("jwtToken") ? setOpenLoginModal(true) : navigate("/dashboard")
                 }}
               >
                 {localStorage.getItem("jwtToken")

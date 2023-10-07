@@ -37,7 +37,7 @@ function Home(props) {
     finalFormData: {},
   });
   const [Rating, setRating] = useState("");
-  const [creatorData, setcreatorData] = useState({ Reviews: "", Services: "" });
+  const [creatorData, setcreatorData] = useState({ Reviews: "", Services: "",Events:"" });
   const {
     getAllCreatorInfo,
     allCreatorInfo,
@@ -70,7 +70,7 @@ function Home(props) {
     }
     // not logined people
     else {
-        window.open("https://www.anchors.in/hostevent","_self");
+        window.open("https:/events.anchors.in/","_self");
       }
 
     // eslint-disable-next-line
@@ -83,6 +83,7 @@ function Home(props) {
           ...creatorData,
           Reviews: e?.data?.reviews,
           Services: e?.data?.services,
+          Events: e?.data?.events,
         });
       });
 

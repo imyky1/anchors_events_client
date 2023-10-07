@@ -103,12 +103,12 @@ const LinkedinState = (props) => {
   ) => {
     try {
       const userdata = await userIp();
-      let slugurl = name.split(" ").join("-");
+      let slugurl = name.split(" ").join("");
       const count = await getslugcountcreator(slugurl.toLowerCase());
       let slugurl2 =
         count === 0
           ? slugurl.toLowerCase()
-          : slugurl.toLowerCase().concat("--", `${count}`);
+          : slugurl.toLowerCase().concat("", `${count}`);
 
       const response = await fetch(`${host}/api/creator/eventSide/newCreator`, {
         method: "POST",
@@ -153,6 +153,38 @@ const LinkedinState = (props) => {
           navigate("/login");
         }, 1500);
       }
+    } catch (error) {
+      console.error(error);
+      toast.info("Some error occured!!", {
+        position: "top-center",
+        autoClose: 1500,
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    }
+  };
+
+
+  // login for manual email process -----------------
+  const CreatorLoginThoughEmail = async (
+    email,
+  ) => {
+    try {
+      const response = await fetch(`${host}/api/creator/eventSide/loginCreatorThroughEmail`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+        body: JSON.stringify({
+          email
+        }),
+      });
+      const res = await response.json();
+      return res;
+
     } catch (error) {
       console.error(error);
       toast.info("Some error occured!!", {
@@ -475,6 +507,8 @@ const LinkedinState = (props) => {
         truecallerlogin,
         loginInfo,
         truecallervalue,
+        registerCreatorLogin,
+        CreatorLoginThoughEmail
       }}
     >
       {props.children}
