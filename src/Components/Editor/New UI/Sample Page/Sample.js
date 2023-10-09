@@ -88,11 +88,10 @@ const PersonalizedSection = () => {
 
       <section>
       <h2 className="header_sample_page01">
-        Personalized Invitation Cards: Designed to Impress
+      Personalized Invite Cards
       </h2>
       <p className="header_sample_page02" style={{ textAlign: "center" }}>
-        Give Your Attendees a Personalized Touch - Shareable Invite Cards They
-        Can Proudly Share on Social Platforms!
+      Elevate Social Currency with Shareable, Customised Invites! / Boost Attendees' Social Currency with Customised, Shareable Invites!
       </p>
       </section>
       {/* <button
@@ -203,16 +202,15 @@ function Sample() {
       {/* benefits section ----------- */}
 
       <section className="benefits_sample_page" id="benefits">
-        <h2>
+        {/* <h2>
           Your Event, Your Spotlight –{" "}
           <span style={{ color: "red" }}>anchors</span> Takes Care of the Rest!
-        </h2>
+        </h2> */}
         <section>
           <div className="left_division_sample_page">
             <h2 className="header_sample_page01">Design Stunning Pages</h2>
             <p className="header_sample_page02">
-              Immerse Your Audience in Eye-Catching Event Pages that Make a
-              Lasting Impression.
+            Eye-Catching Event Pages that Make a Lasting Impression
             </p>
            {window.screen.width > 600 && <button
               className="button_sample_page01"
@@ -252,11 +250,10 @@ function Sample() {
       <section className="sample_page_divison_section">
         <div className="left_division_sample_page">
           <h2 className="header_sample_page01" style={window.screen.width < 600 ? {width:"75%"} : {}}>
-            Boost Your Reach with Our Dynamic Referral Program
+          Enhance Reach with Dynamic Referrals
           </h2>
           <p className="header_sample_page02" style={window.screen.width < 600 ? {width:"65%"} : {}}>
-            Amplify Word-of-Mouth Impact: Reward Top Referrers, Encourage
-            Engagement & Friendly Competition!
+          Amplify Word-of-Mouth, Reward Top Referrers, Foster Friendly Competition!
           </p>
           {window.screen.width > 600 && <button
             className="button_sample_page01"
@@ -298,8 +295,7 @@ function Sample() {
         <div>
           <h2 className="header_sample_page01">Seamless Content Sharing</h2>
           <p className="header_sample_page02">
-            Effortless Event Content Sharing: Focus on What Matters, We Handle
-            the Rest!
+          Focus on What Matters, We Handle the Rest! / Ready-to-Use Templates for Hassle-Free Promotion!
           </p>
           {window.screen.width > 600 && <button
             className="button_sample_page01"

@@ -152,7 +152,7 @@ const ContentCard = ({
         <div
           style={{
             display: "flex",
-            gap: "16px",
+            gap: window.screen.width > 600 ? "16px" : "8px",
             flexDirection: "column",
             width: "100%",
           }}
@@ -250,19 +250,19 @@ const ContentCard = ({
                       window.open(`/dashboard/serviceStats/${slug}`, "_blank");
                 }}
               >
-                <BiStats /> Detailed Service Analysis
+                {window.screen.width > 600 ? <> <BiStats /> Detailed Service Analysis </> : <>Detailed Service Analysis <BiStats /> </>}
               </button>
             </div>
           </div>
         </div>
 
-        <BiDotsVerticalRounded
+       {window.screen.width > 600 && <BiDotsVerticalRounded
           onClick={() =>
             selected === "events"
               ? !dummyData.EventDummy && openOptionsPopup(i + 1)
               : !dummyData.ServiceDummy && openOptionsPopup(i + 1)
           }
-        />
+        />}
 
         {/* content card_popup */}
         <div

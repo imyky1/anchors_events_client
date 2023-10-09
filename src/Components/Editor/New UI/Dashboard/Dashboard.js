@@ -116,16 +116,21 @@ const DashboardStepper = ({ setOpenFirstTimeModal, reviews }) => {
       )}
 
       <div className="main_dashboard_conatiner2">
+        {/* MObile ui navbar ---------------- */}
+        {window.screen.width < 600 && (
+          <section className="navbar_ui_covering_section_mobile"></section>
+        )}
+
         <div className="stepper_outside_wrapper_dashboard">
           <h2 className="text_01_dashboard">
-          Welcome {allCreatorInfo?.name?.split(" ")[0]}!
+            Welcome {allCreatorInfo?.name?.split(" ")[0]}!
           </h2>
           <span className="text_02_dashboard" style={{ textAlign: "left" }}>
-          Your creative journey starts here. Explore premium content and
+            Your creative journey starts here. Explore premium content and
             events.
           </span>
 
-          <section>
+          {window.screen.width > 600 && <section>
             <div className="each_step_stepper_dashboard">
               <div
                 className={
@@ -216,11 +221,11 @@ const DashboardStepper = ({ setOpenFirstTimeModal, reviews }) => {
               </div>
               <span>Earned Review</span>
             </div>
-          </section>
+          </section>}
         </div>
 
         <div className="main_dashboard_design_box">
-        <section>
+          <section>
             <div
               onClick={() => {
                 navigate("createevent");

@@ -367,6 +367,10 @@
   cursor: pointer;
 }
 
+.upcoming_event_cards_user_dashboard_event_page > span:hover {
+  color: purple;
+}
+
 .upcoming_event_cards_user_dashboard_event_page > div {
   display: flex;
   align-items: flex-start;
@@ -700,5 +704,43 @@
     min-width: unset;
     max-width: unset;
     height: unset;
+  }
+
+  .props_mycontent_card_service{
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .buttons_div_section_mycontent_card{
+    align-items: unset;
+  }
+
+  .mycontent_card_for_service > section{
+    height: unset;
+  }
+
+  .props_mycontent_card_service > section{
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .props_mycontent_card_service > section p{
+    font-size: 12px;
+    gap: 6px;
+    color: #a0a0a0;
+  }
+
+  .props_mycontent_card_service > section > p > span {
+    color: #a0a0a0;
+  }
+
+  .buttons_div_section_mycontent_card > button{
+    padding: 12px 20px;
+    justify-content: space-between;
+  }
+
+  .mycontent_card_for_service > section > div > h2{
+    font-size: 16px;
+    color: #a0a0a0;
   }
 }

@@ -480,17 +480,17 @@ const LoginModal = ({ open, toClose, ModalType }) => {
       >
         {formType !== 0 && (
           <AiOutlineArrowLeft
-            size={25}
+            size={window.screen.width > 600 ? 25 : 20}
             className="chnageStatusModalCross"
-            style={{ left: "40px", top: "110px", right: "unset" }}
+            style={window.screen.width > 600 ? { left: "40px", top: "110px", right: "unset" } : {left:"20px",top:"20px"}}
             onClick={prevForm}
           />
         )}
         {formType === 0 && (
           <RxCross2
-            size={25}
+            size={window.screen.width > 600 ? 25 : 20}
             className="chnageStatusModalCross"
-            style={{ top: "110px" }}
+            style={window.screen.width > 600 ? { top: "110px" } :{top:"20px",right:"20px"}}
             onClick={() => {
               toClose();
             }}

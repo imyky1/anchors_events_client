@@ -31,9 +31,13 @@ import { RiTelegramLine, RiYoutubeLine } from "react-icons/ri";
 import Twitter from "./tweet.svg";
 import Topmate from "./topmate.svg";
 import { Button1, Button3 } from "../Create Services/InputComponents/buttons";
-import PNGIMG from "../../../../Utils/Images/default_user.png"
+import PNGIMG from "../../../../Utils/Images/default_user.png";
+import { useNavigate } from "react-router-dom";
+import { BsArrowLeftShort } from "react-icons/bs";
 
 const EditProfile = (props) => {
+  const navigate = useNavigate();
+
   const {
     allCreatorInfo,
     getAllCreatorInfo,
@@ -316,12 +320,27 @@ const EditProfile = (props) => {
       <ToastContainer />
       {openLoading && <LoadTwo open={openLoading} />}
       <div className="edit_profile_outside_wrapper">
+        {/* MObile ui navbar ---------------- */}
+        {window.screen.width < 600 && (
+          <section className="navbar_ui_covering_section_mobile_active">
+            <BsArrowLeftShort
+              size={22}
+              onClick={() => {
+                !leftData ? navigate(-1) : setLeftData(false);
+              }}
+            />
+            {!leftData ? "Build Your Profile!" : "Grow Your Following!"}
+          </section>
+        )}
+
         <div className="edit_profile_outside_wrapper_left">
           {!leftData && (
             <div className="personalinfo_wrap">
-              <div className="personalinfo_top">
-                <h1>Build Your Profile!</h1>
-              </div>
+              {window.screen.width > 600 && (
+                <div className="personalinfo_top">
+                  <h1>Build Your Profile!</h1>
+                </div>
+              )}
               <div className="personalinfo_photosection">
                 <div className="personalinfo_photocontainer">
                   <div className="personalinfo_photo">
@@ -337,7 +356,7 @@ const EditProfile = (props) => {
                       alt=""
                       onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
-                        currentTarget.src = PNGIMG
+                        currentTarget.src = PNGIMG;
                       }}
                     />
                     <span
@@ -443,10 +462,8 @@ const EditProfile = (props) => {
           {leftData && (
             <div className="personalinfo_socialwrap_01">
               <div className="personalinfo_socialwrap">
-                <h2>Grow Your Following!</h2>
-                <h2 style={{ fontSize: "20px", color: "#9A9A9A" }}>
-                  Add Social Media Links
-                </h2>
+                {window.screen.width > 600 && <h2>Grow Your Following!</h2>}
+                <h2>Add Social Media Links</h2>
                 <div className="personalinfo_sociallinks">
                   <SocialFields
                     placeholder="https://www.linkedin.com/in/username"
@@ -614,13 +631,15 @@ const EditProfile = (props) => {
                 style={{ justifyContent: "space-between" }}
                 className="personalinfo_savebutton"
               >
-                <Button3
-                  text="Previous"
-                  icon={<AiOutlineArrowLeft />}
-                  onClick={() => {
-                    onNext();
-                  }}
-                />
+                {window.screen.width > 600 && (
+                  <Button3
+                    text="Previous"
+                    icon={<AiOutlineArrowLeft />}
+                    onClick={() => {
+                      onNext();
+                    }}
+                  />
+                )}
                 <Button1
                   text="Save"
                   icon={<AiOutlineArrowRight />}
@@ -631,22 +650,24 @@ const EditProfile = (props) => {
           )}
         </div>
 
-        <div className="live_preview_edit_profile_page">
-          <div className="live_preview_modal_design">
-            <section>
-              <img
-                src={require("../../../../Utils/Images/mobile-screen.png")}
-                alt=""
-              />
-              <PreviewDemo
-                {...data}
-                newImage={showimg ?? basicNav?.photo}
-                about={Content}
-                {...props?.moreInfo}
-              />
-            </section>
+        {window.screen.width > 600 && (
+          <div className="live_preview_edit_profile_page">
+            <div className="live_preview_modal_design">
+              <section>
+                <img
+                  src={require("../../../../Utils/Images/mobile-screen.png")}
+                  alt=""
+                />
+                <PreviewDemo
+                  {...data}
+                  newImage={showimg ?? basicNav?.photo}
+                  about={Content}
+                  {...props?.moreInfo}
+                />
+              </section>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <SuperSEO title="Anchors - Edit Profile" />
     </>

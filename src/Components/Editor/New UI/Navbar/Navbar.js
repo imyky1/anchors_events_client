@@ -2,9 +2,12 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "./Navbar.css";
 import mixpanel from "mixpanel-browser";
-import PNGIMG from "../../../../Utils/Images/default_user.png"
+import PNGIMG from "../../../../Utils/Images/default_user.png";
+import { useNavigate } from "react-router-dom";
 
 function Navbar({ ChangeModalState, ModalState, userData, alternateInfo }) {
+  const navigate = useNavigate();
+
   // handles the openeing of the creator modal
   const handleModalOpening = (e) => {
     e?.stopPropagation();
@@ -13,35 +16,39 @@ function Navbar({ ChangeModalState, ModalState, userData, alternateInfo }) {
   };
 
   return (
-    <div className="navbar_outside_container">
-      <LazyLoadImage
-        effect="blur"
-        className="creators_navbar_image"
-        onClick={handleModalOpening}
-        src={
-          alternateInfo?.profile
-            ? alternateInfo?.profile
-            : userData?.photo
-            ? userData?.photo
-            : PNGIMG
-        }
-        alt=""
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null; // prevents looping
-          currentTarget.src = PNGIMG;
-        }}
-      />
+    <>
+      <div className="navbar_outside_container">
+        {window.screen.width < 600 && (
+          <img
+            onClick={() => {
+              navigate("/");
+              mixpanel.track("header logo");
+            }}
+            src={require("../../../../Utils/Images/logo-invite-only.png")}
+            alt=""
+            className="logo_sidebar"
+          />
+        )}
 
-      {/* <span
-        className="fancy_navbar_link01"
-        onClick={() => {
-          mixpanel.track("Events Host your event");
-          window.open("https://www.anchors.in/hostevent", "_blank");
-        }}
-      >
-        Host Event
-      </span> */}
-    </div>
+        <LazyLoadImage
+          effect="blur"
+          className="creators_navbar_image"
+          onClick={handleModalOpening}
+          src={
+            alternateInfo?.profile
+              ? alternateInfo?.profile
+              : userData?.photo
+              ? userData?.photo
+              : PNGIMG
+          }
+          alt=""
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = PNGIMG;
+          }}
+        />
+      </div>
+    </>
   );
 }
 
