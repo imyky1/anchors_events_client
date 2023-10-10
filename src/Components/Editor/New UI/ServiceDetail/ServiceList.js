@@ -23,6 +23,7 @@ import {
   BsLinkedin,
   BsTelegram,
   BsWhatsapp,
+  BsArrowLeftShort,
 } from "react-icons/bs";
 import {
   BiCoinStack,
@@ -246,6 +247,7 @@ const ContentCard = ({
                         `/dashboard/serviceStats/${slug}?type=event`,
                         "_blank"
                       )
+                      
                     : !dummyData.ServiceDummy &&
                       window.open(`/dashboard/serviceStats/${slug}`, "_blank");
                 }}
@@ -773,9 +775,23 @@ function ServiceDetailPage(props) {
       )}
 
       <div className="servicelist-wrapper" onClick={() => removeOptionPopup()}>
+         {/* MObile ui navbar ---------------- */}
+         {window.screen.width < 600 && (
+          <section className="navbar_ui_covering_section_mobile_active">
+            <BsArrowLeftShort size={22} onClick={()=>{
+              navigate(-1)
+            }}/>
+            My Events
+          </section>
+        )}
+
+        {window.screen.width > 600 && (
+          <>
         <h1 className="headers_section_paymentInfo">My Events</h1>
         <span className="servicelist_wrap_span">Manage all your Events</span>
         <div className="servicelist-categories"></div>
+        </>
+        )}
 
         <EventsSectionData
           liveData={latestEvents?.LiveEvents}

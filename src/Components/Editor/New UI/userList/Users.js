@@ -6,7 +6,7 @@ import { creatorContext } from "../../../../Context/CreatorState";
 import { LoadTwo } from "../../../Modals/Loading";
 import { SuperSEO } from "react-super-seo";
 import Moment from "moment";
-import { BsArrowRight } from "react-icons/bs";
+import { BsArrowLeftShort, BsArrowRight } from "react-icons/bs";
 import { SlGraph } from "react-icons/sl";
 import { Table1 } from "../Create Services/InputComponents/fields_Labels";
 import { IoCopyOutline } from "react-icons/io5";
@@ -123,30 +123,45 @@ function Users(props) {
       {/* it can be seen only if the user is approved ----------------------------- */}
       {approvedUser && (
         <div className="servicelist-wrapper">
-          <section
-            className="service_stats_page_title_section"
-            style={{ marginBottom: "20px" }}
-          >
-            <h1>
+          {/* MObile ui navbar ---------------- */}
+          {window.screen.width < 600 && (
+            <section className="navbar_ui_covering_section_mobile_active">
+              <BsArrowLeftShort
+                size={22}
+                onClick={() => {
+                    navigate(-1)
+                }}
+              />
               User List for {serviceType === "event" ? "Event" : "Service"}
-            </h1>
+            </section>
+          )}
 
-            <button
-              onClick={() => {
-                toast.info("Copied link successfully", {
-                  position: "top-center",
-                  autoClose: 1000,
-                });
-                navigator.clipboard.writeText(
-                  serviceType === "download"
-                    ? serviceInfo?.service?.copyURL
-                    : eventInfo?.event?.copyURL
-                );
-              }}
+          {window.screen.width > 600 && (
+            <section
+              className="service_stats_page_title_section"
+              style={{ marginBottom: "20px" }}
             >
-              <IoCopyOutline size={20} /> Tracking link
-            </button>
-          </section>
+              <h1>
+                User List for {serviceType === "event" ? "Event" : "Service"}
+              </h1>
+
+              <button
+                onClick={() => {
+                  toast.info("Copied link successfully", {
+                    position: "top-center",
+                    autoClose: 1000,
+                  });
+                  navigator.clipboard.writeText(
+                    serviceType === "download"
+                      ? serviceInfo?.service?.copyURL
+                      : eventInfo?.event?.copyURL
+                  );
+                }}
+              >
+                <IoCopyOutline size={20} /> Tracking link
+              </button>
+            </section>
+          )}
           <div className="serivce_heading_00">
             <div className="serivce_heading_01">
               <img
@@ -286,59 +301,6 @@ function Users(props) {
                   : "12% 25% 25% 23% 15%"
               }
             />
-
-            {/* <TableContainer component={Paper}>
-              <Table>
-                <TableHead style={{ background: "#282828" }}>
-                  <TableRow>
-                    <TableCell align="center">S.No</TableCell>
-                    <TableCell align="center">Name</TableCell>
-                    <TableCell align="center">Email ID</TableCell>
-                    <TableCell align="center">Location</TableCell>
-                    <TableCell align="center">Amount Paid</TableCell>
-                    <TableCell align="center">
-                      {serviceType === "download" ? "Ordered" : "Registered"} on
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody style={{ background: "#212121", color: "#D0D0D0" }}>
-                  {allUserDetails?.length !== 0
-                    ? allUserDetails?.map((elem, i) => {
-                        return (
-                          <>
-                            <TableRow key={i}>
-                              <TableCell align="center" color="#D0D0D0">
-                                {i + 1}
-                              </TableCell>
-                              <TableCell align="center" color="#D0D0D0">
-                                {elem?.userID?.name ? elem?.userID?.name : "--"}
-                              </TableCell>
-                              <TableCell align="center" color="#D0D0D0">
-                                {elem?.userID?.email >= 1
-                                  ? elem?.userID?.email
-                                  : "---"}
-                              </TableCell>
-                              <TableCell align="center">
-                                {elem?.userID?.location?.city
-                                  ? elem?.userID?.location?.city
-                                  : "---"}
-                              </TableCell>
-                              <TableCell align="center">
-                                {elem?.amount}
-                              </TableCell>
-                              <TableCell align="center">
-                                {renderdate1(elem?.orderDate)}
-                                <br></br>
-                                {renderdate2(elem?.orderDate)}
-                              </TableCell>
-                            </TableRow>
-                          </>
-                        );
-                      })
-                    : ""}
-                </TableBody>
-              </Table>
-            </TableContainer> */}
           </div>
         </div>
       )}

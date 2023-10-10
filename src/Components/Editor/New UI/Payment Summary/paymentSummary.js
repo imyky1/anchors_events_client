@@ -13,6 +13,7 @@ import {
   TooltipBox,
 } from "../Create Services/InputComponents/fields_Labels";
 import { HiInformationCircle } from "react-icons/hi";
+import { BsArrowLeftShort } from "react-icons/bs";
 
 const PaymentSummary = () => {
   const navigate = useNavigate();
@@ -72,33 +73,51 @@ const PaymentSummary = () => {
     <>
       {openLoading && <LoadTwo open={openLoading} />}
       <div className="servicelist-wrapper">
-        <section className="headers_section_paymentInfo">
-          <h1 className="text_type01_payment_info">Earnings Summary</h1>
-          <Button1
-            text="Account Details"
-            onClick={() => {
-              navigate("/dashboard/paymentInfo");
-              mixpanel.track("Account Details");
-            }}
-          />
-        </section>
+        {/* MObile ui navbar ---------------- */}
+        {window.screen.width < 600 && (
+          <section className="navbar_ui_covering_section_mobile_active">
+            <BsArrowLeftShort
+              size={22}
+              onClick={() => {
+                navigate(-1);
+              }}
+            />
+            Earnings Summary
+          </section>
+        )}
+
+        {window.screen.width > 600 && (
+          <section className="headers_section_paymentInfo">
+            <h1 className="text_type01_payment_info">Earnings Summary</h1>
+            <Button1
+              text="Account Details"
+              onClick={() => {
+                navigate("/dashboard/paymentInfo");
+                mixpanel.track("Account Details");
+              }}
+            />
+          </section>
+        )}
         <div className="usereview_details">
           <div className="userreview_detail1">
             <div className="userreview_detail_svg">
               <BiCommentAdd color="#d0d0d0" size={30} />
             </div>
-            <div className="userreview_detailedno" >
+            <div className="userreview_detailedno">
               <h3>
-                ₹{" "}
-                {(totalEarningEventsData?.totalCreatorEventsEarning) *
-                  0.9}
+                ₹ {totalEarningEventsData?.totalCreatorEventsEarning * 0.9}
               </h3>
               <span>Total Earning</span>
 
               <HiInformationCircle
                 size={20}
                 color="grey"
-                style={{ cursor: "pointer",position:'absolute',right:"10px",top:'10px' }}
+                style={{
+                  cursor: "pointer",
+                  position: "absolute",
+                  right: "10px",
+                  top: "10px",
+                }}
                 onMouseEnter={() => {
                   setIsHovered({ ...isHovered, tip1: true });
                 }}
@@ -106,9 +125,10 @@ const PaymentSummary = () => {
                   setIsHovered({ ...isHovered, tip1: false });
                 }}
               />
-
-              {isHovered?.tip1 && <TooltipBox text="Total Earning = Actual Earning - anchors Cut(10%)" />}
             </div>
+            {isHovered?.tip1 && (
+              <TooltipBox text="Amount earned after the 10% platform fee" />
+            )}
           </div>
           <div className="userreview_detail1">
             <div className="userreview_detail_svg">
@@ -117,11 +137,16 @@ const PaymentSummary = () => {
             <div className="userreview_detailedno">
               <h3>₹ {withdrawal}</h3>
               <span>Amount Withdrawn</span>
-              
+
               <HiInformationCircle
                 size={20}
                 color="grey"
-                style={{ cursor: "pointer",position:'absolute',right:"10px",top:'10px' }}
+                style={{
+                  cursor: "pointer",
+                  position: "absolute",
+                  right: "10px",
+                  top: "10px",
+                }}
                 onMouseEnter={() => {
                   setIsHovered({ ...isHovered, tip2: true });
                 }}
@@ -129,9 +154,10 @@ const PaymentSummary = () => {
                   setIsHovered({ ...isHovered, tip2: false });
                 }}
               />
-
-              {isHovered?.tip2 && <TooltipBox text="Amount you have withdrawn" />}
             </div>
+            {isHovered?.tip2 && (
+              <TooltipBox text="Total Amount withdrawn till date" />
+            )}
           </div>
           <div className="userreview_detail1">
             <div className="userreview_detail_svg">
@@ -140,17 +166,20 @@ const PaymentSummary = () => {
             <div className="userreview_detailedno">
               <h3>
                 ₹{" "}
-                {(totalEarningEventsData?.totalCreatorEventsEarning) *
-                  0.9 -
+                {totalEarningEventsData?.totalCreatorEventsEarning * 0.9 -
                   withdrawal}
               </h3>
               <span>Balance Amount</span>
 
-
               <HiInformationCircle
                 size={20}
                 color="grey"
-                style={{ cursor: "pointer",position:'absolute',right:"10px",top:'10px' }}
+                style={{
+                  cursor: "pointer",
+                  position: "absolute",
+                  right: "10px",
+                  top: "10px",
+                }}
                 onMouseEnter={() => {
                   setIsHovered({ ...isHovered, tip3: true });
                 }}
@@ -158,9 +187,10 @@ const PaymentSummary = () => {
                   setIsHovered({ ...isHovered, tip3: false });
                 }}
               />
-
-              {isHovered?.tip3 && <TooltipBox text="Net Balance = Total Earning - Withdrawn Amount" />}
             </div>
+            {isHovered?.tip3 && (
+              <TooltipBox text="Total amount remaining in account. Can be withdrawn anytime." />
+            )}
           </div>
         </div>
         {openLoading && <LoadTwo open={openLoading} />}
@@ -190,17 +220,6 @@ const PaymentSummary = () => {
             </div>
           </div>
 
-          {/* <div className="filter_service_event_payment">
-            <label htmlFor="filter">Filter by:</label>
-            <select
-              id="filter"
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-            >
-              <option value="event">Events</option>
-              <option value="service">Services</option>
-            </select>
-          </div> */}
         </div>
         <div className="userrequest-table">
           <Table1

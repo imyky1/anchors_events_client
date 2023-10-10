@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "./Modal.css";
+import "./Models.css";
 import { FaRegStar } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import mixpanel from "mixpanel-browser";
 import { creatorContext } from "../../../Context/CreatorState";
 import { AiFillStar } from "react-icons/ai";
+import { useCookies } from "react-cookie";
+import { host } from "../../../config/config";
 
 const feedbackQuestions = [
   {
@@ -356,6 +359,152 @@ export const CreatorFeedbackModal = ({ open, onClose }) => {
             Submit
           </button>
         </div>
+      </div>
+    </div>
+  );
+};
+
+
+export const OTPVerificationModel = ({ onClose }) => {
+  const [cookies, setCookie] = useCookies();
+  const [formData, setFormData] = useState({
+    number: "",
+    otp: "",
+  });
+
+  const [sentOTP, setSentOTP] = useState(false);
+
+  const {setCreatorMobNumber} = useContext(creatorContext)
+
+  const verfiyOTP = async () => {
+    if (formData?.otp?.length !== 6) {
+      toast.info("Enter a proper code", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    } else {
+      let code = cookies?.ccoondfe;
+      if (!code) {
+        toast.error("OTP was valid for 2 minute, Please retry again", {
+          position: "top-center",
+          autoClose: 2000,
+        });
+      } else {
+        if (parseInt(formData?.otp) === parseInt(parseInt(code) / 562002)) {
+          // Save the number in user info ----------
+          let result = await setCreatorMobNumber({
+            phone: formData?.number,
+            verifiedNumber: true,
+          });
+          if (result) {
+            toast.success("Verification was successfull", {
+              position: "top-center",
+              autoClose: 2000,
+            });
+            onClose();
+          } else {
+            toast.error("Some error occured in verification", {
+              position: "top-center",
+              autoClose: 2000,
+            });
+          }
+        } else {
+          toast.error("Invalid OTP!!!. Try again!!!", {
+            position: "top-center",
+            autoClose: 2000,
+          });
+        }
+      }
+    }
+  };
+
+  const sendOTP = async () => {
+    if (formData?.number?.length === 10) {
+      const response = await fetch(
+        `${host}/api/email/sendMsg?message=Mobile Number&number=${formData?.number}&subject=Anchors`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true,
+          },
+        }
+      );
+      const json = await response.json();
+      if (json.MessageID) {
+        toast.success("OTP sent successfully", {
+          position: "top-center",
+          autoClose: 2000,
+        });
+
+        setSentOTP(true);
+        let otpcode = parseInt(json.code - 145626) * 562002;
+        setCookie("ccoondfe", otpcode, { maxAge: 120 }); // valid for one minute
+      }
+    } else {
+      toast.error("Enter a proper mobile number", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    }
+  };
+
+  return (
+    <div className="outside_wrapper_earning">
+      <div
+        className="otp_main_container_earning"
+        style={{ background: "#121212" }}
+      >
+        <h2>Please verify your WhatsApp number to continue</h2>
+
+        <section>
+          <input
+            type="number"
+            name="number"
+            placeholder="Enter Mobile Number"
+            value={formData?.number}
+            onChange={(e) => {
+              setSentOTP(false);
+              setFormData({ ...formData, [e.target.name]: e.target.value });
+            }}
+          />
+
+          <input
+            type="number"
+            name="otp"
+            placeholder="OTP"
+            value={formData?.otp}
+            onChange={(e) => {
+              setFormData({ ...formData, [e.target.name]: e.target.value });
+            }}
+          />
+
+        </section>
+
+        {sentOTP ? (
+          <button
+            style={{
+              minWidth: "unset",
+              background: "transparent",
+              border: "1px solid #FFF",
+            }}
+            onClick={verfiyOTP}
+          >
+            Verify OTP
+          </button>
+        ) : (
+          <button
+            style={{
+              minWidth: "unset",
+              background: "transparent",
+              border: "1px solid #FFF",
+            }}
+            onClick={sendOTP}
+          >
+            Send OTP
+          </button>
+        )}
       </div>
     </div>
   );

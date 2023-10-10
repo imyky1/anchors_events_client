@@ -55,6 +55,30 @@ const CreatorState = (props) => {
     return json;
   };
 
+
+  //  save the phone number --------------------
+  const setCreatorMobNumber = async (info) => {
+    const response = await fetch(
+      `${host}/api/creator/eventSide/update/creatorInfMob`,
+
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+          "jwt-token": localStorage.getItem("jwtToken"),
+        },
+        body: JSON.stringify({
+          phone: info.phone,
+          verifiedNumber:info.verifiedNumber
+        }),
+      }
+    );
+    const json = await response.json();
+    return json;
+  };
+
   // ROUTE 4 : Get Basic Creator Info -> No login required
   const getBasicCreatorInfo = async (creator_id) => {
     // id=> creator id
@@ -682,7 +706,8 @@ const CreatorState = (props) => {
         getAvgRating,
         getOrderStats,
         getEventReg,
-        getMaxEvent
+        getMaxEvent,
+        setCreatorMobNumber
       }}
     >
       {props.children}

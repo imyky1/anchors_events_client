@@ -685,6 +685,9 @@
   .servicelist-wrapper {
     width: unset;
     padding: unset;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 
   .content_cards_main_wrapper_servicelist {
@@ -722,6 +725,8 @@
   .props_mycontent_card_service > section{
     flex-direction: row;
     gap: 12px;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   .props_mycontent_card_service > section p{
@@ -742,5 +747,14 @@
   .mycontent_card_for_service > section > div > h2{
     font-size: 16px;
     color: #a0a0a0;
+  }
+
+  .servicelist-catItem {
+    font-size: 12px;
+  }
+
+
+  .user_dashboard_event_data_section_wrapper{
+    display: none;
   }
 }

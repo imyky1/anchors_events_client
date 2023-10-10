@@ -386,7 +386,7 @@ const CreateEventDemo = ({
               </section>
             </div>
 
-            <div
+            {/* <div
               className="right_stable_side"
               style={{
                 height: "100%",
@@ -403,7 +403,7 @@ const CreateEventDemo = ({
                   width: "78%",
                 }}
               />
-            </div>
+            </div> */}
           </section>
         </div>
       </div>

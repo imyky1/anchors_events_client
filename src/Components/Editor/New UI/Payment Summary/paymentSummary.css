@@ -77,12 +77,11 @@
 }
 
 .filter_service_event_payment {
-      gap: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #d0d0d0;
-
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d0d0d0;
 }
 
 .filter_service_event_payment select {
@@ -92,9 +91,76 @@
   color: #d0d0d0;
 }
 
-
-.userreview_detailedno{
+.userreview_detailedno {
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+@media (max-width: 600px) {
+  .userrequest-table {
+    width: 92vw;
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+
+  .userrequest-table::-webkit-scrollbar {
+    display: none;
+  }
+
+  .usereview_details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 92vw;
+    row-gap: 20px;
+    column-gap: 16px;
+  }
+
+  .userreview_detail1 {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    background: #212121;
+    padding: unset;
+    height: 72px;
+  }
+
+  .userreview_detail1:nth-child(1) {
+    grid-column: span 2;
+  }
+
+  .userreview_detail_svg {
+    display: none;
+  }
+
+  .userreview_detailedno{
+    gap: 8px;
+  }
+
+  .userreview_detailedno span{
+    font-size: 12px;
+    color: #A0A0A0;
+  }
+
+  .userreview_detailedno h3{
+    font-size: 20px;
+  }
+
+
+  .filter_service_event_payment{
+    display: none;
+  }
+
+  .margin-bottom{
+    margin-bottom: 10px;
+  }
+
+  .servicelist-categories2{
+    width: 92vw;
+  }
+
+  
+  
 }

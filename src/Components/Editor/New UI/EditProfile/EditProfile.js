@@ -46,7 +46,7 @@ const EditProfile = (props) => {
     generateInviteCode,
     getTellUsMoreFormData,
   } = useContext(creatorContext);
-  const { Uploadfile } = useContext(ServiceContext);
+  const { UploadBanners } = useContext(ServiceContext);
   const [showPopup, setshowPopup] = useState({
     open: false,
     firstTimeModalOpenDashboard: false,
@@ -180,23 +180,20 @@ const EditProfile = (props) => {
   }
 
   const onSubmit = async (e) => {
-    let sample_number = phone;
     props.progress(0);
     setOpenLoading(true);
     e.preventDefault();
-    sample_number = sample_number?.toString();
 
     if (data?.name && data?.tagLine && data?.dob) {
-      var profile = previewSourceOne && (await Uploadfile(data1));
+      var profile = previewSourceOne && (await UploadBanners(data1));
       const newData = {
         ...data,
         aboutMe: Content,
         profile: previewSourceOne
-          ? profile?.url
+          ? profile?.result?.Location
           : data?.profile
           ? data?.profile
-          : basicNav?.photo,
-        phone: phone,
+          : basicNav?.photo
       };
       const json = await setCreatorInfo(newData);
       if (json?.success) {

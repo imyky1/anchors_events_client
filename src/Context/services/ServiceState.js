@@ -388,7 +388,6 @@ const ServiceState = (props) => {
     videoLink,
     speakerDetails
   ) => {
-    console.log(simg);
     const response = await fetch(`${host}/api/event/createEvent`, {
       method: "POST",
       headers: {
@@ -415,6 +414,7 @@ const ServiceState = (props) => {
         meetlink,
         videoLink,
         speakerDetails,
+        Createdfrom:"eventSide"
       }),
     });
     const json = await response.json();

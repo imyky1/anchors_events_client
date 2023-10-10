@@ -5,6 +5,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  position: relative;
 }
 
 .sample_page_wrapper::-webkit-scrollbar{display: none;}
@@ -17,6 +18,12 @@
   cursor: pointer;
   position: absolute;
   bottom: 40px;
+}
+
+.productHunt_floater_landing_page{
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
 }
 
 @keyframes updownarrow {
@@ -335,6 +342,7 @@
     font-size: 16px;
     max-width: unset;
     text-align: center;
+    width: 80%;
   }
   .left_division_sample_page {
     width: 98%;
@@ -461,4 +469,11 @@
   .arrow_button_sample_page {
     bottom: 100px;
   }
+
+
+  .productHunt_floater_landing_page{
+    right: 20px;
+    bottom: 20px;
+  }
+
 }

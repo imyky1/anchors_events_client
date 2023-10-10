@@ -87,12 +87,10 @@ const PersonalizedSection = () => {
       </div>
 
       <section>
-      <h2 className="header_sample_page01">
-      Personalized Invite Cards
-      </h2>
-      <p className="header_sample_page02" style={{ textAlign: "center" }}>
-      Elevate Social Currency with Shareable, Customised Invites! / Boost Attendees' Social Currency with Customised, Shareable Invites!
-      </p>
+        <h2 className="header_sample_page01" style={{ textAlign: "center" }}>Personalized Invite Cards</h2>
+        <p className="header_sample_page02" style={{ textAlign: "center" }}>
+          Elevate Social Currency with Shareable, Customised Invites!
+        </p>
       </section>
       {/* <button
         className="button_sample_page01"
@@ -108,7 +106,8 @@ const PersonalizedSection = () => {
 };
 
 function Sample() {
-  const [openLoginModalFromOutside, setOpenLoginModalFromOutside] = useState(false)
+  const [openLoginModalFromOutside, setOpenLoginModalFromOutside] =
+    useState(false);
 
   useEffect(() => {
     mixpanel.track("Event Page Page Visit");
@@ -154,7 +153,7 @@ function Sample() {
       >
         <EventsNavbar
           backgroundDark={true}
-          openLoginModalValue = {openLoginModalFromOutside}
+          openLoginModalValue={openLoginModalFromOutside}
           setOpenLoginModalFromOutside={setOpenLoginModalFromOutside}
         />
 
@@ -182,7 +181,7 @@ function Sample() {
                 localStorage.getItem("jwtToken") &&
                 localStorage.getItem("isUser") === ""
                   ? window.open("/dashboard", "_self")
-                  : setOpenLoginModalFromOutside(true)
+                  : setOpenLoginModalFromOutside(true);
 
                 mixpanel.track("Event Page Host Your Event");
               }}
@@ -210,17 +209,19 @@ function Sample() {
           <div className="left_division_sample_page">
             <h2 className="header_sample_page01">Design Stunning Pages</h2>
             <p className="header_sample_page02">
-            Eye-Catching Event Pages that Make a Lasting Impression
+              Eye-Catching Event Pages that Make a Lasting Impression
             </p>
-           {window.screen.width > 600 && <button
-              className="button_sample_page01"
-              onClick={() => {
-                window.open("https://go.anchors.in/PvlD");
-                mixpanel.track("Event Page Explore a Sample 1");
-              }}
-            >
-              <TbMapSearch size={32} /> Explore a Sample
-            </button>}
+            {window.screen.width > 600 && (
+              <button
+                className="button_sample_page01"
+                onClick={() => {
+                  window.open("https://go.anchors.in/PvlD");
+                  mixpanel.track("Event Page Explore a Sample 1");
+                }}
+              >
+                <TbMapSearch size={32} /> Explore a Sample
+              </button>
+            )}
           </div>
           <div className="right_division_sample_page">
             <motion.img
@@ -235,7 +236,8 @@ function Sample() {
             />
           </div>
 
-          {window.screen.width < 600 && <button
+          {window.screen.width < 600 && (
+            <button
               className="button_sample_page01"
               onClick={() => {
                 window.open("https://go.anchors.in/PvlD");
@@ -243,27 +245,37 @@ function Sample() {
               }}
             >
               <TbMapSearch size={32} /> Explore a Sample
-            </button>}
+            </button>
+          )}
         </section>
       </section>
 
       <section className="sample_page_divison_section">
         <div className="left_division_sample_page">
-          <h2 className="header_sample_page01" style={window.screen.width < 600 ? {width:"75%"} : {}}>
-          Enhance Reach with Dynamic Referrals
-          </h2>
-          <p className="header_sample_page02" style={window.screen.width < 600 ? {width:"65%"} : {}}>
-          Amplify Word-of-Mouth, Reward Top Referrers, Foster Friendly Competition!
-          </p>
-          {window.screen.width > 600 && <button
-            className="button_sample_page01"
-            onClick={() => {
-              window.open("https://www.anchors.in/static/success");
-              mixpanel.track("Event Page Explore a Sample 2");
-            }}
+          <h2
+            className="header_sample_page01"
+            style={window.screen.width < 600 ? { width: "75%" } : {}}
           >
-            <TbMapSearch size={32} /> Explore a Sample
-          </button>}
+            Enhance Reach with Dynamic Referrals
+          </h2>
+          <p
+            className="header_sample_page02"
+            style={window.screen.width < 600 ? { width: "65%" } : {}}
+          >
+            Amplify Word-of-Mouth, Reward Top Referrers, Foster Friendly
+            Competition!
+          </p>
+          {window.screen.width > 600 && (
+            <button
+              className="button_sample_page01"
+              onClick={() => {
+                window.open("https://www.anchors.in/static/success");
+                mixpanel.track("Event Page Explore a Sample 2");
+              }}
+            >
+              <TbMapSearch size={32} /> Explore a Sample
+            </button>
+          )}
         </div>
         <div className="right_division_sample_page2">
           <motion.img
@@ -277,7 +289,8 @@ function Sample() {
             viewport={{ once: true }}
           />
         </div>
-        {window.screen.width < 600 && <button
+        {window.screen.width < 600 && (
+          <button
             className="button_sample_page01"
             onClick={() => {
               window.open("https://www.anchors.in/static/success");
@@ -285,7 +298,8 @@ function Sample() {
             }}
           >
             <TbMapSearch size={32} /> Explore a Sample
-          </button>}
+          </button>
+        )}
       </section>
 
       {/* Personalized section */}
@@ -295,17 +309,19 @@ function Sample() {
         <div>
           <h2 className="header_sample_page01">Seamless Content Sharing</h2>
           <p className="header_sample_page02">
-          Focus on What Matters, We Handle the Rest! / Ready-to-Use Templates for Hassle-Free Promotion!
+            Focus on What Matters, We Handle the Rest! 
           </p>
-          {window.screen.width > 600 && <button
-            className="button_sample_page01"
-            onClick={() => {
-              window.open("https://www.anchors.in/static/success");
-              mixpanel.track("Event Page Explore a Sample 4");
-            }}
-          >
-            <TbMapSearch size={32} /> Explore a Sample
-          </button>}
+          {window.screen.width > 600 && (
+            <button
+              className="button_sample_page01"
+              onClick={() => {
+                window.open("https://www.anchors.in/static/success");
+                mixpanel.track("Event Page Explore a Sample 4");
+              }}
+            >
+              <TbMapSearch size={32} /> Explore a Sample
+            </button>
+          )}
         </div>
         <motion.img
           src={
@@ -317,7 +333,8 @@ function Sample() {
           whileInView="to"
           viewport={{ once: true }}
         />
-        {window.screen.width < 600 && <button
+        {window.screen.width < 600 && (
+          <button
             className="button_sample_page01"
             onClick={() => {
               window.open("https://www.anchors.in/static/success");
@@ -325,7 +342,8 @@ function Sample() {
             }}
           >
             <TbMapSearch size={32} /> Explore a Sample
-          </button>}
+          </button>
+        )}
       </section>
 
       <section className="extra_section_sample_page">
@@ -336,7 +354,7 @@ function Sample() {
             localStorage.getItem("jwtToken") &&
             localStorage.getItem("isUser") === ""
               ? window.open("/dashboard", "_self")
-              : setOpenLoginModalFromOutside(true)
+              : setOpenLoginModalFromOutside(true);
             mixpanel.track("Event Page Yes, I'm ready!");
           }}
         >
@@ -365,7 +383,22 @@ function Sample() {
         useEventsLogo={true}
       />
 
-      <ToastContainer theme="dark" limit={1}/>
+      <div className="productHunt_floater_landing_page">
+        <a
+          href="https://www.producthunt.com/posts/events-2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-events&#0045;2"
+          target="_blank"
+        >
+          <img
+            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=418357&theme=light"
+            alt="Events - Get&#0032;50&#0037;&#0032;More&#0032;Conversion&#0032;with&#0032;70&#0037;&#0032;Less&#0032;Effort&#0032;in&#0032;your&#0032;events | Product Hunt"
+            style={window.screen.width > 600 ? {width: "250px", height: "54px"} : {width:"123px",height:"unset"}}
+            width="250"
+            height="54"
+          />
+        </a>
+      </div>
+
+      <ToastContainer theme="dark" limit={1} />
     </div>
   );
 }

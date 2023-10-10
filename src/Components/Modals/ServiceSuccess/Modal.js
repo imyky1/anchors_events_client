@@ -254,15 +254,15 @@ const NewCongratsServiceCreation = ({
             : navigate(`/dashboard/createevent`);
         },
       },
-      button2: {
-        text: "Create Service",
-        leftIcon:<HiDocumentText size={24}/>,
-        action: () => {
-          firstTimeModalOpenDashboard
-            ? window.open("/dashboard?firstTime=true", "_self")
-            : navigate("/dashboard", "_self");
-        },
-      },
+      // button2: {
+      //   text: "Create Service",
+      //   leftIcon:<HiDocumentText size={24}/>,
+      //   action: () => {
+      //     firstTimeModalOpenDashboard
+      //       ? window.open("/dashboard?firstTime=true", "_self")
+      //       : navigate("/dashboard", "_self");
+      //   },
+      // },
       svgColor: "#10B981",
     },
   };
@@ -298,14 +298,14 @@ const NewCongratsServiceCreation = ({
               {Data[type].button1.text}
               {Data[type].button1.rightIcon && Data[type].button1.rightIcon}
             </button>
-            <button
+            {Data[type]?.button2 && <button
               className="button_serviceModal_creation01"
               onClick={Data[type]?.button2.action}
             >
               {Data[type].button2.leftIcon && Data[type].button2.leftIcon}
               {Data[type].button2.text}
               {Data[type].button2.rightIcon && Data[type].button2.rightIcon}
-            </button>
+            </button>}
           </div>
         </div>
       </div>

@@ -12,9 +12,7 @@ import {
 } from "./InputComponents/fields_Labels";
 import ServiceContext from "../../../../Context/services/serviceContext";
 import { toast } from "react-toastify";
-import {
-  NewCongratsServiceModal,
-} from "../../../Modals/ServiceSuccess/Modal";
+import { NewCongratsServiceModal } from "../../../Modals/ServiceSuccess/Modal";
 import { LoadTwo } from "../../../Modals/Loading";
 import { creatorContext } from "../../../../Context/CreatorState";
 // imports for image cropping
@@ -70,6 +68,7 @@ const FirstPage = ({
             value={data?.sname}
             placeholder="Keep it catchy"
             onChange={handleChange}
+            maxLength={65}
           />
 
           <DatePicker1
@@ -535,20 +534,22 @@ const SecondPage = ({
           icon={<AiOutlineArrowRight />}
           onClick={onSubmit}
         />
-        {window.screen.width > 600 && <Button3
-          text="Previous"
-          icon={<AiOutlineArrowLeft />}
-          onClick={() => {
-            setCurrentPage(1);
-          }}
-        />}
+        {window.screen.width > 600 && (
+          <Button3
+            text="Previous"
+            icon={<AiOutlineArrowLeft />}
+            onClick={() => {
+              setCurrentPage(1);
+            }}
+          />
+        )}
       </section>
     </>
   );
 };
 
 function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [multipleSpeakers, setMultipleSpeakers] = useState(false); // tells if the evnt page has the multiple speaker option
   const [speakersArray, setSpeakersArray] = useState([{}]);
   const [isSpeakerSelected, setIsSpeakerSelected] = useState(false);
@@ -693,18 +694,29 @@ function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
         isCreator: true,
       };
 
-      // Shift elements to the left in speaker array data
-      for (let i = 1; i < speakersArray.length + 1; i++) {
-        shiftedArray[i] = speakersArray[i - 1];
-        shiftedArray2[i] = speakersImagesArray[i - 1];
-      }
+      if (
+        speakersArray.length === 1 &&
+        (speakersArray[0]?.name?.length === 0 ||
+          !speakersArray[0]?.name) &&
+          (speakersArray[0]?.tagLine?.length === 0 ||
+          !speakersArray[0]?.tagLine) &&
+          !speakersImagesArray[0]
+      ) {
+        console.log("hello")
+      } else {
+        // Shift elements to the left in speaker array data
+        for (let i = 1; i < speakersArray.length + 1; i++) {
+          shiftedArray[i] = speakersArray[i - 1];
+          shiftedArray2[i] = speakersImagesArray[i - 1];
+        }
 
-      if (shiftedArray.length > 3) {
-        shiftedArray.pop();
-      }
+        if (shiftedArray.length > 3) {
+          shiftedArray.pop();
+        }
 
-      if (shiftedArray2.length > 3) {
-        shiftedArray2.pop();
+        if (shiftedArray2.length > 3) {
+          shiftedArray2.pop();
+        }
       }
 
       setSpeakersArray(shiftedArray);
@@ -1453,14 +1465,16 @@ function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
         {/* MObile ui navbar ---------------- */}
         {window.screen.width < 600 && (
           <section className="navbar_ui_covering_section_mobile_active">
-            <BsArrowLeftShort size={22} onClick={()=>{
-              if(currentPage === 1){
-                navigate(-1)
-              }
-              else{
-                setCurrentPage(currentPage-1)
-              }
-            }}/>
+            <BsArrowLeftShort
+              size={22}
+              onClick={() => {
+                if (currentPage === 1) {
+                  navigate(-1);
+                } else {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+            />
             Host an Event!
           </section>
         )}
@@ -1520,28 +1534,30 @@ function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
           )}
         </div>
 
-       {window.screen.width > 600 && <div className="live_preview_edit_profile_page">
-          <div className="live_preview_modal_design">
-            <section>
-              <img
-                src={require("../../../../Utils/Images/mobile-screen.png")}
-                alt=""
-              />
-              <CreateEventDemo
-                {...data}
-                paid={paid}
-                ldesc={Content}
-                seatCapacity={seatCapacity}
-                cname={cname}
-                cprofile={cprofile}
-                crating={crating}
-                ctagline={ctagline}
-                speakersArray={speakersArray}
-                speakersImagesArray={speakersImagesArray}
-              />
-            </section>
+        {window.screen.width > 600 && (
+          <div className="live_preview_edit_profile_page">
+            <div className="live_preview_modal_design">
+              <section>
+                <img
+                  src={require("../../../../Utils/Images/mobile-screen.png")}
+                  alt=""
+                />
+                <CreateEventDemo
+                  {...data}
+                  paid={paid}
+                  ldesc={Content}
+                  seatCapacity={seatCapacity}
+                  cname={cname}
+                  cprofile={cprofile}
+                  crating={crating}
+                  ctagline={ctagline}
+                  speakersArray={speakersArray}
+                  speakersImagesArray={speakersImagesArray}
+                />
+              </section>
+            </div>
           </div>
-        </div>}
+        )}
       </div>
 
       {/* Live preview Section ------------- */}
