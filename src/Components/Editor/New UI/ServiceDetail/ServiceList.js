@@ -71,7 +71,9 @@ const ContentCard = ({
   setOpenModel,
   OpenOption,
   revArray,
+  earning
 }) => {
+
   const navigate = useNavigate();
 
   const openOptionsPopup = (i) => {
@@ -193,7 +195,7 @@ const ContentCard = ({
                 <span>{selected === "events" ? registrations : downloads}</span>
               </p>
               <p>
-                Earnings : <span>{ssp * (downloads ?? registrations)}</span>
+                Earnings : <span>{earning}</span>
               </p>
               <p>
                 Created On :<span>{getDateTime()}</span>
@@ -214,25 +216,26 @@ const ContentCard = ({
               <button
                 onClick={() => {
                   const pattern = /go\.anchors\.in/;
-                  selected === "events"
-                    ? setShareModalData({
-                        open: true,
-                        sname: sname,
-                        slug: slug,
-                        simg: simg,
-                        isEvent: selected === "events",
-                        eventCode: eventCode,
-                        link: copyURL
-                          ? pattern.test(copyURL)
-                            ? copyURL
-                            : selected === "events"
-                            ? `https://www.anchors.in/e/${slug}`
-                            : `https://www.anchors.in/s/${slug}`
-                          : selected === "events"
-                          ? `https://www.anchors.in/e/${slug}`
-                          : `https://www.anchors.in/s/${slug}`,
-                      })
-                    : window.open(`/dashboard/shareTemplate/${slug}`);
+                  selected === "events" ?
+                    // ? setShareModalData({
+                    //     open: true,
+                    //     sname: sname,
+                    //     slug: slug,
+                    //     simg: simg,
+                    //     isEvent: selected === "events",
+                    //     eventCode: eventCode,
+                    //     link: copyURL
+                    //       ? pattern.test(copyURL)
+                    //         ? copyURL
+                    //         : selected === "events"
+                    //         ? `https://www.anchors.in/e/${slug}`
+                    //         : `https://www.anchors.in/s/${slug}`
+                    //       : selected === "events"
+                    //       ? `https://www.anchors.in/e/${slug}`
+                    //       : `https://www.anchors.in/s/${slug}`,
+                    //   })
+                     window.open(`/dashboard/shareTemplate/${slug}?type=event`) 
+                    : window.open(`/dashboard/shareTemplate/${slug}`)
                 }}
               >
                 Sharing Template <TbSend />
@@ -817,7 +820,7 @@ function ServiceDetailPage(props) {
                 {...elem}
                 i={i}
                 dummyData={dummyData}
-                setShareModalData={setShareModalData}
+                // setShareModalData={setShareModalData}
                 selected={selected}
                 setOpenOption={setOpenOption}
                 setCurrSelected={setCurrSelected}

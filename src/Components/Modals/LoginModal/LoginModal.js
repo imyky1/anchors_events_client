@@ -468,9 +468,9 @@ const LoginModal = ({ open, toClose, ModalType }) => {
   return (
     <div
       className="checklist_outside_wrapper"
-      onClick={() => {
-        toClose();
-      }}
+      // onClick={() => {
+      //   toClose();
+      // }}
     >
       <section
         className="checklist_main_container"

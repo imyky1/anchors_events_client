@@ -26,6 +26,7 @@ import CreateEvent from "../Create Services/CreateEvent";
 import NoMobileScreen from "../../../Layouts/Error Pages/NoMobileScreen";
 import EditEvent from "../Edit Services/EditEvent";
 import ServiceStats2 from "../ServiceStats/ServiceStats2";
+import Template from "../Sharing Template/Sharing";
 
 function Home(props) {
   const location = useLocation();
@@ -67,7 +68,7 @@ function Home(props) {
         //getAllCreatorInfo().then((e) => {});
       } else if (localStorage.getItem("from") === "linkedin") {
         creatorLinkedinLogin();
-      } else {
+      } else if(localStorage.getItem("from") === "google") {
         creatorGoogleLogin();
       }
     }
@@ -99,18 +100,13 @@ function Home(props) {
     // eslint-disable-next-line
   }, [localStorage.getItem("jwtToken")]);
 
-
   useEffect(() => {
-    if(!allCreatorInfo?.phone ){
-      setOpenOTPModal(true)
+    if (!allCreatorInfo?.phone) {
+      setOpenOTPModal(true);
+    } else {
+      setOpenOTPModal(false);
     }
-
-    else{
-      setOpenOTPModal(false)
-    }
-
-  }, [allCreatorInfo])
-
+  }, [allCreatorInfo]);
 
   return (
     <>
@@ -331,6 +327,11 @@ function Home(props) {
                         element={<Users progress={props.progress} />}
                       />
 
+                      <Route
+                        path="shareTemplate/:slug"
+                        element={<Template progress={props.progress} />}
+                      />
+
                       {/* exception  Route for false input ---------------------------------------------------- */}
                       <Route
                         path="/*"
@@ -449,6 +450,11 @@ function Home(props) {
                     <Route
                       path="mycontents"
                       element={<ServiceDetailPage progress={props.progress} />}
+                    />
+
+                    <Route
+                      path="shareTemplate/:slug"
+                      element={<Template progress={props.progress} />}
                     />
 
                     {/* Create event route */}

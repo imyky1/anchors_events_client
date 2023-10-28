@@ -29,6 +29,8 @@ import Redirect_serv from "./Components/Redirect_serv";
 // import Signup from "./Components/Signup/Signup";
 import Sample from "./Components/Editor/New UI/Sample Page/Sample";
 import Pricing from "./Components/Pricing/Pricing";
+import View from "./Developers/Dashboard/View";
+import Login from "./Developers/Login/Login";
 
 mixpanel.init(mixPanelToken, { debug: true });
 
@@ -85,6 +87,16 @@ function App() {
                                   <Pricing progress={changeprogress} />
                                 }
                               />
+
+                               {/* Developer routes --------------------------------------------------------------- */}
+                              <Route
+                                path="/developer/admin"
+                                element={<View />}
+                              ></Route>
+                              <Route
+                                path="/developer/login"
+                                element={<Login />}
+                              ></Route>
                           </Routes>
                         </UserDashboardState>
                       </FeedbackState>

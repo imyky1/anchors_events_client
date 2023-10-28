@@ -249,9 +249,7 @@ const NewCongratsServiceCreation = ({
         text: "Host Event",
         leftIcon : <MdOutlineEventSeat size={24}/>,
         action: () => {
-          firstTimeModalOpenDashboard
-            ? window.open("/dashboard?firstTime=true", "_self")
-            : navigate(`/dashboard/createevent`);
+           window.open(`/dashboard/createevent`,"_self");
         },
       },
       // button2: {

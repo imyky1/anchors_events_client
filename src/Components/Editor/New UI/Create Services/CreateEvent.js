@@ -38,6 +38,10 @@ import { PersonalizedInviteeCard } from "../../../Modals/Default Banner/DefaultB
 import { host } from "../../../../config/config";
 import { useNavigate } from "react-router-dom";
 
+const timeToHours = (time) => {
+  return parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]);
+};
+
 const FirstPage = ({
   data,
   handleChange,
@@ -46,6 +50,52 @@ const FirstPage = ({
   setCurrentPage,
   setdata,
 }) => {
+  const handleSubmitFormOne = () => {
+    // warnings and the alerts -----------------
+    if (data.sname.length < 1) {
+      toast.info("Provide a title for your event.", {
+        position: "top-center",
+        autoClose: 1500,
+      });
+    } else if (!data?.date || !data?.startTime || !data?.endTime) {
+      toast.info("Choose a date and time for your event.", {
+        position: "top-center",
+        autoClose: 1500,
+      });
+    } else if (timeToHours(data?.endTime) <= timeToHours(data?.startTime)) {
+      toast.info("Timings are invalid for your event.", {
+        position: "top-center",
+        autoClose: 1500,
+      });
+    } else if (
+      parseInt(data?.ssp) > parseInt(data?.smrp) ||
+      parseInt(data?.smrp) < 0 ||
+      parseInt(data?.ssp) < 0 || (parseInt(data?.smrp) === 0 && paid !== "Free")
+    ) {
+      toast.info("Pricing is invalid for your event.", {
+        position: "top-center",
+        autoClose: 1500,
+      });
+    } else if (data?.stype === "Online" && !data?.meetlink) {
+      toast.info("Add an online meeting link for your event.", {
+        position: "top-center",
+        autoClose: 2500,
+      });
+    } else if (data?.stype === "Offline" && !data?.meetlink) {
+      toast.info("Add an address for your offline event.", {
+        position: "top-center",
+        autoClose: 2500,
+      });
+    } else if (!data?.eventSeatCapacity || parseInt(data?.eventSeatCapacity) <= 0) {
+      toast.info("Specify the number of seats in your event.", {
+        position: "top-center",
+        autoClose: 2500,
+      });
+    } else {
+      setCurrentPage(2);
+    }
+  };
+
   return (
     <>
       <section className="create_form_box">
@@ -167,7 +217,9 @@ const FirstPage = ({
             }}
           >
             <TextField1
-              label="Location"
+              label={
+                data?.stype === "Offline" ? "Enter Venue Address" : "Meet Link"
+              }
               name="meetlink"
               id="meetlink"
               required={true}
@@ -197,9 +249,7 @@ const FirstPage = ({
         <Button1
           text="Next"
           icon={<AiOutlineArrowRight />}
-          onClick={() => {
-            setCurrentPage(2);
-          }}
+          onClick={handleSubmitFormOne}
         />
       </section>
     </>
@@ -696,13 +746,12 @@ function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
 
       if (
         speakersArray.length === 1 &&
-        (speakersArray[0]?.name?.length === 0 ||
-          !speakersArray[0]?.name) &&
-          (speakersArray[0]?.tagLine?.length === 0 ||
+        (speakersArray[0]?.name?.length === 0 || !speakersArray[0]?.name) &&
+        (speakersArray[0]?.tagLine?.length === 0 ||
           !speakersArray[0]?.tagLine) &&
-          !speakersImagesArray[0]
+        !speakersImagesArray[0]
       ) {
-        console.log("hello")
+        console.log("hello");
       } else {
         // Shift elements to the left in speaker array data
         for (let i = 1; i < speakersArray.length + 1; i++) {
@@ -795,10 +844,6 @@ function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
     return true;
   };
 
-  const timeToHours = (time) => {
-    return parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]);
-  };
-
   // form submission ----------------------------------------------------------
   const onSubmit = async () => {
     const data1 = new FormData();
@@ -831,7 +876,7 @@ function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
           paid === "Free"
         ) {
           if (checkSpeakers) {
-            if (Content?.length > 10) {
+            if (Content?.length > 50) {
               if (speakersArray[0]?.name) {
                 await SaveSpeakerImages();
               }
@@ -907,14 +952,14 @@ function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
               }
             } else {
               setOpenLoading(false);
-              toast.info("Descibe your service properly", {
+              toast.info("Provide a description for your event.", {
                 position: "top-center",
                 autoClose: 3000,
               });
             }
           } else {
             setOpenLoading(false);
-            toast.info("Enter speaker details properly", {
+            toast.info("Include speaker details, including names and taglines.", {
               position: "top-center",
               autoClose: 3000,
             });
@@ -933,14 +978,9 @@ function CreateEvent({ progress, cname, ctagline, crating, cprofile }) {
           autoClose: 2000,
         });
       }
-    } else {
-      setOpenLoading(false);
-      toast.info("Fill all the Mandatory Fields", {
-        position: "top-center",
-        autoClose: 3000,
-      });
-    }
-
+    } 
+    
+    setOpenLoading(false);
     progress(100);
   };
 

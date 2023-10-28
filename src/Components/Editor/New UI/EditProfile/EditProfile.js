@@ -180,11 +180,43 @@ const EditProfile = (props) => {
   }
 
   const onSubmit = async (e) => {
+    let sample_number = phone;
     props.progress(0);
     setOpenLoading(true);
     e.preventDefault();
+    sample_number = sample_number?.toString();
 
-    if (data?.name && data?.tagLine && data?.dob) {
+    //  warning and alerts for the saveing the profile 
+    if(!data?.name){
+      toast.info("Add a display name for your profile.",{
+        position:"top-center",
+        autoClose:1500
+      })
+    }
+
+    else if(!data?.dob){
+      toast.info("Add your date of birth to continue.",{
+        position:"top-center",
+        autoClose:1500
+      })
+    }
+
+    else if(!data?.tagLine){
+      toast.info("Add a tagline to continue.",{
+        position:"top-center",
+        autoClose:1500
+      })
+    }
+
+
+    else if(!Content || Content?.length < 50){
+      toast.info("Add an 'About' description (min 50 Characters) to continue.",{
+        position:"top-center",
+        autoClose:1500
+      })
+    }
+
+    else if (data?.name && data?.tagLine && data?.dob && Content?.length > 50) {
       var profile = previewSourceOne && (await UploadBanners(data1));
       const newData = {
         ...data,
@@ -193,7 +225,8 @@ const EditProfile = (props) => {
           ? profile?.result?.Location
           : data?.profile
           ? data?.profile
-          : basicNav?.photo
+          : basicNav?.photo,
+        phone: phone,
       };
       const json = await setCreatorInfo(newData);
       if (json?.success) {
@@ -207,21 +240,24 @@ const EditProfile = (props) => {
         });
       } else {
         setOpenLoading(false);
-        toast.error("Changes Not Saved ", {
+        toast.error("Changes Not Saved. Please try again!!", {
           position: "top-center",
           autoClose: 2000,
         });
       }
-    } else {
-      setOpenLoading(false);
-      toast.info("Fill all the details properly", {
-        position: "top-center",
-        autoClose: 1500,
-      });
+    } 
+
+    else{
+      toast.error("Some Error Occured",{
+        position:"top-center",
+        autoClose:1500
+      })
     }
 
+    setOpenLoading(false);
     props.progress(100);
   };
+  
 
   return (
     <>
@@ -398,7 +434,7 @@ const EditProfile = (props) => {
                     label="Date Of Birth"
                     name="dob"
                     id="dob"
-                    // required={true}
+                    required={true}
                     type="Date"
                     value={data?.dob?.slice(0, 10)}
                     placeholder="dd/mm/yyyy"
