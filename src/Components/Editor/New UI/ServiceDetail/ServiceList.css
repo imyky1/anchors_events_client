@@ -576,8 +576,8 @@
 
 .mycontent_card_for_service > img {
   height: 180px;
-  min-width: 320px;
-  max-width: 320px;
+  min-width: 360px;
+  max-width: 360px;
   background-color: rgb(40, 40, 40);
   object-fit: cover;
   cursor: pointer;
@@ -642,6 +642,26 @@
   color: #d0d0d0;
 }
 
+.props_mycontent_card_service > section > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 4px 8px;
+
+  color: #ff2e2e;
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  border-radius: 4px;
+  background: #282828;
+  border: none;
+  margin-top: 20px;
+}
+
 .buttons_div_section_mycontent_card {
   display: flex;
   flex-direction: column;
@@ -681,6 +701,16 @@
   position: relative;
 }
 
+.certificate_preview_system {
+  border-radius: 12px;
+  background: var(--natural-900, #212121);
+  padding: 20px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 @media (max-width: 600px) {
   .servicelist-wrapper {
     width: unset;
@@ -702,34 +732,34 @@
     border-radius: 8px;
   }
 
-  .mycontent_card_for_service > img{
+  .mycontent_card_for_service > img {
     width: 100%;
     min-width: unset;
     max-width: unset;
     height: unset;
   }
 
-  .props_mycontent_card_service{
+  .props_mycontent_card_service {
     flex-direction: column;
     gap: 20px;
   }
 
-  .buttons_div_section_mycontent_card{
+  .buttons_div_section_mycontent_card {
     align-items: unset;
   }
 
-  .mycontent_card_for_service > section{
+  .mycontent_card_for_service > section {
     height: unset;
   }
 
-  .props_mycontent_card_service > section{
+  .props_mycontent_card_service > section {
     flex-direction: row;
     gap: 12px;
     flex-wrap: wrap;
     justify-content: space-between;
   }
 
-  .props_mycontent_card_service > section p{
+  .props_mycontent_card_service > section p {
     font-size: 12px;
     gap: 6px;
     color: #a0a0a0;
@@ -739,12 +769,12 @@
     color: #a0a0a0;
   }
 
-  .buttons_div_section_mycontent_card > button{
+  .buttons_div_section_mycontent_card > button {
     padding: 12px 20px;
     justify-content: space-between;
   }
 
-  .mycontent_card_for_service > section > div > h2{
+  .mycontent_card_for_service > section > div > h2 {
     font-size: 16px;
     color: #a0a0a0;
   }

@@ -26,7 +26,7 @@ import {
 } from "../Create Services/InputComponents/fields_Labels";
 import mixpanel from "mixpanel-browser";
 
-const TableRef = ({ totalrefer, referdata }) => {
+const TableRef = ({ totalrefer, referdata,isPaidEvent }) => {
   return (
     <>
       {totalrefer?.combinedOrders[0]?.totalrefer +
@@ -233,7 +233,7 @@ const TableRef = ({ totalrefer, referdata }) => {
             return [
               val.rank,
               val.name,
-              val.email,
+              <span style={isPaidEvent ? {} : {filter:"blur(6px)"}}>{isPaidEvent ? val.email : "xxxxxxxxxxxx"}</span>,
               val.registerdate,
               val.joinedfromrefer,
               val.amount,
@@ -273,7 +273,7 @@ const TableinfoTrans = ({ totalTransactionDetails }) => {
               "Email ID",
               "Status",
               "Date & Time",
-              "Mobile",
+              "Amount",
             ]}
             bodyArray={totalTransactionDetails?.map((val, key) => {
               return [
@@ -299,7 +299,7 @@ const TableinfoTrans = ({ totalTransactionDetails }) => {
                   {getDatelist(val?.orderDate)} <br />{" "}
                   {getDatelist2(val?.orderDate)}
                 </span>,
-                val?.userID?.phoneNumber ?? "--",
+                val?.amount ?? "--",
               ];
             })}
             gridConfig="7% 20% 22% 20% 15% 18%"
@@ -346,7 +346,7 @@ const Tableinfo = ({ data, dataType, slug, removeTotalTransColumn }) => {
             <th
               style={{
                 display: "flex",
-                width: window.screen.width > 600 ? "50%" : "80%",
+                width: "80%",
                 alignItems: "flex-start",
                 justifyContent: "flex-start",
               }}
@@ -356,14 +356,14 @@ const Tableinfo = ({ data, dataType, slug, removeTotalTransColumn }) => {
             <th
               style={{
                 display: "flex",
-                width: window.screen.width > 600 ? "9%" : "20%",
+                width: "20%",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
               Users
             </th>
-            {window.screen.width > 600 && (
+            {/* {window.screen.width > 600 && (
               <th
                 style={{
                   display: "flex",
@@ -374,7 +374,7 @@ const Tableinfo = ({ data, dataType, slug, removeTotalTransColumn }) => {
               >
                 Comment
               </th>
-            )}
+            )} */}
           </tr>
           {data &&
             data
@@ -394,7 +394,7 @@ const Tableinfo = ({ data, dataType, slug, removeTotalTransColumn }) => {
                     <td
                       style={{
                         display: "flex",
-                        width: window.screen.width > 600 ? "50%" : "80%",
+                        width: "80%",
                         alignItems: "flex-start",
                         justifyContent: "space-between",
                       }}
@@ -426,7 +426,7 @@ const Tableinfo = ({ data, dataType, slug, removeTotalTransColumn }) => {
                                 [`tip${key}`]: false,
                               });
                             }}
-                          />
+                          /> 
                         )}
                         {isHovered?.[`tip${key}`] && (
                           <TooltipBox text={val?.infotext} />
@@ -438,7 +438,7 @@ const Tableinfo = ({ data, dataType, slug, removeTotalTransColumn }) => {
                     <td
                       style={{
                         display: "flex",
-                        width: window.screen.width > 600 ? "9%" : "20%",
+                        width: "20%",
                         alignItems: "center",
                         justifyContent: "center",
                         // paddingLeft: key > 2 && key < 6 ? '7px' : 'none',
@@ -446,7 +446,7 @@ const Tableinfo = ({ data, dataType, slug, removeTotalTransColumn }) => {
                     >
                       {val.Users}
                     </td>
-                    {window.screen.width > 600 && (
+                    {/* {window.screen.width > 600 && (
                       <td
                         style={{
                           display: "flex",
@@ -457,7 +457,7 @@ const Tableinfo = ({ data, dataType, slug, removeTotalTransColumn }) => {
                       >
                         {val.Comment}
                       </td>
-                    )}
+                    )} */}
                   </tr>
                 );
               })}
@@ -475,6 +475,7 @@ const ReturnTable = ({
   referdata,
   dataType,
   slug,
+  isPaidEvent
 }) => {
   if (type === "totalTransaction") {
     return (
@@ -489,6 +490,7 @@ const ReturnTable = ({
         totalrefer={totalrefer}
         referdata={referdata}
         dataType={dataType}
+        isPaidEvent={isPaidEvent}
       />
     );
     // } else if (type === "totalSuccessfullRegister") {
@@ -934,9 +936,10 @@ const ServiceStats2 = (props) => {
                   >
                     <BiRupee />
                     {serviceType === "download"
-                      ? serviceInfo?.service?.ssp *
-                        serviceInfo?.service?.downloads
-                      : eventInfo?.event?.ssp * eventInfo?.event?.registrations}
+                      ? serviceInfo?.service?.isPaid
+                        ? "Paid" + ` (₹ ${serviceInfo?.service?.ssp})`
+                        : "Free"
+                      : + eventInfo?.event?.ssp}
                   </span>
                 </section>
                 <div className="serivce_heading_03">
@@ -998,6 +1001,7 @@ const ServiceStats2 = (props) => {
             referdata={serviceType === "event" ? referdata : []}
             dataType={serviceType}
             slug={slug}
+            isPaidEvent={eventInfo?.event?.isPaid}
           />
         </div>
       )}

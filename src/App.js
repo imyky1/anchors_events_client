@@ -31,6 +31,7 @@ import Sample from "./Components/Editor/New UI/Sample Page/Sample";
 import Pricing from "./Components/Pricing/Pricing";
 import View from "./Developers/Dashboard/View";
 import Login from "./Developers/Login/Login";
+import SiteControlsState from "./Context/SiteControlsState.js";
 
 mixpanel.init(mixPanelToken, { debug: true });
 
@@ -45,6 +46,7 @@ function App() {
     <>
       <Seo />
       <Router>
+        <SiteControlsState>
         <LinkedinState>
           <ServiceState>
             <CreatorState>
@@ -107,6 +109,7 @@ function App() {
             </CreatorState>
           </ServiceState>
         </LinkedinState>
+        </SiteControlsState>
       </Router>
     </>
   );

@@ -386,7 +386,8 @@ const ServiceState = (props) => {
     maxCapacity,
     meetlink,
     videoLink,
-    speakerDetails
+    speakerDetails,
+    contactDetails
   ) => {
     const response = await fetch(`${host}/api/event/createEvent`, {
       method: "POST",
@@ -414,7 +415,7 @@ const ServiceState = (props) => {
         meetlink,
         videoLink,
         speakerDetails,
-        Createdfrom:"eventSide"
+        contactDetails
       }),
     });
     const json = await response.json();
@@ -512,6 +513,7 @@ const ServiceState = (props) => {
         maxCapacity: data.maxCapacity,
         svideo: data.svideo,
         meetlink: data.meetlink,
+        certificateData: data.certificateData,
       }),
     });
     const json = await response.json();
@@ -697,6 +699,20 @@ const ServiceState = (props) => {
     return json;
   };
 
+
+  // chatgopt generated description
+  const generateAiDescription = async (title) => {
+    const response = await fetch(`${host}/ai/generateDescription?title=${title}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "jwt-token": localStorage.getItem("jwtToken"),
+      },
+    });
+    const json = await response.json();
+    return json;
+  };
+
   return (
     <ServiceContext.Provider
       value={{
@@ -743,7 +759,8 @@ const ServiceState = (props) => {
         latestEvents,
         getReferDetails,
         getTransactionEventDetails,
-        getTransactionServiceDetails
+        getTransactionServiceDetails,
+        generateAiDescription
       }}
     >
       {" "}

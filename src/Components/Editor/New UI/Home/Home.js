@@ -22,11 +22,15 @@ import {
   OTPVerificationModel,
 } from "../../../Modals/CreatorProfile/CreatorFeedback";
 import DefaultBanner from "../../../Modals/Default Banner/DefaultBanner";
-import CreateEvent from "../Create Services/CreateEvent";
 import NoMobileScreen from "../../../Layouts/Error Pages/NoMobileScreen";
 import EditEvent from "../Edit Services/EditEvent";
 import ServiceStats2 from "../ServiceStats/ServiceStats2";
 import Template from "../Sharing Template/Sharing";
+import { siteControlContext } from "../../../../Context/SiteControlsState";
+import CreateEvent from "../../../../Pages/Dashboard/CreateEvent/CreateEvent";
+import mixpanel from "mixpanel-browser";
+import logo from "../../../../Utils/Images/logo-invite-only.png";
+import SelectCertificate from "../../../EventCertifcates/SelectCertificate";
 
 function Home(props) {
   const location = useLocation();
@@ -57,9 +61,18 @@ function Home(props) {
     useContext(linkedinContext);
 
   const { getRatingCreator } = useContext(feedbackcontext);
+  const { setShortSidebar } = useContext(siteControlContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    let array = ["/dashboard/createevent"];
+
+    if (array.includes(location.pathname)) {
+      setShortSidebar(true);
+    } else {
+      setShortSidebar(false);
+    }
   }, [location]);
 
   useEffect(() => {
@@ -68,7 +81,7 @@ function Home(props) {
         //getAllCreatorInfo().then((e) => {});
       } else if (localStorage.getItem("from") === "linkedin") {
         creatorLinkedinLogin();
-      } else if(localStorage.getItem("from") === "google") {
+      } else if (localStorage.getItem("from") === "google") {
         creatorGoogleLogin();
       }
     }
@@ -350,11 +363,24 @@ function Home(props) {
           </div>
         ) : (
           <div className="main_home_page_container">
-            <Sidebar
-              userData={basicNav}
-              moreInfo={{ ...creatorData, Rating }}
-              alternateInfo={allCreatorInfo}
-            />
+            {/* Sidebar is only available in some pages --------------- */}
+            {!location.pathname.startsWith("/dashboard/eventCertificates/") ? (
+              <Sidebar
+                userData={basicNav}
+                moreInfo={{ ...creatorData, Rating }}
+                alternateInfo={allCreatorInfo}
+              />
+            ) : (
+              <img
+                onClick={() => {
+                  navigate("/");
+                  mixpanel.track("header logo");
+                }}
+                src={logo}
+                alt=""
+                className="logo_sidebar logo_nonSideBar"
+              />
+            )}
             <HelpModal
               open={openHelpModal}
               toClose={() => {
@@ -546,6 +572,7 @@ function Home(props) {
                       path="servicestats/:slug"
                       element={<ServiceStats2 progress={props.progress} />}
                     />
+
                     <Route
                       path="paymentSummary"
                       element={<PaymentSummary progress={props.progress} />}
@@ -554,6 +581,12 @@ function Home(props) {
                       path="paymentInfo"
                       element={<PaymentInfo progress={props.progress} />}
                     />
+
+                    <Route
+                      path="eventCertificates/:slug"
+                      element={<SelectCertificate progress={props.progress} />}
+                    />
+
                     <Route
                       path="viewUserDetails/:slug"
                       element={<Users progress={props.progress} />}
