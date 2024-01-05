@@ -176,8 +176,8 @@ const ContentCard = ({
         alt=""
         onClick={() => {
           selected === "events"
-            ? window.open(`www.anchors.in/e/${slug}`)
-            : window.open(`www.anchors.in/s/${slug}`);
+            ? window.open(`https://www.anchors.in/e/${slug}`)
+            : window.open(`https://www.anchors.in/s/${slug}`);
         }}
       />
       <section>
@@ -192,8 +192,8 @@ const ContentCard = ({
           <h2
             onClick={() => {
               selected === "events"
-                ? window.open(`www.anchors.in/e/${slug}`)
-                : window.open(`www.anchors.in/s/${slug}`);
+                ? window.open(`https://www.anchors.in/e/${slug}`)
+                : window.open(`https://www.anchors.in/s/${slug}`);
             }}
           >
             {sname}

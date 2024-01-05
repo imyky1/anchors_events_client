@@ -370,24 +370,7 @@ const ServiceState = (props) => {
 
   // 4. Adding events from the respective data from /createevent endpoint
   const addEvent = async (
-    sname,
-    sdesc,
-    ldesc,
-    slug,
-    simg,
-    tags,
-    stype,
-    isPaid,
-    smrp,
-    ssp,
-    startDate,
-    time, // in object {startTime:"",endTime:""}
-    benefits,
-    maxCapacity,
-    meetlink,
-    videoLink,
-    speakerDetails,
-    contactDetails
+    data
   ) => {
     const response = await fetch(`${host}/api/event/createEvent`, {
       method: "POST",
@@ -397,26 +380,7 @@ const ServiceState = (props) => {
       },
 
       //body: JSON.stringify({ sname:sname,sdesc:sdesc,ldesc:ldesc,slug:slug,simg:simg,surl:surl,stype:stype,isPaid:isPaid,smrp:smrp,ssp:ssp }),
-      body: JSON.stringify({
-        sname,
-        sdesc,
-        ldesc,
-        slug,
-        simg,
-        tags,
-        stype,
-        isPaid,
-        smrp,
-        ssp,
-        startDate,
-        time, // in object {startTime:"",endTime:""}
-        benefits,
-        maxCapacity,
-        meetlink,
-        videoLink,
-        speakerDetails,
-        contactDetails
-      }),
+      body: JSON.stringify(data),
     });
     const json = await response.json();
     return json;

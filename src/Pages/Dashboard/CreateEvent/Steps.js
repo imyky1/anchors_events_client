@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./Steps.css";
 
@@ -33,6 +33,7 @@ import { StaticSampleDataModal } from "../../../Components/Modals/ServiceSuccess
 import { PersonalizedInviteeCard } from "../../../Components/Modals/Default Banner/DefaultBanner";
 import { FaPlus } from "react-icons/fa";
 import mixpanel from "mixpanel-browser";
+import ServiceContext from "../../../Context/services/serviceContext";
 
 const timeToHours = (time) => {
   return parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]);
@@ -71,6 +72,7 @@ const AddSpeakerCard = ({
           name="name"
           value={speakersArray[index - 1]?.name}
           id={`name${index - 1}`}
+          required={true}
           placeholder="Enter display name"
           onChange={(e) => {
             handleSpeakerChange(e.target.value, index - 1, e.target.name);
@@ -80,6 +82,7 @@ const AddSpeakerCard = ({
         <TextField1
           label="Tagline"
           name="designation"
+          required={true}
           value={speakersArray[index - 1]?.designation}
           id={`designation${index - 1}`}
           placeholder="Add a tagline"
@@ -129,7 +132,7 @@ const AddSpeakerCard = ({
                 indexToCrop: index - 1,
               });
             }}
-            text = "Preview Profile and Resize"
+            text="Preview Profile and Resize"
           />
         )}
       </div>
@@ -144,8 +147,13 @@ export const FirstPage = ({
   setCurrentPage,
   setdata,
   setScrollPreviewSection,
+  setOpenLoading,
+  progress,
+  setDraftEventId,
 }) => {
   const [openSampleContent, setOpenSampleContent] = useState(false);
+
+  const { addEvent } = useContext(ServiceContext);
 
   const handleChange = (e) => {
     setdata({ ...data, [e?.target?.name]: e?.target?.value });
@@ -155,6 +163,47 @@ export const FirstPage = ({
     } else {
       setScrollPreviewSection(null);
     }
+  };
+
+  const onSubmit = async () => {
+    setOpenLoading(true); // true on loader
+    progress(0);
+    try {
+      progress(50);
+      let json = await addEvent({
+        sname: data?.sname,
+        stype: data?.stype === "Offline" ? 0 : 1,
+        isPaid: paid === "Free" ? false : true,
+        smrp: paid === "Free" ? 0 : data.smrp,
+        ssp: paid === "Free" ? 0 : data.ssp,
+        startDate: data?.date,
+        time: { startTime: data?.startTime, endTime: data?.endTime },
+        maxCapacity: data?.eventSeatCapacity,
+        meetlink: data?.meetlink,
+        stagesCompleted: 1,
+      });
+
+      if (json?.success) {
+        setOpenLoading(false);
+        setCurrentPage(2);
+        setDraftEventId(json?.eventID);
+      } else {
+        setOpenLoading(false);
+        toast.error(`Event Not Created Please Try Again`, {
+          position: "top-center",
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {
+      setOpenLoading(false);
+      console.log(error);
+      toast.error(`Server side error please try after some time`, {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    }
+    setOpenLoading(false);
+    progress(100);
   };
 
   const handleSubmitFormOne = () => {
@@ -205,7 +254,7 @@ export const FirstPage = ({
       });
     } else {
       // save the data and then proceed ---------
-      setCurrentPage(2);
+      onSubmit();
     }
   };
 
@@ -244,6 +293,16 @@ export const FirstPage = ({
             placeholder="Keep it catchy"
             onChange={handleChange}
             maxLength={65}
+            boxTooltip={
+              <>
+                <p>The title should :</p>
+                <ul>
+                  <li>Have clear purpose</li>
+                  <li>Encourage people to click & check it out</li>
+                  <li>Be Simple (& catchy)</li>
+                </ul>
+              </>
+            }
             labelHelperText={{
               text: (
                 <>
@@ -263,7 +322,7 @@ export const FirstPage = ({
             id="date"
             required={true}
             value={data?.date}
-            autoComplete = "off"
+            autoComplete="off"
             placeholder="Select Event Date"
             onChange={(date) => {
               setScrollPreviewSection("details");
@@ -329,7 +388,7 @@ export const FirstPage = ({
                 name="smrp"
                 id="smrp"
                 value={data?.smrp}
-                autoComplete = "off"
+                autoComplete="off"
                 required={true}
                 onChange={handleChange}
               />
@@ -340,7 +399,7 @@ export const FirstPage = ({
                 name="ssp"
                 id="ssp"
                 required={true}
-                autoComplete = "off"
+                autoComplete="off"
                 value={data?.ssp}
                 onChange={handleChange}
               />
@@ -364,7 +423,7 @@ export const FirstPage = ({
               id="meetlink"
               required={true}
               value={data?.meetlink}
-              autoComplete = "off"
+              autoComplete="off"
               placeholder={
                 data?.stype === "Offline"
                   ? "Enter Venue Details"
@@ -377,7 +436,7 @@ export const FirstPage = ({
               required={true}
               type="text"
               id="eventSeatCapacity"
-              autoComplete = "off"
+              autoComplete="off"
               name="eventSeatCapacity"
               value={data?.eventSeatCapacity}
               placeholder="Enter Maximum Capacity"
@@ -403,13 +462,16 @@ export const SecondPage = ({
   setCurrentPage,
   setScrollPreviewSection,
   creatorData,
+  setOpenBanner,
+  setOpenLoading,
+  progress,
+  draftEventId,
   speakersArray,
+  setSpeakersArray,
   speakersImagesArray,
   setSpeakersImagesArray,
-  setSpeakersArray,
   isSpeaker,
   setIsSpeaker,
-  setOpenBanner
 }) => {
   // state for image cropping
   const [imagetocrop, setImageToCrop] = useState([]); // sepaker's profile image
@@ -422,6 +484,8 @@ export const SecondPage = ({
   const [zoom, setZoom] = useState(1); // Array of values ------------------
   const [croppedArea, setCroppedArea] = useState(null); // Array of values ------------------
   const [openInviteeCard, setopenInviteeCard] = useState(false);
+
+  const { addEvent, UploadEventSpeakersProfile } = useContext(ServiceContext);
 
   const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
     setCroppedArea(croppedAreaPixels);
@@ -533,23 +597,6 @@ export const SecondPage = ({
     }
   };
 
-  //   let finalArr = speakersArray
-  //     .slice(0, index)
-  //     .concat(speakersArray.slice(index + 1));
-
-  //   let finalArr2 = speakersImagesArray
-  //     .slice(0, index)
-  //     .concat(speakersImagesArray.slice(index + 1));
-
-  //   let finalArr3 = imagetocrop
-  //     .slice(0, index + 1)
-  //     .concat(speakersImagesArray.slice(index + 2));
-
-  //   setSpeakersArray(finalArr);
-  //   setSpeakersImagesArray(finalArr2);
-  //   setImageToCrop(finalArr3);
-  // };
-
   const handleRemoveSpeaker = (indexToRemove) => {
     if (speakersArray?.length > 1) {
       const updatedSpeakersArray = speakersArray.filter(
@@ -584,14 +631,89 @@ export const SecondPage = ({
     return true;
   };
 
+  const SaveSpeakerImages = async () => {
+    try {
+      for (let index = 0; index < speakersImagesArray.length; index++) {
+        const element = speakersImagesArray[index];
+        if (element) {
+          let data1 = new FormData();
+          data1.append("file", element);
+          let speaker = await UploadEventSpeakersProfile(data1);
+          let newArr = speakersArray;
+          newArr[index] = {
+            ...speakersArray[index],
+            profile: speaker?.result?.Location,
+          };
+          setSpeakersArray(newArr);
+        } else {
+          if (element?.isCreator) {
+            let newArr = speakersArray;
+            newArr[index] = {
+              ...speakersArray[index],
+              profile: creatorData?.profile,
+            };
+            setSpeakersArray(newArr);
+          }
+        }
+      }
+    } catch (error) {
+      toast.error("Some error occured in uploading speaker images", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    }
+  };
+
+  const onSubmit = async () => {
+    setOpenLoading(true); // true on loader
+    progress(0);
+    try {
+      await SaveSpeakerImages();
+      progress(50);
+      let json = await addEvent({
+        speakerDetails: speakersArray,
+        stagesCompleted: 2,
+        eventID: draftEventId,
+      });
+
+      if (json?.success) {
+        setOpenLoading(false);
+        setCurrentPage(3);
+      } else {
+        setOpenLoading(false);
+        toast.error(`Details Not Saved Please Try Again`, {
+          position: "top-center",
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {
+      setOpenLoading(false);
+      console.log(error);
+      toast.error(`Server side error please try after some time`, {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    }
+
+    setOpenLoading(false);
+    progress(100);
+  };
+
   const handleSubmitFormTwo = () => {
     // warnings and the alerts -----------------
-    let checkSpeakers = checkSpeakersData();
-    if (checkSpeakers) {
-      // save the data and then proceed ---------
-      setCurrentPage(3);
+    if (draftEventId) {
+      let checkSpeakers = checkSpeakersData();
+      if (checkSpeakers) {
+        // save the data and then proceed ---------
+        onSubmit();
+      } else {
+        toast.info("Include speaker details, including names and taglines.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      }
     } else {
-      toast.info("Include speaker details, including names and taglines.", {
+      toast.info("Some error in finding your saved data. Please Try Again!!", {
         position: "top-center",
         autoClose: 3000,
       });
@@ -665,10 +787,11 @@ export const SecondPage = ({
           )}
 
           <div className="div_left_form_create_event01">
-            <section 
-             onClick={() => {
-              setOpenBanner(true);
-            }}>
+            <section
+              onClick={() => {
+                setOpenBanner(true);
+              }}
+            >
               <img
                 src="https://anchors-assets.s3.amazonaws.com/1704203264002-Frame_1000002415preview1.png"
                 alt=""
@@ -797,11 +920,14 @@ export const SecondPage = ({
 export const ThirdPage = ({
   setBannerImage,
   bannerImage,
-  setEventVideo,
   Content,
   setContent,
   setCurrentPage,
   setScrollPreviewSection,
+  setOpenLoading,
+  progress,
+  draftEventId,
+  saveTheBannerEvent,
 }) => {
   const [openSampleContent, setOpenSampleContent] = useState(false);
   const [defaultbanner, setDefaultBanner] = useState(false); // decides wheter to user checked the default banner-----
@@ -813,6 +939,8 @@ export const ThirdPage = ({
   const [crop, setCrop] = useState({ x: 0, y: 0 }); // Array of values ------------------
   const [zoom, setZoom] = useState(1); // Array of values ------------------
   const [croppedArea, setCroppedArea] = useState(null); // Array of values ------------------
+
+  const { addEvent, UploadBanners } = useContext(ServiceContext);
 
   const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
     setCroppedArea(croppedAreaPixels);
@@ -830,17 +958,81 @@ export const ThirdPage = ({
     setImagePreview(false);
   };
 
+  const onSubmit = async () => {
+    const data1 = new FormData();
+    data1.append("file", bannerImage);
+
+    setOpenLoading(true); // true on loader
+    progress(0);
+    try {
+      let banner = { success: true, result: { Location: "" } };
+
+      // Check for banner and saves if it is available
+      if (bannerImage) {
+        banner = await UploadBanners(data1); /// uplaoding banner and files on s3
+      } else {
+        // Generating a default Banner
+        banner = await saveTheBannerEvent();
+      }
+
+      progress(50);
+
+      if (banner?.success) {
+        progress(75);
+        let json = await addEvent({
+          ldesc: Content,
+          simg: banner?.result?.Location,
+          stagesCompleted: 3,
+          eventID: draftEventId,
+        });
+
+        if (json?.success) {
+          setOpenLoading(false);
+          setCurrentPage(4);
+        } else {
+          setOpenLoading(false);
+          toast.error(`Details Not Saved Please Try Again`, {
+            position: "top-center",
+            autoClose: 2000,
+          });
+        }
+      } else {
+        setOpenLoading(false);
+        toast.error(`Facing issues while uploading image`, {
+          position: "top-center",
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {
+      setOpenLoading(false);
+      console.log(error);
+      toast.error(`Server side error please try after some time`, {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    }
+
+    setOpenLoading(false);
+    progress(100);
+  };
+
   const handleSubmitFormThree = () => {
     // warnings and the alerts -----------------
-
-    if (!Content || Content?.length < 50) {
-      toast.info("Provide a description for your event.", {
+    if (draftEventId) {
+      if (!Content || Content?.length < 50) {
+        toast.info("Provide a description for your event.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      } else {
+        // save the data and then proceed ---------
+        onSubmit();
+      }
+    } else {
+      toast.info("Some error in finding your saved data. Please Try Again!!", {
         position: "top-center",
         autoClose: 3000,
       });
-    } else {
-      // save the data and then proceed ---------
-      setCurrentPage(4);
     }
   };
 
@@ -891,6 +1083,19 @@ export const ThirdPage = ({
               setContent(e);
               setScrollPreviewSection("desc");
             }}
+            boxTooltip={
+              <>
+                <p>
+                  Pro-tip : The following topics, if covered, ensure a high
+                  conversion rate :
+                </p>
+                <ul>
+                  <li>Who's this for?</li>
+                  <li>Urgency hook</li>
+                  <li>Objective of the event</li>
+                </ul>
+              </>
+            }
             labelHelperText={{
               text: (
                 <>
@@ -901,6 +1106,7 @@ export const ThirdPage = ({
                 setOpenSampleContent(true);
               },
             }}
+            info="Min Characters limit - 40"
           />
 
           <section
@@ -948,7 +1154,7 @@ export const ThirdPage = ({
                   setCroppedArea(null);
                   setImagePreview(true);
                 }}
-                text = "Preview Banner and Resize"
+                text="Preview Banner and Resize"
               />
             )}
           </section>
@@ -1043,44 +1249,109 @@ export const ThirdPage = ({
 export const FourthPage = ({
   data,
   setdata,
-  onSubmit,
   setCurrentPage,
   setScrollPreviewSection,
-  creatorData
+  creatorData,
+  setOpenLoading,
+  progress,
+  draftEventId,
+  setshowPopup,
 }) => {
+  const { addEvent, getslugcountEvent } = useContext(ServiceContext);
 
   useEffect(() => {
     setScrollPreviewSection("benefits");
 
     setdata({
       ...data,
-      contactPhone:creatorData?.phone,
-      contactEmail:creatorData?.email
-    })
+      contactPhone: creatorData?.phone,
+      contactEmail: creatorData?.email,
+    });
   }, []);
+
+  const process = () => {
+    let slug = data?.sname?.split(" ").join("-"); // creates the slug from the name
+    return slug;
+  };
 
   const handleChange = (e) => {
     setdata({ ...data, [e?.target?.name]: e?.target?.value });
   };
 
+  const onSubmit = async () => {
+    setOpenLoading(true); // true on loader
+    progress(0);
+
+    let slug = process();
+    const SlugCount = await getslugcountEvent(slug.toLowerCase());
+
+    try {
+      progress(50);
+      let json = await addEvent({
+        slug:
+          SlugCount === 0
+            ? slug.toLowerCase()
+            : slug.toLowerCase().concat("--", `${SlugCount}`),
+        benefits: data?.benefits,
+        contactDetails: {
+          phone: data?.contactPhone,
+          email: data?.contactEmail,
+        },
+        stagesCompleted: 4,
+        eventID: draftEventId,
+      });
+      if (json?.success) {
+        setOpenLoading(false);
+        setshowPopup({ open: true, link: json?.shortLink });
+      } else {
+        setOpenLoading(false);
+        toast.error(`Details Not Saved Please Try Again`, {
+          position: "top-center",
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {
+      setOpenLoading(false);
+      console.log(error);
+      toast.error(`Server side error please try after some time`, {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    }
+
+    setOpenLoading(false);
+    progress(100);
+  };
 
   const handleSubmitFormFour = () => {
     // warnings and the alerts -----------------
-    if (!data?.benefits || data?.benefits?.length < 50) {
-      toast.info("Provide a benefits for the leaderboard for your event.", {
+    if (draftEventId) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!data?.benefits || data?.benefits?.length < 50) {
+        toast.info("Provide benefits for the leaderboard for your event.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      } else if (!data?.contactEmail || !data?.contactPhone) {
+        toast.info("Provide proper contact details for your event.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      } else if (!emailRegex.test(data?.contactEmail)) {
+        toast.info("Provide proper contact email for your event.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      } else {
+        // save the data and then proceed ---------
+        onSubmit();
+      }
+    } else {
+      toast.info("Some error in finding your saved data. Please Try Again!!", {
         position: "top-center",
         autoClose: 3000,
       });
-    }
-    else if (!data?.contactEmail || !data?.contactPhone) {
-      toast.info("Provide proper contact details for your event.", {
-        position: "top-center",
-        autoClose: 3000,
-      });
-    }
-    else {
-      // save the data and then proceed ---------
-      onSubmit()
     }
   };
 
@@ -1110,8 +1381,23 @@ Rank 6-10: 30% refund on event registration fee`}
             Content={data?.benefits}
             helperText="Leaderboard ranks your audience by referrals. Rewarding top ones with benefits promotes engagement and competition"
             id="benefits"
-            // required={true}
+            required={true}
             setContent={(e) => setdata({ ...data, benefits: e })}
+            boxTooltip={
+              <>
+                <p>
+                  Keep it clear, concise & interesting. More incentives mean
+                  more referrals.
+                </p>
+                <p>For example:</p>
+                <ul>
+                  <li>Rank 1: Personalized 20 min 1:1 with an expert </li>
+                  <li>Rank 2-5: 100% refund on event registration fee </li>
+                  <li>Rank 6-10: 30% refund on event registration fee</li>
+                </ul>
+              </>
+            }
+            info="Min Characters limit - 40"
           />
 
           <h3>Add Contact Details for any queries your audience may have</h3>
@@ -1140,7 +1426,7 @@ Rank 6-10: 30% refund on event registration fee`}
               id="contactPhone"
               required={true}
               value={data?.contactPhone}
-              placeholder="xx223.."
+              placeholder="12223.."
               onChange={handleChange}
               maxLength={10}
             />
@@ -1153,7 +1439,7 @@ Rank 6-10: 30% refund on event registration fee`}
           text="Publish"
           icon={<AiOutlineArrowRight />}
           onClick={() => {
-            handleSubmitFormFour()
+            handleSubmitFormFour();
           }}
         />
 

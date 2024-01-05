@@ -53,7 +53,7 @@ const PreviewDemo = ({
 
         <section className="live_demo_main_creator_details">
           <LazyLoadImage
-            src={newImage ?? profile ?? PNGIMG}
+            src={newImage ?? profile}
             alt={name}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
@@ -156,7 +156,7 @@ const PreviewDemo = ({
         {/* About Section ------------- */}
         <section
           className="about_section_new_creator_profile"
-          style={{ marginTop: "31px" , marginBottom:"30px" }}
+          style={{ marginTop: "31px" , marginBottom:"120px" }}
         >
           <h2
             className="text_creator_profile_page-03"

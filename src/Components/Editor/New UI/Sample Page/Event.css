@@ -371,6 +371,10 @@
   color: #e2e8f0 !important;
 }
 
+.description_event_page_content em {
+  font-style: italic !important;
+}
+
 .description_event_page_content i {
   font-style: italic !important;
 }
@@ -462,6 +466,10 @@
 .benefits_div_event_page strong {
   font-weight: bold !important;
   color: #e2e8f0 !important;
+}
+
+.benefits_div_event_page em {
+  font-style: italic !important;
 }
 
 .benefits_div_event_page i {

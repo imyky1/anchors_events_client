@@ -61,6 +61,7 @@ const SpeakerCard = ({
           fontSize: "12px",
           lineHeight: "18px",
           width: "80%",
+          overflowWrap: "break-word"
         }}
       >
         {designation}

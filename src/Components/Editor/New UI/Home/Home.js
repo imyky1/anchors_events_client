@@ -73,7 +73,26 @@ function Home(props) {
     } else {
       setShortSidebar(false);
     }
+
+    // page reload warning -------------
+    window.addEventListener('beforeunload', function (event) {
+      const confirmationMessage = 'Are you sure you want to leave?';
+    
+      // Check if the user is on the desired pages
+      const allowedPages = ['/dashboard/createevent']; // Replace with your actual pathnames
+      const currentPathname = window.location.pathname;
+    
+      if (allowedPages.includes(currentPathname)) {
+        // Standard for most browsers
+        event.returnValue = confirmationMessage;
+    
+        // For some older browsers
+        return confirmationMessage;
+      }
+    });
+
   }, [location]);
+
 
   useEffect(() => {
     if (localStorage.getItem("isUser") === "" && localStorage.getItem("from")) {
@@ -258,6 +277,7 @@ function Home(props) {
                             }}
                             cname={allCreatorInfo?.name ?? basicNav?.name}
                             ctagline={allCreatorInfo?.tagLine}
+                            cemail = {basicNav?.email}
                             crating={Rating}
                             cprofile={
                               allCreatorInfo?.profile ?? basicNav?.photo
@@ -492,9 +512,11 @@ function Home(props) {
                           openDefaultBanner={() => {
                             setOpenDefaultBannerModal(true);
                           }}
+                          allCreatorInfo={allCreatorInfo}
                           cname={allCreatorInfo?.name ?? basicNav?.name}
                           ctagline={allCreatorInfo?.tagLine}
                           crating={Rating}
+                          cemail = {basicNav?.email}
                           cprofile={allCreatorInfo?.profile ?? basicNav?.photo}
                           setDefaultBannerData={(e) =>
                             setDataDefaultBanner({

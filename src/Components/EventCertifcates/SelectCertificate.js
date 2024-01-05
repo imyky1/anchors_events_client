@@ -254,6 +254,7 @@ const FillCertificateDetails = ({ certificate, setStep, eventData ,progress }) =
               flexDirection: "column",
               gap: "20px",
               alignItems: "flex-start",
+              marginTop:"40px"
             }}
           >
             <input
@@ -277,7 +278,7 @@ const FillCertificateDetails = ({ certificate, setStep, eventData ,progress }) =
           </div>
         )}
 
-        <div style={{ marginTop: "80px" }}>
+        <div style={{ marginTop: "60px" }}>
           <Button1
             text="Back"
             rightIcon={<AiOutlineArrowLeft />}

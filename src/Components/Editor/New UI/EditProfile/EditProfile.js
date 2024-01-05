@@ -232,7 +232,7 @@ const EditProfile = (props) => {
       if (json?.success) {
         setTimeout(async () => {
           await generateInviteCode(); // generates invite code it not exists otherwise
-        }, 1500);
+        }, 500);
         setOpenLoading(false);
         setshowPopup({
           open: true,
@@ -480,6 +480,7 @@ const EditProfile = (props) => {
                   placeholder="Please describe yourself"
                   Content={Content}
                   setContent={(e) => setContent(e)}
+                  required={true}
                 />
               </div>
 
@@ -693,7 +694,7 @@ const EditProfile = (props) => {
                 />
                 <PreviewDemo
                   {...data}
-                  newImage={showimg ?? basicNav?.photo}
+                  newImage={showimg ?? data?.profile ?? basicNav?.photo}
                   about={Content}
                   {...props?.moreInfo}
                 />

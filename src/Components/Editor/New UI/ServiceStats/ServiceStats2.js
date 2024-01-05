@@ -248,19 +248,13 @@ const TableRef = ({ totalrefer, referdata,isPaidEvent }) => {
 
 const TableinfoTrans = ({ totalTransactionDetails }) => {
   const getDatelist = (date) => {
-    let ll = date?.slice(0, date.toString().length - 5);
-    const datenew = ll?.split("T");
-    if (datenew) {
-      return datenew[0];
-    }
+    let d1 = new Date(date)
+    return d1.toLocaleDateString()
   };
 
   const getDatelist2 = (date) => {
-    let ll = date?.slice(0, date.toString().length - 5);
-    const datenew = ll?.split("T");
-    if (datenew) {
-      return datenew[1];
-    }
+    let d1 = new Date(date)
+    return d1.toTimeString().split(" ")[0]
   };
 
   return (

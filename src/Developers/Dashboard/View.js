@@ -154,6 +154,7 @@ function View() {
       <div className="admin_container">
         <Navbar noAccount={true}/>
         <button onClick={handleLogout}>Logout</button>
+        <button onClick={()=>{navigate("/developer/admin/generatePoster")}}>Generate Event Posters</button>
         <div className="creator_display_list">
           {allcreators.length !== 0
             ? allcreators.map((e, index) => {

@@ -32,6 +32,7 @@ import Pricing from "./Components/Pricing/Pricing";
 import View from "./Developers/Dashboard/View";
 import Login from "./Developers/Login/Login";
 import SiteControlsState from "./Context/SiteControlsState.js";
+import PosterGenerator from "./Developers/Poster Generator/Form.js";
 
 mixpanel.init(mixPanelToken, { debug: true });
 
@@ -94,6 +95,10 @@ function App() {
                               <Route
                                 path="/developer/admin"
                                 element={<View />}
+                              ></Route>
+                              <Route
+                                path="/developer/admin/generatePoster"
+                                element={<PosterGenerator />}
                               ></Route>
                               <Route
                                 path="/developer/login"

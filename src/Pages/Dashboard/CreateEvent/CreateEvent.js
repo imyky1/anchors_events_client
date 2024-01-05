@@ -3,8 +3,6 @@ import "./CreateEvent.css";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { FirstPage, FourthPage, SecondPage, ThirdPage } from "./Steps";
 import { IoMdCheckmark } from "react-icons/io";
-import { linkedinContext } from "../../../Context/LinkedinState";
-import mixpanel from "mixpanel-browser";
 import { toast } from "react-toastify";
 import ServiceContext from "../../../Context/services/serviceContext";
 import { host } from "../../../config/config";
@@ -12,7 +10,7 @@ import { toBlob } from "html-to-image";
 import PNGIMG from "../../../Utils/Images/default_user.png";
 import { NewCongratsServiceModal } from "../../../Components/Modals/ServiceSuccess/Modal";
 import { LoadThree } from "../../../Components/Modals/Loading";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CreateEventDemo from "../../../Components/Editor/New UI/Create Services/CreateServiceDemo";
 
 const StepsChecker = ({ currentPage }) => {
@@ -65,7 +63,7 @@ const HeaderEvent01 = () => {
   );
 };
 
-const CreateEvent = ({ progress, crating }) => {
+const CreateEvent = ({ progress, crating,allCreatorInfo,cemail }) => {
   const [data, setdata] = useState({
     sname: "",
     sdesc: "",
@@ -89,10 +87,8 @@ const CreateEvent = ({ progress, crating }) => {
   const [speakersImagesArray, setSpeakersImagesArray] = useState([]); // stores images of the speaker ------------
   const [isSpeaker, setIsSpeaker] = useState(false);
 
-  const [Tags, setTags] = useState([]);
   const [Content, setContent] = useState();
   const [BannerImage, setBannerImage] = useState();
-  const [EventVideo, setEventVideo] = useState();
 
   const [currentPage, setCurrentPage] = useState(1); // deciding the form to shows
   const [paid, setpaid] = useState("Paid"); // decides the form acc to paid or free service type
@@ -101,54 +97,17 @@ const CreateEvent = ({ progress, crating }) => {
   const [showPopup, setshowPopup] = useState({ open: false, link: "" }); // success popup data
   const [openBanner, setOpenBanner] = useState(false)
 
-  const { verifiedData } = useContext(linkedinContext);
+  const [draftEventId, setDraftEventId] = useState(null)
 
   // service Context --------------------------------------------------
   const {
-    addEvent,
-    getslugcountEvent,
-    Uploadfile,
-    UploadBanners,
-    UploadEventVideo,
-    UploadEventSpeakersProfile,
+    UploadBanners
   } = useContext(ServiceContext);
 
   useEffect(() => {
     window.scroll(0, 0);
   }, [currentPage]);
-
-  const SaveSpeakerImages = async () => {
-    try {
-      for (let index = 0; index < speakersImagesArray.length; index++) {
-        const element = speakersImagesArray[index];
-        if (element) {
-          let data1 = new FormData();
-          data1.append("file", element);
-          let speaker = await UploadEventSpeakersProfile(data1);
-          let newArr = speakersArray;
-          newArr[index] = {
-            ...speakersArray[index],
-            profile: speaker?.result?.Location,
-          };
-          setSpeakersArray(newArr);
-        } else {
-          if (element?.isCreator) {
-            let newArr = speakersArray;
-            newArr[index] = {
-              ...speakersArray[index],
-              profile: verifiedData?.data?.profile,
-            };
-            setSpeakersArray(newArr);
-          }
-        }
-      }
-    } catch (error) {
-      toast.error("Some error occured in uploading speaker images", {
-        position: "top-center",
-        autoClose: 2000,
-      });
-    }
-  };
+  
 
   // Function to convert image file to data URI
   const getImageDataUri = (file) => {
@@ -204,7 +163,7 @@ const CreateEvent = ({ progress, crating }) => {
       if (element) {
         dataURI = await getImageDataUri(element);
       } else {
-        dataURI = `${host}/api/file/proxyImage?imageUrl=${verifiedData?.data?.profile}`;
+        dataURI = allCreatorInfo?.profile ? `${host}/api/file/proxyImage?imageUrl=${allCreatorInfo?.profile}` : PNGIMG
       }
       imgtag.src = dataURI;
     }
@@ -222,117 +181,6 @@ const CreateEvent = ({ progress, crating }) => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  // responsible for generating slug
-  const process = () => {
-    let slug = data?.sname?.split(" ").join("-"); // creates the slug from the name
-    return slug;
-  };
-
-  // form submission ----------------------------------------------------------
-  const onSubmit = async () => {
-    const data1 = new FormData();
-    const data2 = new FormData();
-    data1.append("file", BannerImage);
-    data2.append("file", EventVideo);
-
-    let slug = process();
-    const SlugCount = await getslugcountEvent(slug.toLowerCase());
-
-    setOpenLoading(true); // true on loader
-    progress(0);
-
-    if (
-      data.sname.length > 3 &&
-      data?.stype &&
-      data?.meetlink &&
-      data?.date &&
-      data?.startTime &&
-      data?.endTime &&
-      paid &&
-      data?.eventSeatCapacity > 0 &&
-      Content?.length > 50
-    ) {
-      try {
-        await SaveSpeakerImages();
-
-        let banner = { success: true, result: { Location: "" } };
-        let eventVideo = { result: { Location: "" } };
-
-        // Check for banner and saves if it is available
-        if (BannerImage) {
-          banner = await UploadBanners(data1); /// uplaoding banner and files on s3
-        } else {
-          // Generating a default Banner
-          banner = await saveTheBannerEvent();
-        }
-
-        // Check for video and saves if it is available
-        if (EventVideo) {
-          eventVideo = await UploadEventVideo(data2);
-        }
-
-        progress(50);
-
-        if (banner?.success) {
-          progress(75);
-          let json = await addEvent(
-            data?.sname,
-            "", // sdesc no value
-            Content,
-            SlugCount === 0
-              ? slug.toLowerCase()
-              : slug.toLowerCase().concat("--", `${SlugCount}`),
-            banner?.result?.Location,
-            Tags,
-            data?.stype === "Offline" ? 0 : 1,
-            paid === "Free" ? false : true,
-            paid === "Free" ? 0 : data.smrp,
-            paid === "Free" ? 0 : data.ssp,
-            data?.date,
-            { startTime: data?.startTime, endTime: data?.endTime },
-            data?.benefits,
-            data?.eventSeatCapacity,
-            data?.meetlink,
-            eventVideo?.result?.Location,
-            speakersArray,
-            {
-              phone: data?.contactPhone,
-              email: data?.contactEmail,
-            }
-          );
-
-          if (json?.success) {
-            //setservData(json.res);
-            setOpenLoading(false);
-            setshowPopup({ open: true, link: json?.shortLink });
-          } else {
-            setOpenLoading(false);
-            toast.error(`Event Not Created Please Try Again`, {
-              position: "top-center",
-              autoClose: 2000,
-            });
-          }
-        } else {
-          setOpenLoading(false);
-          toast.error(`Facing issues while uploading image`, {
-            position: "top-center",
-            autoClose: 2000,
-          });
-        }
-      } catch (error) {
-        setOpenLoading(false);
-        console.log(error);
-        toast.error(`Server side error please try after some time`, {
-          position: "top-center",
-          autoClose: 2000,
-        });
-      }
-    }
-
-    setOpenLoading(false);
-    progress(100);
   };
 
   // event banner color code -------
@@ -382,7 +230,7 @@ const CreateEvent = ({ progress, crating }) => {
               >
                 <h3>{data?.sname}</h3>
 
-                <span>Hosted by {verifiedData?.data?.name}</span>
+                <span>Hosted by {allCreatorInfo?.name}</span>
               </section>
             </div>
 
@@ -555,8 +403,7 @@ const CreateEvent = ({ progress, crating }) => {
                                 ? URL.createObjectURL(
                                     speakersImagesArray[index]
                                   )
-                                : speaker?.isCreator
-                                ? `${host}/api/file/proxyImage?imageUrl=${verifiedData?.data?.profile}`
+                                : (speaker?.isCreator && allCreatorInfo?.profile) ? `${host}/api/file/proxyImage?imageUrl=${allCreatorInfo?.profile}`
                                 : PNGIMG
                             }
                             alt=""
@@ -596,6 +443,9 @@ const CreateEvent = ({ progress, crating }) => {
                 setCurrentPage={setCurrentPage}
                 setdata={setdata}
                 setScrollPreviewSection={setScrollPreviewSection}
+                setDraftEventId={setDraftEventId}
+                setOpenLoading={setOpenLoading}
+                progress={progress}
               />
             )}
 
@@ -606,13 +456,16 @@ const CreateEvent = ({ progress, crating }) => {
                 isSpeaker={isSpeaker}
                 setIsSpeaker={setIsSpeaker}
                 setCurrentPage={setCurrentPage}
-                creatorData={verifiedData?.data}
+                creatorData={allCreatorInfo}
                 speakersArray={speakersArray}
                 speakersImagesArray={speakersImagesArray}
                 setSpeakersArray={setSpeakersArray}
                 setSpeakersImagesArray={setSpeakersImagesArray}
                 setScrollPreviewSection={setScrollPreviewSection}
                 setOpenBanner={setOpenBanner}
+                setOpenLoading={setOpenLoading}
+                progress={progress}
+                draftEventId={draftEventId}
               />
             )}
 
@@ -624,8 +477,11 @@ const CreateEvent = ({ progress, crating }) => {
                 setCurrentPage={setCurrentPage}
                 setScrollPreviewSection={setScrollPreviewSection}
                 setBannerImage={setBannerImage}
-                setEventVideo={setEventVideo}
                 bannerImage={BannerImage}
+                setOpenLoading={setOpenLoading}
+                progress={progress}
+                draftEventId={draftEventId}
+                saveTheBannerEvent={saveTheBannerEvent}
               />
             )}
 
@@ -636,11 +492,14 @@ const CreateEvent = ({ progress, crating }) => {
                 setdata={setdata}
                 setCurrentPage={setCurrentPage}
                 setScrollPreviewSection={setScrollPreviewSection}
-                onSubmit={onSubmit}
                 creatorData={{
-                  phone: verifiedData?.data?.phone,
-                  email: verifiedData?.data?.email,
+                  phone: allCreatorInfo?.phone,
+                  email: cemail,
                 }}
+                setOpenLoading={setOpenLoading}
+                progress={progress}
+                draftEventId={draftEventId}
+                setshowPopup={setshowPopup}
               />
             )}
           </section>
@@ -663,10 +522,10 @@ const CreateEvent = ({ progress, crating }) => {
                       {...data}
                       paid={paid}
                       ldesc={Content}
-                      cname={verifiedData?.data?.name}
-                      cprofile={verifiedData?.data?.profile}
+                      cname={allCreatorInfo?.name}
+                      cprofile={allCreatorInfo?.profile}
                       crating={crating}
-                      ctagline={verifiedData?.data?.tagline}
+                      ctagline={allCreatorInfo?.tagline}
                       speakersArray={speakersArray}
                       speakersImagesArray={speakersImagesArray}
                       isSpeaker={isSpeaker}

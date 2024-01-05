@@ -540,5 +540,25 @@
     right: 20px;
     bottom: 20px;
   }
+  .main_title_event_box {
+    gap: 40px;
+  }
+
+  .main_title_event_box > h1 {
+    font-size: 40px;
+    font-family: "Gilroy-Bold", sans-serif;
+    font-style: normal;
+    line-height: 50px;
+    width: 95%;
+  }
+
+  .main_title_event_box > span {
+    font-size: 16px;
+  }
+
+  .main_title_event_box > button {
+    padding: 16px 20px;
+    font-size: 16px;
+  }
 
 }
