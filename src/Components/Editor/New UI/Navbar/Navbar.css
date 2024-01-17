@@ -1,6 +1,6 @@
 .navbar_outside_container {
   width: 100%;
-  background: #121212;
+  background:#131825;
   height: 60px;
   position: sticky;
   top: 0;
@@ -53,6 +53,25 @@
   background-color: red;
   border: 1px solid red;
 }
+
+.navbar_dashboard_button01{
+  border-radius: 41px;
+background: linear-gradient(160deg, #5F8BFF 13.35%, #B468FF 90.3%);
+padding: 8px 20px;
+
+color: #F8FAFC;
+font-family: "Inter";
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+
+display: flex;
+align-items: center;
+gap: 4px;
+justify-content: center;
+}
+
 
 /* mobile ui  */
 

@@ -1,28 +1,57 @@
 .servicelist-wrapper {
-  width: 90%;
+  width:90%;
+  height: 100vh;
   padding: 0 5% 3% 5%;
   padding-top: 30px;
+  background-color: #1C212E;
+  overflow-x: hidden;
 }
-
-.servicelist-wrapper > h1 {
+.servicelist-headers_section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.servicelist-headers_section h1{
+  margin: 0;
+}
+.servicelist-wrapper .servicelist-headers_section > h1 {
+  font-family: Inter;
+font-size: 24px;
+font-weight: 700;
+line-height: 29px;
+letter-spacing: 0em;
+text-align: left;
+color: #F8FAFC;
+  -webkit-user-select: none;
+}
+.content_cards_selection_button{
+  display: flex;
+  gap: 20px;
+}
+.content_cards_selection_button button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
   font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 30px;
-  line-height: 36px;
-  color: #f8f8f8;
-  margin-bottom: 5px;
-  -webkit-user-select: none;
-}
-
-.servicelist_wrap_span {
-  -webkit-user-select: none;
-  color: #d0d0d0;
-  font-family: "Gilroy-Light", sans-serif;
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #94A3B8;
+}
+.content_cards_selection_button .Selected{
+  font-weight: 700;
+  color: #E2E8F0;
+}
+.content_cards_breaker{
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid #475569
+}
+.servicelist_wrap_create_button button{
+  width: 192px;
 }
 
 .servicelist-categories {
@@ -563,15 +592,16 @@
 /* My content card --------- */
 
 .mycontent_card_for_service {
-  width: 100%;
+  width: auto;
   display: flex;
   align-items: flex-start;
   gap: 24px;
   border-radius: 12px;
-  background: #212121;
+  flex-direction: column;
+  background: #131825;
   padding: 20px;
   box-sizing: border-box;
-  height: 220px;
+  /* height: 220px; */
 }
 
 .mycontent_card_for_service > img {
@@ -613,6 +643,127 @@
   cursor: pointer;
 }
 
+.mycontnet_card_header_buttons{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.mycontent_card_flags{
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 0 10px;
+  gap: 10px;
+  height: 23px;
+  background-color: #d0d0d0;
+  border-radius: 1000px;
+}
+.mycontent_card_right_buttons{
+  display: flex;
+  gap: 20px;
+}
+.mycontent_card_right_buttons button{
+  border: 0.5px solid #94A3B8;
+  color: #94A3B8;
+}
+.mycontent_card_right_joining_buttons button{
+  border: 1px solid #FF5C5C;
+  color: #FF5C5C;
+}
+.joining-link-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color:#121212; /* semi-transparent black background */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  z-index: 1000;
+  color: white;
+}
+
+.joining-link-popup-content {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 600px; /* Set a maximum width for the content if needed */
+}
+
+.joining-link-popup p {
+  margin-bottom: 10px;
+}
+
+.joining-link-popup button {
+  /* padding: 10px; */
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+
+.mycontent_card_content{
+  display: flex;
+  border: 1px solid #262A36;
+  border-radius: 7px;
+
+}
+.mycontent_card_content section{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-right: 1px solid #262A36;
+  color: #94A3B8;
+  gap: 10px;
+}
+.mycontent_card_content .mycontent_card_content_image{
+  justify-content: center;
+  align-items: center;
+  padding-right: 10px;
+  gap: 10px;
+}
+.mycontent_card_content_image img{
+  width: 146.92px;
+  height: 80px
+}
+.mycontent_card_content .mycontent_card_content_time{
+  justify-content: space-between;
+
+}
+.mycontent_card_content section>h3{
+  font-family: Inter;
+font-size: 12px;
+font-weight: 500;
+line-height: 15px;
+letter-spacing: 0em;
+text-align: left;
+text-wrap: nowrap;
+
+}
+.mycontent_card_content section>h1{
+font-family: Inter;
+font-size: 16px;
+font-weight: 700;
+line-height: 19px;
+letter-spacing: 0em;
+text-align: left;
+}
+.mycontnet_card_footer_buttons{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 20px;
+}
+.mycontnet_card_footer_buttons button{
+  border: 0.5px solid #94A3B8;
+  color: #94A3B8;
+}
 .props_mycontent_card_service {
   display: flex;
   width: 100%;

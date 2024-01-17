@@ -141,3 +141,67 @@
   gap: 20px;
   width: 100%;
 }
+
+/* add images card ------------------------- */
+
+.add_images_card_wrppaer_create_event_01{
+  border-radius: 8px;
+  background: var(--Natural-900, #212121);
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.add_testimonial_card_wrppaer_create_event_01{
+  border-radius: 8px;
+  background: var(--Natural-900, #212121);
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.add_images_card_wrppaer_create_event_01 > h2 {
+  color: var(--Neutral-Gray-400, #94a3b8);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+
+.add_testimonial_card_wrppaer_create_event_01 > section{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: row-reverse;
+}
+
+.add_testimonial_card_wrppaer_create_event_01 > section > h2 {
+  color: var(--Neutral-Gray-400, #94a3b8);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.add_testimonial_card_wrppaer_create_event_01 > section > span{
+  color: #FF5C5C;
+text-align: right;
+font-family: Inter;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+cursor: pointer;
+}

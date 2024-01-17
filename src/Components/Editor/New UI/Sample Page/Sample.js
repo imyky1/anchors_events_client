@@ -148,7 +148,7 @@ function Sample() {
     <div className="sample_page_wrapper">
       {/* Hero Section  */}
       <section
-        className="main_header_component_event_page"
+        className="main_header_component_sample_page"
         style={{ position: "relative" }}
       >
         <EventsNavbar

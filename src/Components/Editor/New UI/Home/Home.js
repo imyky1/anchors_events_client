@@ -31,6 +31,7 @@ import CreateEvent from "../../../../Pages/Dashboard/CreateEvent/CreateEvent";
 import mixpanel from "mixpanel-browser";
 import logo from "../../../../Utils/Images/logo-invite-only.png";
 import SelectCertificate from "../../../EventCertifcates/SelectCertificate";
+import GraphicsTemplate from "../../../../Pages/Dashboard/GraphicsTemplate/GraphicsTemplate";
 
 function Home(props) {
   const location = useLocation();
@@ -57,8 +58,6 @@ function Home(props) {
     basicNav,
     getCreatorExtraDetails,
   } = useContext(creatorContext);
-  const { creatorLinkedinLogin, creatorGoogleLogin } =
-    useContext(linkedinContext);
 
   const { getRatingCreator } = useContext(feedbackcontext);
   const { setShortSidebar } = useContext(siteControlContext);
@@ -93,25 +92,6 @@ function Home(props) {
 
   }, [location]);
 
-
-  useEffect(() => {
-    if (localStorage.getItem("isUser") === "" && localStorage.getItem("from")) {
-      if (localStorage.getItem("jwtToken")) {
-        //getAllCreatorInfo().then((e) => {});
-      } else if (localStorage.getItem("from") === "linkedin") {
-        creatorLinkedinLogin();
-      } else if (localStorage.getItem("from") === "google") {
-        creatorGoogleLogin();
-      }
-    }
-    // not logined people
-    else {
-      window.open("https:/events.anchors.in/", "_self");
-    }
-
-    // eslint-disable-next-line
-  }, []);
-
   useEffect(() => {
     if (localStorage.getItem("jwtToken") && localStorage.getItem("c_id")) {
       getCreatorExtraDetails().then((e) => {
@@ -143,7 +123,7 @@ function Home(props) {
   return (
     <>
       {/* at /check the loader comes into role */}
-      {location.pathname === "/dashboard/check" && <LoadOne />}
+      {/* {location.pathname === "/dashboard/check" && <LoadOne />} */}
 
       {localStorage.getItem("jwtToken") &&
         localStorage.getItem("c_id") &&
@@ -607,6 +587,11 @@ function Home(props) {
                     <Route
                       path="eventCertificates/:slug"
                       element={<SelectCertificate progress={props.progress} />}
+                    />
+
+                    <Route
+                      path="graphicstemplate/:slug"
+                      element={<GraphicsTemplate progress={props.progress} />}
                     />
 
                     <Route

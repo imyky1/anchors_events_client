@@ -99,10 +99,10 @@ function Buttons5(props) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div style={{display:"flex",alignItems:"center",gap:"10px", position:'relative'}}>
+    <div className={props?.className} style={{display:"flex",alignItems:"center",gap:"10px", position:'relative'}}>
       <button
         className="button_05_css"
-        style={props?.height && { height: props?.height }}
+        style={props?.height && { height: props?.height} }
         onClick={props.onClick}
       >
         {props.rightIcon && props.rightIcon}

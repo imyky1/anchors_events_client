@@ -1,0 +1,541 @@
+.Billing_page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(23, 30, 36, 1);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 65px 0;
+}
+.sub_heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.Billing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Billing h1 {
+  font-family: Inter;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 73px;
+  letter-spacing: 0em;
+  text-align: center;
+  background-image: linear-gradient(180deg, #f36c6c 0%, #febfff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  margin: 40px 0 10px 0;
+}
+.Billing .is_simple {
+  background: #e2e8f0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.Billing h3 {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Inter;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #cbd5e1;
+  width: 529px;
+  margin: 10px 0 0 0;
+}
+.Billing .time_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 316px;
+  height: 59px;
+  /* padding: 12px, 20px, 12px, 20px; */
+  border-radius: 4px;
+  /* gap: 10px; */
+  background: #1e293b;
+  margin-top: 56px;
+}
+.Billing .time_buttons button {
+  width: auto;
+  height: 43px;
+  padding: 12px 20px 12px 20px;
+  border-radius: 4px;
+  gap: 10px;
+  background: #1e293b;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #ffffff;
+  border: none;
+}
+.Billing .time_buttons .selected {
+  background: #ff5c5c;
+}
+.price_chart {
+  margin-top: 40px;
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 23px;
+}
+.price_chart .chart_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+.price_chart .chart {
+  cursor: pointer;
+  background: #0d1117;
+  width: 345px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  padding-bottom: 40px;
+}
+.selected {
+  background-image: linear-gradient(120.56deg, #f36c6c 0%, #febfff 100%);
+  border-radius: 10px;
+}
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 56px;
+  color: white; /* Make the text color transparent */
+  background-color: #131825;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+}
+.chart .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin: 40px 0 0px 0;
+}
+.per_month {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+.Billing .price h1 {
+  font-family: Inter;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: center;
+  -webkit-text-fill-color: #94a3b8;
+  margin: 0%;
+}
+.price h2 {
+  margin: 0%;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+  -webkit-text-fill-color: #94a3b8;
+  text-decoration: line-through;
+}
+.content button {
+  margin-top: 60px;
+  width: 216px;
+  height: 52px;
+  padding: 14px 40px 14px 40px;
+  border-radius: 4px;
+  border: 1px;
+  gap: 12px;
+  background-color: #131825;
+  border: 1px solid #475569;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #475569;
+}
+.selected button {
+  background-color: #ff5c5c;
+  color: #fafafa;
+}
+.selected .image1 {
+  fill: red;
+}
+
+.list_of_feature {
+  width: 100%;
+  height: 460px;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list_of_feature > p {
+  color: #94a3b8;
+  font-family: "Inter";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 100%;
+  text-align: left;
+}
+.price_chart .host_button {
+  margin-top: 0%;
+}
+.feature {
+  margin-left: 40px;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+  gap: 8px;
+  -webkit-text-fill-color: #94a3b8;
+}
+.table-container {
+  margin-top: 150px;
+  overflow-x: auto;
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.responsive-table tr {
+  display: flex;
+}
+.responsive-table th {
+  width: 360px;
+  height: 116px;
+  border: 1px solid #262a36;
+  font-family: Inter;
+  padding: 0px;
+  background-color: #1c212e;
+  border: 0px 1px 1px 1px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.responsive-table th > h1 {
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0%;
+  letter-spacing: 0em;
+  text-align: left;
+  -webkit-text-fill-color: #e2e8f0;
+}
+.responsive-table th > h3 {
+  font-family: Inter;
+  width: auto;
+  margin: 0%;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.responsive-table th > button {
+  display: flex;
+  align-items: center;
+  width: 140px;
+  height: 32px;
+  padding: 8px 16px 8px 16px;
+  border-radius: 4px;
+  border: 1px;
+  gap: 8px;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+  background-color: #1c212e;
+  border: 1px solid #ff5c5c;
+  color: #ff5c5c;
+}
+.responsive-table td {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 360px;
+  height: 60px;
+  border: 1px solid #262a36;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  color: #94a3b8;
+  padding: 0px;
+  text-align: center;
+}
+
+/* Optional: Styling for odd/even rows */
+.responsive-table tbody tr td:nth-child(1) {
+  text-align: left;
+  justify-content: start;
+}
+
+/* button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+  }
+  button:hover {
+    border-color: #646cff;
+  }
+  button:focus,
+  button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+  
+  @media (prefers-color-scheme: light) {
+    :root {
+      color: #213547;
+      background-color: #ffffff;
+    }
+    a:hover {
+      color: #747bff;
+    }
+    button {
+      background-color: #f9f9f9;
+    }
+  }  */
+button {
+  /* border-radius: 8px; */
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+@media screen and (max-width: 1100px) {
+  .price_chart .chart {
+    width: 236px;
+  }
+  .heading {
+    font-size: 14px;
+  }
+  .per_month {
+    font-size: 10px;
+  }
+  .content {
+    width: 100%;
+  }
+  .price_chart {
+    gap: 10px;
+  }
+  .content button {
+    width: 150px;
+    height: 44px;
+    padding: 0%;
+    font-size: 140x;
+  }
+  .feature {
+    font-size: 10px;
+  }
+  .responsive-table th {
+    width: 240px;
+  }
+  .responsive-table th > h1 {
+    font-size: 14px;
+    text-align: center;
+  }
+  .responsive-table th > h3 {
+    font-size: 10px;
+  }
+  .responsive-table td {
+    width: 240px;
+  }
+  .list_of_feature > p{
+    margin-left: 40px;
+    font-size: 12px;
+  }
+}
+/* For smaller screens */
+@media screen and (max-width: 768px) {
+  .sub_heading {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .Billing .time_buttons {
+    margin-top: 20px;
+  }
+  .sub_heading h3 {
+    margin-top: 20px;
+  }
+  .chart_container {
+    width: 328px;
+  }
+  .price_chart .chart {
+    width: 328px;
+    padding-bottom: unset;
+  }
+  .heading {
+    font-size: 16px;
+  }
+  .per_month {
+    font-size: 12px;
+  }
+  /* .content{
+      width: 100%;
+    } */
+  .content button {
+    width: 150px;
+    height: 44px;
+    padding: 0%;
+    font-size: 14px;
+    line-height: 16px;
+  }
+  .feature {
+    font-size: 12px;
+  }
+  .Billing h1 {
+    font-size: 40px;
+    line-height: 53px;
+  }
+  .Billing h3 {
+    font-size: 16px;
+    width: 328px;
+    line-height: 21px;
+    font-weight: 500;
+  }
+
+  .responsive-table th {
+    width: 74px;
+    padding: 0 5px;
+  }
+  .responsive-table td {
+    width: 74px;
+    padding: 10px 5px;
+    height: auto;
+    font-size: 12px;
+    line-height: 14.52px;
+  }
+  .responsive-table th > button {
+    display: none;
+  }
+  .responsive-table td > .image2 {
+    width: 14px;
+    height: 14px;
+  }
+  .responsive-table th:nth-child(1) {
+    width: 163px;
+  }
+  .responsive-table td:nth-child(1) {
+    width: 163px;
+  }
+  /* Adjust other styles as needed */
+}
+
+/* For even smaller screens */
+@media screen and (max-width: 480px) {
+  .Billing h1 {
+    font-size: 30px;
+    line-height: 40px;
+  }
+  .Billing .time_buttons {
+    width: 247px;
+    height: 47px;
+  }
+  .Billing .time_buttons button {
+    width: 78px;
+    height: 31px;
+    font-size: 12px;
+    padding: 0%;
+  }
+  /* Adjust other styles as needed */
+}
+
+/* For specific sections or components */
+@media screen and (max-width: 768px) {
+  .price_chart {
+    flex-direction: column;
+  }
+  .price_chart .chart .heading {
+    height: 43px;
+  }
+  .price_chart .price {
+    margin-top: 20px;
+  }
+  .price_chart button {
+    margin-top: 40px;
+  }
+  .Billing .price_chart .chart .host_button {
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+  .chart .last_host_button {
+    display: none; /* Hide the last host button on smaller screens */
+  }
+  .price_chart .chart {
+    height: auto;
+  }
+  .list_of_feature {
+    margin-top: 40px;
+    height: auto;
+  }
+
+  .table-container {
+    margin-top: 20px;
+  }
+  /* .price_chart .chart {
+      width: 100%;
+    } */
+  /* Adjust other styles as needed */
+}

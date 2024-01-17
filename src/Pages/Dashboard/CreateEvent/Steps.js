@@ -15,6 +15,7 @@ import {
   UploadField3,
   DatePicker1,
   Select2,
+  Dropdown1,
 } from "../../../Components/Editor/New UI/Create Services/InputComponents/fields_Labels";
 
 import {
@@ -136,6 +137,589 @@ const AddSpeakerCard = ({
           />
         )}
       </div>
+    </div>
+  );
+};
+
+const AddImagesCard = ({
+  titles,
+  setTitles,
+  setImagesArray,
+  imagesArray,
+  setWants,
+  setScrollPreviewSection
+}) => {
+  // state for image cropping
+  const [imagetocrop, setImageToCrop] = useState({}); // sepaker's profile image
+  const [openimagePreview, setImagePreview] = useState({
+    value: false,
+    indexToCrop: null,
+  });
+
+  const [crop, setCrop] = useState({ x: 0, y: 0 }); // Array of values ------------------
+  const [zoom, setZoom] = useState(1); // Array of values ------------------
+  const [croppedArea, setCroppedArea] = useState(null); // Array of values ------------------
+
+  const handleChangeImagesArray = (e, num) => {
+    setScrollPreviewSection("images")
+    setWants((prev) => {
+      return { ...prev, image: true };
+    });
+    const file = e.target.files[0];
+    setZoom(1);
+    setCrop({ x: 0, y: 0 });
+    setCroppedArea(null);
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.addEventListener("load", () => {
+        setImageToCrop({ ...imagetocrop, [num]: reader.result });
+      });
+      setImagesArray({ ...imagesArray, [num]: file });
+    }
+  };
+
+  const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
+    setCroppedArea(croppedAreaPixels);
+  };
+
+  const savecroppedImage = async () => {
+    const img = await getCroppedImg(
+      imagetocrop[openimagePreview?.indexToCrop],
+      croppedArea,
+      imagesArray[openimagePreview?.indexToCrop]?.name
+    );
+
+    setImagesArray((prevArray) => {
+      const newArray = { ...prevArray };
+      newArray[openimagePreview?.indexToCrop] = img;
+      return newArray;
+    });
+
+    setImagePreview({ value: false, indexToCrop: null });
+  };
+
+  return (
+    <>
+      <div className="add_images_card_wrppaer_create_event_01">
+        <h2>Add images to make more trust (upto 4 Images)</h2>
+
+        <TextField1
+          label="Add Title for this section"
+          value={titles?.image}
+          id={`titleImagSection`}
+          placeholder="Enter display title"
+          onChange={(e) => {
+            setTitles({ ...titles, image: e.target.value });
+          }}
+        />
+
+        <section
+          style={{
+            width: "100%",
+            gap: "25px",
+            display: "grid",
+            gridTemplateColumns: "repeat(2,1fr)",
+          }}
+        >
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+          >
+            <UploadField3
+              label="Upload 1st Image"
+              id="upload0"
+              info="Upload file in Jpeg, Png format"
+              FileType=".jpg,.png,.jpeg"
+              onChange={(file) =>
+                setImagesArray((prev) => {
+                  return { ...prev, 0: file };
+                })
+              }
+              onChangeFunction={(e) => {
+                handleChangeImagesArray(e, 0);
+              }}
+            />
+            {imagesArray[0] && (
+              <Button1
+                id="button0"
+                onClick={() => {
+                  setZoom(1);
+                  setCrop({ x: 0, y: 0 });
+                  setCroppedArea(null);
+                  setImagePreview({
+                    value: true,
+                    indexToCrop: 0,
+                  });
+                }}
+                text="Preview Image and Resize"
+              />
+            )}
+          </div>
+
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+          >
+            <UploadField3
+              label="Upload 2nd Image"
+              id="upload1"
+              info="Upload file in Jpeg, Png format"
+              FileType=".jpg,.png,.jpeg"
+              onChange={(file) =>
+                setImagesArray((prev) => {
+                  return { ...prev, 1: file };
+                })
+              }
+              onChangeFunction={(e) => {
+                handleChangeImagesArray(e, 1);
+              }}
+            />
+
+            {imagesArray[1] && (
+              <Button1
+                id="button1"
+                onClick={() => {
+                  setZoom(1);
+                  setCrop({ x: 0, y: 0 });
+                  setCroppedArea(null);
+                  setImagePreview({
+                    value: true,
+                    indexToCrop: 1,
+                  });
+                }}
+                text="Preview Image and Resize"
+              />
+            )}
+          </div>
+        </section>
+
+        <section
+          style={{
+            width: "100%",
+            gap: "25px",
+            display: "grid",
+            gridTemplateColumns: "repeat(2,1fr)",
+          }}
+        >
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+          >
+            <UploadField3
+              label="Upload 3rd Image"
+              id="upload2"
+              info="Upload file in Jpeg, Png format"
+              FileType=".jpg,.png,.jpeg"
+              onChange={(file) =>
+                setImagesArray((prev) => {
+                  return { ...prev, 2: file };
+                })
+              }
+              onChangeFunction={(e) => {
+                handleChangeImagesArray(e, 2);
+              }}
+            />
+
+            {imagesArray[2] && (
+              <Button1
+                id="button2"
+                onClick={() => {
+                  setZoom(1);
+                  setCrop({ x: 0, y: 0 });
+                  setCroppedArea(null);
+                  setImagePreview({
+                    value: true,
+                    indexToCrop: 2,
+                  });
+                }}
+                text="Preview Image and Resize"
+              />
+            )}
+          </div>
+
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+          >
+            <UploadField3
+              label="Upload 4th Image"
+              id="upload3"
+              info="Upload file in Jpeg, Png format"
+              FileType=".jpg,.png,.jpeg"
+              onChange={(file) =>
+                setImagesArray((prev) => {
+                  return { ...prev, 3: file };
+                })
+              }
+              onChangeFunction={(e) => {
+                handleChangeImagesArray(e, 3);
+              }}
+            />
+
+            {imagesArray[3] && (
+              <Button1
+                id="button3"
+                onClick={() => {
+                  setZoom(1);
+                  setCrop({ x: 0, y: 0 });
+                  setCroppedArea(null);
+                  setImagePreview({
+                    value: true,
+                    indexToCrop: 3,
+                  });
+                }}
+                text="Preview Image and Resize"
+              />
+            )}
+          </div>
+        </section>
+      </div>
+
+      {/* Live preview Section ------------- */}
+      {openimagePreview?.value ? (
+        <Modal
+          open={openimagePreview?.value}
+          onClose={() => setImagePreview({ value: false, indexToCrop: null })}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <div className="ultimatewrapper_imageprev">
+            <div className="container_imageresize">
+              <div className="container-cropper">
+                <>
+                  <div className="cropper">
+                    <Cropper
+                      image={imagetocrop[openimagePreview?.indexToCrop]}
+                      crop={crop}
+                      zoom={zoom}
+                      aspect={5 / 4}
+                      cropShape="rect"
+                      onCropChange={setCrop}
+                      onZoomChange={setZoom}
+                      onCropComplete={onCropComplete}
+                    />
+                  </div>
+                </>
+              </div>
+
+              <div className="container-buttons">
+                <div className="slider-imagecrop">
+                  <div>
+                    {" "}
+                    <AddIcon />
+                  </div>
+                  <div className="slider-imagecrop-wrap">
+                    <Slider
+                      min={1}
+                      max={3}
+                      step={0.1}
+                      value={zoom}
+                      onChange={(e, zoom) => setZoom(zoom)}
+                    />
+                  </div>
+                  <div>
+                    {" "}
+                    <RemoveIcon />
+                  </div>
+                </div>
+                <div className="button-preview">
+                  {" "}
+                  <button onClick={savecroppedImage}>Save</button>
+                  <button
+                    onClick={() =>
+                      setImagePreview({ value: false, indexToCrop: null })
+                    }
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <span className="warningspan_imagepreview">
+                  *Do not save if you want the full image to be covered in
+                  banner.
+                </span>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
+    </>
+  );
+};
+
+const AddVideoCard = ({
+  titles,
+  setTitles,
+  handleVideoArrayChange,
+  videoArray,
+}) => {
+  return (
+    <div className="add_images_card_wrppaer_create_event_01">
+      <h2>Add video links (upto 4 links)</h2>
+
+      <TextField1
+        label="Add Title for this section"
+        value={titles?.video}
+        id={`titleImagSection`}
+        placeholder="Enter display title"
+        onChange={(e) => {
+          setTitles({ ...titles, video: e.target.value });
+        }}
+      />
+
+      <section
+        style={{
+          width: "100%",
+          gap: "25px",
+          display: "grid",
+          gridTemplateColumns: "repeat(2,1fr)",
+        }}
+      >
+        <TextField1
+          label="Add 1st Video Link"
+          value={videoArray["0"]}
+          id={`video1`}
+          placeholder="www.anchors.com"
+          onChange={(e) => {
+            handleVideoArrayChange(e, 0);
+          }}
+        />
+        <TextField1
+          label="Add 2nd Video Link"
+          value={videoArray["1"]}
+          id={`video2`}
+          placeholder="www.anchors.com"
+          onChange={(e) => {
+            handleVideoArrayChange(e, 1);
+          }}
+        />
+      </section>
+      <section
+        style={{
+          width: "100%",
+          gap: "25px",
+          display: "grid",
+          gridTemplateColumns: "repeat(2,1fr)",
+        }}
+      >
+        <TextField1
+          label="Add 3rd Video Link"
+          value={videoArray["2"]}
+          id={`video3`}
+          placeholder="www.anchors.com"
+          onChange={(e) => {
+            handleVideoArrayChange(e, 2);
+          }}
+        />
+        <TextField1
+          label="Add 4th Video Link"
+          value={videoArray["3"]}
+          id={`video4`}
+          placeholder="www.anchors.com"
+          onChange={(e) => {
+            handleVideoArrayChange(e, 3);
+          }}
+        />
+      </section>
+    </div>
+  );
+};
+
+const AddTestimonialCard = ({
+  testimonialArray,
+  setTestimonialArray,
+  index,
+  imagetocrop,
+  setImageToCrop,
+  setZoom,
+  setCrop,
+  setCroppedArea,
+  setImagePreview,
+  setTitles,
+  titles,
+  handleRemoveTestimonialCard,
+  setWants,
+  wants,
+  setScrollPreviewSection
+}) => {
+
+
+  const handleChangeTestimonialCard = (e) => {
+    setTestimonialArray((prevArray) => {
+      const newArray = [...prevArray];
+      let updatedObj = newArray[index];
+      updatedObj[e?.target?.name] = e.target.value;
+      newArray[index] = updatedObj;
+      return newArray;
+    });
+  };
+
+  const handleChangeTestimonialImage = (e) => {
+    const file = e.target.files[0];
+    setZoom(1);
+    setCrop({ x: 0, y: 0 });
+    setCroppedArea(null);
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.addEventListener("load", () => {
+        setImageToCrop({ ...imagetocrop, [index]: reader.result });
+      });
+      setTestimonialArray((prevArray) => {
+        const newArray = [...prevArray];
+        let updatedObj = newArray[index];
+        updatedObj["image"] = file;
+        newArray[index] = updatedObj;
+        return newArray;
+      });
+    }
+  };
+
+  return (
+    <div className="add_testimonial_card_wrppaer_create_event_01">
+      <section>
+        <span
+          onClick={() => {
+            handleRemoveTestimonialCard(index);
+          }}
+        >
+          {index === 0 ? "Reset" : "Remove"}
+        </span>
+
+        {index === 0 && (
+          <h2>Add testimonial in your page & Increase conversion rate</h2>
+        )}
+      </section>
+
+      {index === 0 && (
+        <TextField1
+          label="Add Title for this section"
+          value={titles?.testimonial}
+          id={`titleImagSection`}
+          placeholder="Enter display title"
+          onChange={(e) => {
+            setTitles({...titles,testimonial:e.target.value});
+          }}
+        />
+      )}
+
+      <Dropdown1
+        value={["Text", "Image", "Video"]}
+        label="Choose Testimonial Type"
+        placeholder="Choose a testimonial type"
+        defaultValue={testimonialArray[index]?.type}
+        selectedValue={(e) => {
+          setScrollPreviewSection("testimonial")
+          setWants({...wants,testimonial:true})
+          setTestimonialArray((prevArray) => {
+            const newArray = [...prevArray];
+            let updatedObj = newArray[index];
+            updatedObj["type"] = e;
+            newArray[index] = updatedObj;
+            return newArray;
+          });
+        }}
+      />
+
+      {testimonialArray[index]?.type === "Text" && (
+        <>
+          <section
+            style={{
+              width: "100%",
+              gap: "25px",
+              display: "grid",
+              gridTemplateColumns: "repeat(2,1fr)",
+            }}
+          >
+            <TextField1
+              label="Add Testimonial Title"
+              name="title"
+              value={testimonialArray[index]?.title}
+              placeholder="Text"
+              onChange={handleChangeTestimonialCard}
+            />
+            <TextField1
+              label="Add User Name"
+              name="username"
+              value={testimonialArray[index]?.username}
+              placeholder="This name will be displayed"
+              onChange={handleChangeTestimonialCard}
+            />
+          </section>
+
+          <Editor1
+            label={`Write Testimonial Details`}
+            Content={testimonialArray[index]?.review}
+            setContent={(e) => {
+              setTestimonialArray((prevArray) => {
+                const newArray = [...prevArray];
+                let updatedObj = newArray[index];
+                updatedObj["review"] = e;
+                newArray[index] = updatedObj;
+                return newArray;
+              });
+            }}
+          />
+        </>
+      )}
+
+      {testimonialArray[index]?.type === "Image" && (
+        <>
+          <section
+            style={{
+              width: "100%",
+              gap: "25px",
+              display: "grid",
+              gridTemplateColumns: "repeat(2,1fr)",
+            }}
+          >
+            <UploadField3
+              label="Upload Image"
+              name="image"
+              id={`testimonialimage${index}`}
+              info="File size limit - 15 MB, Format - jpg, jpeg, png"
+              FileType=".jpg,.png,.jpeg"
+              onChangeFunction={handleChangeTestimonialImage}
+            />
+
+            {testimonialArray[index]?.image && (
+              <Button1
+                variant="outlined"
+                onClick={() => {
+                  setZoom(1);
+                  setCrop({ x: 0, y: 0 });
+                  setCroppedArea(null);
+                  setImagePreview({
+                    value: true,
+                    indexToCrop: index,
+                  });
+                }}
+                text="Preview Banner and Resize"
+              />
+            )}
+          </section>
+        </>
+      )}
+
+      {testimonialArray[index]?.type === "Video" && (
+        <>
+          <section
+            style={{
+              width: "100%",
+              gap: "25px",
+              display: "grid",
+              gridTemplateColumns: "repeat(2,1fr)",
+            }}
+          >
+            <TextField1
+              label="Add Video Link"
+              value={testimonialArray[index]?.videoLink}
+              id={`videotestimonial${index}`}
+              name="videoLink"
+              placeholder="https://www.youtube.com/watch?v=aas....."
+              onChange={handleChangeTestimonialCard}
+            />
+          </section>
+        </>
+      )}
     </div>
   );
 };
@@ -1247,6 +1831,525 @@ export const ThirdPage = ({
 };
 
 export const FourthPage = ({
+  setCurrentPage,
+  setScrollPreviewSection,
+  setOpenLoading,
+  progress,
+  draftEventId,
+  imagesArray,
+  videoArray,
+  setImagesArray,
+  setVideoArray,
+  titles,
+  setTitles,
+  wants,
+  setWants,
+}) => {
+  const { addEvent, UploadEventSpeakersProfile } = useContext(ServiceContext);
+
+  const handleVideoArrayChange = (e, num) => {
+    setWants({ ...wants, video: true });
+    setScrollPreviewSection("video")
+    setVideoArray({ ...videoArray, [num]: e.target.value });
+  };
+
+  const SaveExtraImages = async (data) => {
+    try {
+      let imagesURL = [];
+      for (let index = 0; index < data.length; index++) {
+        const element = data[index];
+        if (element) {
+          let data1 = new FormData();
+          data1.append("file", element);
+          let speaker = await UploadEventSpeakersProfile(data1);
+          imagesURL.push(speaker?.result?.Location);
+        }
+      }
+
+      return imagesURL;
+    } catch (error) {
+      toast.error("Some error occured in uploading speaker images", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    }
+  };
+
+  const onSubmit = async () => {
+    setOpenLoading(true); // true on loader
+    progress(0);
+    let imagesData;
+    let videoData;
+    try {
+      // processing the images in s3 ------------------
+      if (!wants?.image) {
+        imagesData = null;
+      } else {
+        let result = await SaveExtraImages(
+          Object.values(imagesArray).filter((e) => {
+            return e;
+          })
+        );
+
+        imagesData = {
+          title: titles?.image,
+          images: result,
+        };
+      }
+
+      progress(50);
+
+      if (!wants?.video) {
+        videoData = null;
+      } else {
+        videoData = {
+          title: titles?.video,
+          videos: Object.values(videoArray).filter((e) => {
+            return e;
+          }),
+        };
+      }
+
+      progress(75);
+
+      let json = await addEvent({
+        imagesSectionData: imagesData,
+        videosSectionData: videoData,
+        stagesCompleted: 4,
+        eventID: draftEventId,
+      });
+
+      if (json?.success) {
+        setOpenLoading(false);
+        setCurrentPage(5);
+      } else {
+        setOpenLoading(false);
+        toast.error(`Details Not Saved Please Try Again`, {
+          position: "top-center",
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {
+      setOpenLoading(false);
+      console.log(error);
+      toast.error(`Server side error please try after some time`, {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    }
+
+    setOpenLoading(false);
+    progress(100);
+  };
+
+  const handleSubmitFormFour = () => {
+    // warnings and the alerts -----------------
+    if (draftEventId) {
+      if (!wants?.image && !wants?.video) {
+        setCurrentPage(5);
+      } else {
+        // save the data and then proceed ---------
+        onSubmit();
+      }
+    } else {
+      toast.info("Some error in finding your saved data. Please Try Again!!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
+  };
+
+  return (
+    <>
+      <section className="create_form_box_create_event01">
+        {/* left side---------------------------------------------------------------------------- */}
+        <div className="left_section_form_create_event01">
+          <Select2
+            value={["Yes", "No"]}
+            label="Do you want to add Images section?"
+            selectedValue={(e) => {
+              setWants({ ...wants, image: e === "Yes" ? true : false });
+            }}
+            defaultValue={wants?.image ? "Yes" : "No"}
+          />
+
+          <AddImagesCard
+            titles={titles}
+            setTitles={setTitles}
+            setImagesArray={setImagesArray}
+            imagesArray={imagesArray}
+            setWants={setWants}
+            setScrollPreviewSection={setScrollPreviewSection}
+          />
+
+          <br />
+
+          <Select2
+            value={["Yes", "No"]}
+            label="Do you want to add Videos section?"
+            selectedValue={(e) => {
+              setWants({ ...wants, video: e === "Yes" ? true : false });
+            }}
+            defaultValue={wants?.video ? "Yes" : "No"}
+          />
+
+          <AddVideoCard
+            titles={titles}
+            setTitles={setTitles}
+            handleVideoArrayChange={handleVideoArrayChange}
+            videoArray={videoArray}
+          />
+        </div>
+      </section>
+
+      <section className="buttons_form_create_event01">
+        <Button4
+          text="Save & Next"
+          icon={<AiOutlineArrowRight />}
+          onClick={() => {
+            handleSubmitFormFour();
+          }}
+        />
+
+        <Button3
+          text="Previous"
+          icon={<AiOutlineArrowLeft />}
+          onClick={() => {
+            setCurrentPage(3);
+          }}
+        />
+      </section>
+    </>
+  );
+};
+
+export const FifthPage = ({
+  setCurrentPage,
+  setScrollPreviewSection,
+  setOpenLoading,
+  progress,
+  draftEventId,
+  testimonialArray,
+  setTestimonialArray,
+  wants,
+  setWants,
+  titles,
+  setTitles,
+}) => {
+  const { addEvent, UploadEventSpeakersProfile } = useContext(ServiceContext);
+
+  const [imagetocrop, setImageToCrop] = useState({}); // sepaker's profile image
+  // state for image cropping
+  const [openimagePreview, setImagePreview] = useState({
+    value: false,
+    indexToCrop: null,
+  });
+
+  const [crop, setCrop] = useState({ x: 0, y: 0 }); // Array of values ------------------
+  const [zoom, setZoom] = useState(1); // Array of values ------------------
+  const [croppedArea, setCroppedArea] = useState(null); // Array of values ------------------
+
+  const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
+    setCroppedArea(croppedAreaPixels);
+  };
+  
+  const savecroppedImage = async () => {
+    const img = await getCroppedImg(
+      imagetocrop[openimagePreview?.indexToCrop],
+      croppedArea,
+      testimonialArray[openimagePreview?.indexToCrop]?.image?.name
+    );
+
+    setTestimonialArray((prevArray) => {
+      const newArray = [...prevArray];
+      let updatedObj = newArray[openimagePreview?.indexToCrop];
+      updatedObj["image"] = img;
+      newArray[openimagePreview?.indexToCrop] = updatedObj;
+      return newArray;
+    });
+
+    setImagePreview({ value: false, indexToCrop: null });
+  };
+
+  const checkTestimonialData = () => {
+    if (testimonialArray.length === 0 || !wants?.testimonial) {
+      return true;
+    }
+
+    for (let index = 0; index < testimonialArray.length; index++) {
+      if (!testimonialArray[index]?.type) {
+        continue;
+      }
+
+      const element = testimonialArray[index];
+
+      if (
+        (!element?.review || element?.review?.length === 0) &&
+        !element?.image &&
+        !element?.videoLink
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const saveTestimonialImage = async (element) => {
+    let data1 = new FormData();
+    data1.append("file", element);
+    let speaker = await UploadEventSpeakersProfile(data1);
+    return speaker?.result?.Location;
+  };
+
+  const onSubmit = async () => {
+    setOpenLoading(true); // true on loader
+    progress(0);
+    try {
+      // processing the images in s3 ------------------
+      if (titles?.testimonial?.length < 1) {
+        setOpenLoading(false);
+        toast.error("Section Name could not be empty", {
+          position: "top-center",
+          autoClose: 1500,
+        });
+        return;
+      }
+
+      if (checkTestimonialData()) {
+        for (let index = 0; index < testimonialArray.length; index++) {
+          const element = testimonialArray[index];
+          if (element?.type === "Image") {
+            if (element?.image) {
+              let result = await saveTestimonialImage(element?.image);
+              setTestimonialArray((prev) => {
+                let newArr = [...prev];
+                newArr[index].image = result;
+                return newArr;
+              });
+            } else {
+              continue;
+            }
+          }
+        }
+
+        progress(50);
+
+        let json = await addEvent({
+          testimonialData: {
+            title: titles?.testimonial ?? "Testimonials",
+            data: testimonialArray,
+          },
+          stagesCompleted: 5,
+          eventID: draftEventId
+        });
+
+        if (json?.success) {
+          setOpenLoading(false);
+          setCurrentPage(6);
+        } else {
+          setOpenLoading(false);
+          toast.error(`Details Not Saved Please Try Again`, {
+            position: "top-center",
+            autoClose: 2000,
+          });
+        }
+      } else {
+        toast.error("Fill the testimonial details properly", {
+          position: "top-center",
+          autoClose: 1500,
+        });
+      }
+    } catch (error) {
+      setOpenLoading(false);
+      console.log(error);
+      toast.error(`Server side error please try after some time`, {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    }
+
+    setOpenLoading(false);
+    progress(100);
+  };
+
+  const handleSubmitFormFive = () => {
+    // warnings and the alerts -----------------
+    if (draftEventId) {
+      if (!wants.testimonial) {
+        setCurrentPage(6);
+      } else {
+        // save the data and then proceed ---------
+        onSubmit();
+      }
+    } else {
+      toast.info("Some error in finding your saved data. Please Try Again!!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const handleRemoveTestimonialCard = (indexToRemove) => {
+    if (indexToRemove === 0) {
+      setTitles({ ...titles, testimonial: "Testimonials" });
+
+      setTestimonialArray((prev) => {
+        let newArr = [...prev];
+        newArr[0] = {};
+        return newArr;
+      });
+      return;
+    } else {
+      setTestimonialArray((prev) => {
+        let newArr = [...prev];
+        const updatedArray = newArr.filter((_, i) => i !== indexToRemove);
+        return updatedArray;
+      });
+    }
+  };
+
+  return (
+    <>
+      <section className="create_form_box_create_event01">
+        {/* left side---------------------------------------------------------------------------- */}
+        <div className="left_section_form_create_event01">
+          <Select2
+            value={["Yes", "No"]}
+            label="Do you want to add testimonials?"
+            selectedValue={(e) => {
+              setWants({...wants,testimonial:(e === "Yes" ? true : false)})
+            }}
+            defaultValue={wants?.testimonial ? "Yes" : "No"}
+          />
+
+          {testimonialArray?.map((e, i) => {
+            return (
+              <AddTestimonialCard
+                key={`testimonialcard${i}`}
+                testimonialArray={testimonialArray}
+                setTestimonialArray={setTestimonialArray}
+                index={i}
+                imagetocrop={imagetocrop}
+                setImageToCrop={setImageToCrop}
+                setZoom={setZoom}
+                setCrop={setCrop}
+                setCroppedArea={setCroppedArea}
+                setImagePreview={setImagePreview}
+                setTitles={setTitles}
+                titles={titles}
+                handleRemoveTestimonialCard={handleRemoveTestimonialCard}
+                setWants={setWants}
+                wants={wants}
+                setScrollPreviewSection={setScrollPreviewSection}
+              />
+            );
+          })}
+
+          {/* {speakersArray?.length < 3 && ( */}
+          {testimonialArray?.length < 4 && (
+            <Button5
+              text="Add More Testimonial"
+              rightIcon={<FaPlus />}
+              onClick={() => {
+                setTestimonialArray([...testimonialArray, {}]);
+              }}
+            />
+          )}
+        </div>
+      </section>
+
+      <section className="buttons_form_create_event01">
+        <Button4
+          text="Save & Next"
+          icon={<AiOutlineArrowRight />}
+          onClick={() => {
+            handleSubmitFormFive();
+          }}
+        />
+
+        <Button3
+          text="Previous"
+          icon={<AiOutlineArrowLeft />}
+          onClick={() => {
+            setCurrentPage(4);
+          }}
+        />
+      </section>
+
+      {/* Live preview Section ------------- */}
+      {openimagePreview?.value ? (
+        <Modal
+          open={openimagePreview?.value}
+          onClose={() => setImagePreview({ value: false, indexToCrop: null })}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <div className="ultimatewrapper_imageprev">
+            <div className="container_imageresize">
+              <div className="container-cropper">
+                <>
+                  <div className="cropper">
+                    <Cropper
+                      image={imagetocrop[openimagePreview?.indexToCrop]}
+                      crop={crop}
+                      zoom={zoom}
+                      aspect={7 / 4}
+                      cropShape="rect"
+                      onCropChange={setCrop}
+                      onZoomChange={setZoom}
+                      onCropComplete={onCropComplete}
+                    />
+                  </div>
+                </>
+              </div>
+
+              <div className="container-buttons">
+                <div className="slider-imagecrop">
+                  <div>
+                    {" "}
+                    <AddIcon />
+                  </div>
+                  <div className="slider-imagecrop-wrap">
+                    <Slider
+                      min={1}
+                      max={3}
+                      step={0.1}
+                      value={zoom}
+                      onChange={(e, zoom) => setZoom(zoom)}
+                    />
+                  </div>
+                  <div>
+                    {" "}
+                    <RemoveIcon />
+                  </div>
+                </div>
+                <div className="button-preview">
+                  {" "}
+                  <button onClick={savecroppedImage}>Save</button>
+                  <button
+                    onClick={() =>
+                      setImagePreview({ value: false, indexToCrop: null })
+                    }
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <span className="warningspan_imagepreview">
+                  *Do not save if you want the full image to be covered in
+                  banner.
+                </span>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
+    </>
+  );
+};
+
+export const SixthPage = ({
   data,
   setdata,
   setCurrentPage,
@@ -1297,7 +2400,7 @@ export const FourthPage = ({
           phone: data?.contactPhone,
           email: data?.contactEmail,
         },
-        stagesCompleted: 4,
+        stagesCompleted: 6,
         eventID: draftEventId,
       });
       if (json?.success) {
@@ -1361,7 +2464,7 @@ export const FourthPage = ({
         {/* left side---------------------------------------------------------------------------- */}
         <div className="left_section_form_create_event01">
           <img
-            src="https://miro.medium.com/v2/resize:fit:1400/0*KIKnUvzdIkp5zcDJ"
+            src="https://anchors-assets.s3.amazonaws.com/1704450093770-Frame_1000002436.png"
             alt=""
           />
 
@@ -1447,7 +2550,7 @@ Rank 6-10: 30% refund on event registration fee`}
           text="Previous"
           icon={<AiOutlineArrowLeft />}
           onClick={() => {
-            setCurrentPage(3);
+            setCurrentPage(5);
           }}
         />
       </section>

@@ -11,30 +11,22 @@ import { SlGraph } from "react-icons/sl";
 import { Table1 } from "../Create Services/InputComponents/fields_Labels";
 import { IoCopyOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
-
+import { Button5 } from "../Create Services/InputComponents/buttons";
+import { FaFileCsv } from "react-icons/fa";
+import { CSVLink } from "react-csv";
 function Users(props) {
   const { slug } = useParams();
   const navigate = useNavigate();
   const { getUserDetails, allUserDetails } = useContext(creatorContext);
-  const { serviceInfo, getserviceinfo, compareJWT, geteventinfo, eventInfo } =
+  const {compareJWT, geteventinfo, eventInfo } =
     useContext(ServiceContext);
   const [openLoading, setopenLoading] = useState(false);
-  const [serviceType, setServiceType] = useState();
   const [approvedUser, setapprovedUser] = useState(false); // check if user searching is appropriate
-
-  // custom hook to get querries
-  function useQuery() {
-    const { search } = useLocation();
-    return useMemo(() => new URLSearchParams(search), [search]);
-  }
-
-  const query = useQuery();
+  const [category,setCategory] = useState("Registered_Users")
 
   // Checking if the user is only able to check its data not others-------------------
   useEffect(() => {
     props.progress(0);
-    if (query.get("type") === "event") {
-      setServiceType("event");
       geteventinfo(slug).then((e) => {
         compareJWT(e[0]?._id).then((e) => {
           if (e) {
@@ -44,33 +36,23 @@ function Users(props) {
             navigate("/dashboard/mycontents");
           }
         });
-      });
-    } else {
-      setServiceType("download");
-      getserviceinfo(slug).then((e) => {
-        compareJWT(e[0]?._id).then((e) => {
-          if (e) {
-            setapprovedUser(true);
-            props.progress(100);
-          } else {
-            navigate("/dashboard/mycontents");
-          }
-        });
-      });
-    }
+      }); 
+  }, []);
+  useEffect(() => {
+    // Get the current URL search parameters
+    const params = new URLSearchParams(window.location.search);
+
+    // Access query parameters
+    const param1 = params.get('category');
+    setCategory(param1 || "Registered_Users")
   }, []);
 
   useEffect(() => {
     setopenLoading(true);
-    getUserDetails(
-      serviceType === "download"
-        ? serviceInfo?.service?._id
-        : eventInfo?.event?._id,
-      serviceType
-    ).then((e) => {
+    getUserDetails(eventInfo?.event?._id,).then((e) => {
       setopenLoading(false);
     });
-  }, [serviceType === "download" ? serviceInfo : eventInfo]);
+  }, [eventInfo]);
 
   const renderdate1 = (date) => {
     let a = new Date(date);
@@ -87,17 +69,10 @@ function Users(props) {
   };
 
   const date = Moment(
-    serviceType === "download"
-      ? serviceInfo?.service?.date
-      : eventInfo?.event?.createdOn
-  )
-    .format()
-    .split("T")[0];
+    eventInfo?.event?.createdOn
+  ).format().split("T")[0];
 
-  const time =
-    serviceType === "download"
-      ? Moment(serviceInfo?.service?.date).format().split("T")[1].split("+")[0]
-      : Moment(eventInfo?.event?.createdOn)
+  const time = Moment(eventInfo?.event?.createdOn)
           .format()
           .split("T")[1]
           .split("+")[0];
@@ -111,11 +86,118 @@ function Users(props) {
 
   //   return email2;
   // };
+  const handleCategory = (category) =>{
+    setCategory(category)
+    console.log(category)
+  }
   const totalAmount = allUserDetails.reduce(
     (acc, ele) => acc + (ele?.amount || 0),
     0
   );
+  const getTableHeadArray = () => {
+    if (category === "Registered_Users"){
+      return [
+        "Name",
+        "Email ID",
+        "Phone Number",
+        "Location",
+        "Registered on",
+        "Amount Paid",
+        "No. of WhatsApp Sent",
+        "No. of Emails Sent",
+        "Referred By"
+      ]
+    }
+    else if (category === "Activity_Email_WA"){
+      return [
+        "Name",
+        "Email ID",
+        "Phone Number",
+        "Location",
+        "Registered on",
+        "Amount Paid",
+        "No. of WhatsApp Sent",
+        "No. of Emails Sent",
+        "Referred By"
+      ]
+    }
+    else {
+      return [
+        "Name",
+        "Email ID",
+        "Phone Number",
+        "Location",
+        "Registration Attempted",
+        "Status"
+      ]
+    }
+  }
+  const getGridConfig = () => {
+    if (category === "Registered_Users"){
+      return "6% 15% 10% 10% 10% 10% 14% 12% 8%"
+    }
+    else if(category === "Activity_Email_WA"){
+      return "6% 15% 10% 10% 10% 10% 14% 12% 8%"
+    }
+    else{
+      return "6% 25% 20% 15% 20% 14%"
+    }
+  }
+  const [csvData, setCsvData] = useState([]);
 
+  const handleExportCsv = () => {
+    const data = allUserDetails?.filter((e)=>{return category === "Registered_Users" ? e?.status === 1 : category === "Abandoned_Cart" ? e?.status === 0 : !e})?.map((elem) => {
+      if(category === "Registered_Users"){
+        return {
+          Name: elem?.userID?.name || "--",
+          Email: elem?.userID?.email || "--",
+          Mobile_Number:elem?.userID?.phoneNumber || "--",
+          location : elem?.userID?.location?.city ||  "---",
+          Order_Date : renderdate1(elem?.orderDate) + "," + renderdate2(elem?.orderDate),
+          Amount : elem?.amount || "--",
+          // whatsapp : elem?.whatsapp || "--",
+          // Email : elem?.email || "--",
+          Reffered_from : elem?.referredFrom ? "Yes" : "No"
+        };
+      }
+      
+      // else if (category === "Activity_Email_WA"){
+      //   return {
+      //     Name: elem?.userID?.name || "--",
+      //     Email: elem?.userID?.email || "--",
+      //     Mobile_Number:elem?.userID?.phoneNumber || "--",
+      //     location : elem?.userID?.location?.city ||  "---",
+      //     Order_Date :               <span>
+      //                     {renderdate1(elem?.orderDate)}
+      //                     <br></br>
+      //                     {renderdate2(elem?.orderDate)}
+      //                   </span> || "--",
+      //     Amount : elem?.amount || "--",
+      //     whatsapp : elem?.whatsapp || "--",
+      //     Email : elem?.email || "--",
+      //     Reffered_from :elem?.referredFrom ? "Yes" : "No"
+      //   }
+      // }
+      else {
+        return {
+          Name: elem?.userID?.name || "--",
+          Email: elem?.userID?.email || "--",
+          Mobile_Number:elem?.userID?.phoneNumber || "--",
+          location : elem?.userID?.location?.city ||  "---",
+          Order_Date : renderdate1(elem?.orderDate) + "," + renderdate2(elem?.orderDate),
+          Status : elem?.status || "--"
+        }
+      }
+    });
+
+    // Update the CSV data state
+    setCsvData(data);
+  };
+  useEffect(() => {
+    handleExportCsv();
+  }, [allUserDetails,category]);
+
+  
   return (
     <>
       {(openLoading || !approvedUser) && <LoadTwo open={openLoading} />}
@@ -132,7 +214,7 @@ function Users(props) {
                     navigate(-1)
                 }}
               />
-              User List for {serviceType === "event" ? "Event" : "Service"}
+              User List for {eventInfo?.event?.sname}
             </section>
           )}
 
@@ -141,164 +223,78 @@ function Users(props) {
               className="service_stats_page_title_section"
               style={{ marginBottom: "20px" }}
             >
-              <h1>
-                User List for {serviceType === "event" ? "Event" : "Service"}
+              <h1 style={{color:"#E2E8F0"}}>
+                Event Name : <span style={{fontWeight:"400",fontSize:""}}>{eventInfo?.event?.sname.slice(0,40)}...</span>
               </h1>
-
-              <button
-                onClick={() => {
-                  toast.info("Copied link successfully", {
-                    position: "top-center",
-                    autoClose: 1000,
-                  });
-                  navigator.clipboard.writeText(
-                    serviceType === "download"
-                      ? serviceInfo?.service?.copyURL
-                      : eventInfo?.event?.copyURL
-                  );
-                }}
-              >
-                <IoCopyOutline size={20} /> Tracking link
-              </button>
             </section>
           )}
-          <div className="serivce_heading_00">
-            <div className="serivce_heading_01">
-              <img
-                src={
-                  serviceType === "download"
-                    ? serviceInfo?.service?.simg
-                    : eventInfo?.event?.simg
-                }
-              />
-              <div className="serivce_heading_02">
-                <section>
-                  <span>
-                    {" "}
-                    {serviceType === "download"
-                      ? serviceInfo?.service?.sname
-                      : eventInfo?.event?.sname}
-                  </span>
-                  <span style={{ fontSize: "16px", fontWeight: "400" }}>
-                    {date + " " + time}
-                  </span>
-                  <span style={{ fontSize: "16px", fontWeight: "400" }}>
-                    {serviceType === "download"
-                      ? serviceInfo?.service?.isPaid
-                        ? "Paid" + ` (₹ ${serviceInfo?.service?.ssp})`
-                        : "Free"
-                      : "₹ " + eventInfo?.event?.ssp}
-                  </span>
-                </section>
-                <div className="serivce_heading_03">
-                  <button
-                    onClick={() => {
-                      serviceType === "download"
-                        ? navigate(
-                            `/dashboard/serviceStats/${slug}?type=download`
-                          )
-                        : navigate(
-                            `/dashboard/serviceStats/${slug}?type=event`
-                          );
-                    }}
-                  >
-                    <SlGraph />
-                    Detailed {serviceType === "event"
-                      ? "Event"
-                      : "Service"}{" "}
-                    Analysis
-                  </button>
-                  <span
-                    onClick={() => {
-                      serviceType === "download"
-                        ? window.open(`/s/${slug}`)
-                        : window.open(`/e/${slug}`);
-                    }}
-                  >
-                    {serviceType === "download"
-                      ? "Service Details"
-                      : "Event Details"}
-                    <BsArrowRight style={{ paddingLeft: "8px" }} />
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div className="service_category_selection_buttons">
+                <Button5 className={category==="Registered_Users"?"Selected":""} onClick={()=>{handleCategory("Registered_Users")}} text={"Registered Users"}></Button5>
+                <Button5 className={category==="Activity_Email_WA"?"Selected":""} onClick={()=>{handleCategory("Activity_Email_WA")}}text={"Activity ( Email  & WA )"}></Button5>
+                <Button5 className={category==="Abandoned_Cart"?"Selected":""} onClick={()=>{handleCategory("Abandoned_Cart")}}text={"Abandoned Cart"}></Button5>
           </div>
-
+          <div className="service_category_header_breaker">
+          </div>
+          <div className="service_userlist_header">
+            <h1 style={{fontWeight:700,fontSize:"20px",lineHeight:"24.2px",color:"#F8FAFC"}}>{category==="Registered_Users"?"Registered Users":category==="Activity ( Email  & WA )"?"Activity_Email_WA":category==="Abandoned_Cart"?"Abandoned Cart":""}</h1>
+            <div className="service_export_csv_button" style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              <h2 style={{fontWeight:"400",fontSize:"16px",color:"#94A3B8",lineHeight:"19.36px",width:"942px"}}>{category==="Registered_Users"?"Registered Users for this Event":category==="Activity_Email_WA"?"Track Email & WA sent to users)":category==="Abandoned_Cart"?"Below are users who expressed interest but didn't complete registration. Feel free to reach out to encourage them to register. For technical assistance, contact us at +918799710137.":""}</h2>
+              <button><CSVLink
+              data={csvData}
+          filename={`user_data_${eventInfo?.event?.sname}_${category?.toLowerCase().replace(/\s/g, "_")}.csv`}
+        >
+          <FaFileCsv /> Export
+        </CSVLink></button>
+            </div>
+            
+          </div>
           <div className="userrequest-table">
             <Table1
-              headArray={
-                (
-                  serviceType === "download"
-                    ? serviceInfo?.service?.isPaid
-                    : eventInfo?.event?.isPaid
-                )
-                  ? [
-                      "Sr.No",
-                      "Name",
-                      "Email ID",
-                      "Location",
-                      "Amount Paid",
-                      serviceType === "download"
-                        ? "Accessed on"
-                        : "Registered on",
-                    ]
-                  : [
-                      "Sr.No",
-                      "Name",
-                      "Location",
-                      "Amount Paid",
-                      serviceType === "download"
-                        ? "Accessed on"
-                        : "Registered on",
-                    ]
-              }
-              bodyArray={allUserDetails?.map((elem, i) => {
-                return (
-                  serviceType === "download"
-                    ? serviceInfo?.service?.isPaid
-                    : eventInfo?.event?.isPaid
-                )
-                  ? [
-                      i + 1,
+              headArray={getTableHeadArray()}
+              bodyArray={allUserDetails?.filter((e)=>{return category === "Registered_Users" ? e?.status === 1 : category === "Abandoned_Cart" ? e?.status === 0 : !e})?.map((elem, i) => {
+                return (category === "Registered_Users"? [
                       elem?.userID?.name ? elem?.userID?.name : "--",
-                      elem?.userID?.email
-                        ? elem?.userID?.email?.slice(0, 4) +
-                          ".....@" +
-                          elem?.userID?.email?.split("@")[1]
-                        : "---",
-                      elem?.userID?.location?.city
-                        ? elem?.userID?.location?.city
-                        : "---",
-                      elem?.amount,
+                      elem?.userID?.email ?? "--",
+                      elem?.userID?.phoneNumber ?? "--",  
+                      elem?.userID?.location?.city ?? "--",
                       <span>
                         {renderdate1(elem?.orderDate)}
                         <br></br>
                         {renderdate2(elem?.orderDate)}
                       </span>,
-                    ]
-                  : [
-                      i + 1,
-                      elem?.userID?.name ? elem?.userID?.name : "--",
-                      elem?.userID?.location?.city
-                        ? elem?.userID?.location?.city
-                        : "---",
                       elem?.amount,
+                      elem?.whatsapp ? elem?.whatsapp : "--",
+                      elem?.email ? elem?.email : "--",
+                      elem?.referredFrom ? "Yes" : "No"
+                    ]:category === "Activity_Email_WA"?[
+                      elem?.userID?.name ? elem?.userID?.name : "--",
+                      elem?.userID?.email ?? "--",
+                      elem?.userID?.phoneNumber ?? "--",  
+                      elem?.userID?.location?.city ?? "--",
                       <span>
                         {renderdate1(elem?.orderDate)}
                         <br></br>
                         {renderdate2(elem?.orderDate)}
                       </span>,
-                    ];
+                      elem?.amount,
+                      elem?.whatsapp ? elem?.whatsapp : "--",
+                      elem?.email ? elem?.email : "--",
+                      elem?.referredFrom ? "Yes" : "No"
+                    ]:category === "Abandoned_Cart"?[
+                      elem?.userID?.name ? elem?.userID?.name : "--",
+                      elem?.userID?.email ?? "--",
+                      elem?.userID?.phoneNumber ?? "--",  
+                      elem?.userID?.location?.city ?? "--",
+                      <span>
+                        {renderdate1(elem?.orderDate)}
+                        <br></br>
+                        {renderdate2(elem?.orderDate)}
+                      </span> ,
+                      elem?.status === 0 ? "Unsuccessfull" : "--"
+                    ]:"")
               })}
               gridConfig={
-                (
-                  serviceType === "download"
-                    ? serviceInfo?.service?.isPaid
-                    : eventInfo?.event?.isPaid
-                )
-                  ? "6% 21% 25% 19% 15% 12%"
-                  : "12% 25% 25% 23% 15%"
+               getGridConfig()
               }
             />
           </div>

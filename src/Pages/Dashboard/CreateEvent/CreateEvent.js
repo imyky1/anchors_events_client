@@ -1,21 +1,34 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./CreateEvent.css";
 import { IoArrowBackOutline } from "react-icons/io5";
-import { FirstPage, FourthPage, SecondPage, ThirdPage } from "./Steps";
+import {
+  FifthPage,
+  FirstPage,
+  FourthPage,
+  SecondPage,
+  SixthPage,
+  ThirdPage,
+} from "./Steps";
 import { IoMdCheckmark } from "react-icons/io";
-import { toast } from "react-toastify";
 import ServiceContext from "../../../Context/services/serviceContext";
 import { host } from "../../../config/config";
 import { toBlob } from "html-to-image";
 import PNGIMG from "../../../Utils/Images/default_user.png";
 import { NewCongratsServiceModal } from "../../../Components/Modals/ServiceSuccess/Modal";
 import { LoadThree } from "../../../Components/Modals/Loading";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CreateEventDemo from "../../../Components/Editor/New UI/Create Services/CreateServiceDemo";
 
 const StepsChecker = ({ currentPage }) => {
+  const imagesStepRef = useRef();
+
+  useEffect(() => {
+    // imagesStepRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    imagesStepRef.current.scrollLeft = 100 * (currentPage-1);
+  }, [currentPage]);
+
   return (
-    <div className="steps_checker_create_event">
+    <div className="steps_checker_create_event" ref={imagesStepRef}>
       <section className={currentPage === 1 && `active_step_create_event`}>
         <span className={currentPage > 1 && "passed_step_create_event"}>
           {currentPage > 1 ? <IoMdCheckmark color="#FAFAFA" size={12} /> : "1"}
@@ -41,6 +54,20 @@ const StepsChecker = ({ currentPage }) => {
         <span className={currentPage > 4 && "passed_step_create_event"}>
           {currentPage > 4 ? <IoMdCheckmark color="#FAFAFA" size={12} /> : "4"}
         </span>
+        <p>Images & Video</p>
+      </section>
+      <div></div>
+      <section className={currentPage === 5 && `active_step_create_event`}>
+        <span className={currentPage > 5 && "passed_step_create_event"}>
+          {currentPage > 5 ? <IoMdCheckmark color="#FAFAFA" size={12} /> : "5"}
+        </span>
+        <p>Testimonial</p>
+      </section>
+      <div></div>
+      <section className={currentPage === 6 && `active_step_create_event`}>
+        <span className={currentPage > 6 && "passed_step_create_event"}>
+          {currentPage > 6 ? <IoMdCheckmark color="#FAFAFA" size={12} /> : "6"}
+        </span>
         <p>Add Gamification</p>
       </section>
     </div>
@@ -48,12 +75,15 @@ const StepsChecker = ({ currentPage }) => {
 };
 
 const HeaderEvent01 = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="headers_create_event">
-
-      <IoArrowBackOutline color="#EEEEEE" onClick={()=>{navigate(-1)}}/>
+      <IoArrowBackOutline
+        color="#EEEEEE"
+        onClick={() => {
+          navigate(-1);
+        }}
+      />
 
       <section>
         <h2>Create your event</h2>
@@ -63,7 +93,7 @@ const HeaderEvent01 = () => {
   );
 };
 
-const CreateEvent = ({ progress, crating,allCreatorInfo,cemail }) => {
+const CreateEvent = ({ progress, crating, allCreatorInfo, cemail }) => {
   const [data, setdata] = useState({
     sname: "",
     sdesc: "",
@@ -95,19 +125,41 @@ const CreateEvent = ({ progress, crating,allCreatorInfo,cemail }) => {
   const [openLoading, setOpenLoading] = useState(false); // controlls the loader
   const [scrollPreviewSection, setScrollPreviewSection] = useState(null);
   const [showPopup, setshowPopup] = useState({ open: false, link: "" }); // success popup data
-  const [openBanner, setOpenBanner] = useState(false)
+  const [openBanner, setOpenBanner] = useState(false);
 
-  const [draftEventId, setDraftEventId] = useState(null)
+  const [draftEventId, setDraftEventId] = useState();
+  const [testimonialArray, setTestimonialArray] = useState([{}]);
+  const [wants, setWants] = useState({
+    image: false,
+    video: false,
+    testimonial: false
+  });
+
+  // images and videos section ----------------
+  const [imagesArray, setImagesArray] = useState({
+    0: null,
+    1: null,
+    2: null,
+    3: null,
+  });
+  const [videoArray, setVideoArray] = useState({
+    0: null,
+    1: null,
+    2: null,
+    3: null,
+  });
+  const [titles, setTitles] = useState({
+    image: "Image Section",
+    video: "Video Section",
+    testimonial:"Testimonials"
+  });
 
   // service Context --------------------------------------------------
-  const {
-    UploadBanners
-  } = useContext(ServiceContext);
+  const { UploadBanners } = useContext(ServiceContext);
 
   useEffect(() => {
     window.scroll(0, 0);
   }, [currentPage]);
-  
 
   // Function to convert image file to data URI
   const getImageDataUri = (file) => {
@@ -163,7 +215,9 @@ const CreateEvent = ({ progress, crating,allCreatorInfo,cemail }) => {
       if (element) {
         dataURI = await getImageDataUri(element);
       } else {
-        dataURI = allCreatorInfo?.profile ? `${host}/api/file/proxyImage?imageUrl=${allCreatorInfo?.profile}` : PNGIMG
+        dataURI = allCreatorInfo?.profile
+          ? `${host}/api/file/proxyImage?imageUrl=${allCreatorInfo?.profile}`
+          : PNGIMG;
       }
       imgtag.src = dataURI;
     }
@@ -205,226 +259,238 @@ const CreateEvent = ({ progress, crating,allCreatorInfo,cemail }) => {
       )}
 
       {/* default banner */}
-      <div className="default_previewer_wrapper"  style={{ zIndex: openBanner ? "10" : "-10" }}>
-      <div>
-        {/* Html banner ------------------------------- */}
-        <section
-          className="event_invite_card_wrapper"
-          ref={htmlElementRef}
-          style={{
-            background:
-              colorCodes[Math.floor(Math.random() * colorCodes.length)],
-          }}
-        >
-          <div>
-            {/* user section data  */}
-            <section id="invite-card-opacity-layer-160"></section>
-            <section id="invite-card-opacity-layer-123"></section>
-            <section id="invite-card-opacity-layer-87"></section>
-
+      <div
+        className="default_previewer_wrapper"
+        style={{ zIndex: openBanner ? "10" : "-10" }}
+      >
+        <div>
+          {/* Html banner ------------------------------- */}
+          <section
+            className="event_invite_card_wrapper"
+            ref={htmlElementRef}
+            style={{
+              background:
+                colorCodes[Math.floor(Math.random() * colorCodes.length)],
+            }}
+          >
             <div>
-              {/* event title section ----------- */}
-              <section
-                className="event_title_data_event_invite_card_multiple_speakers"
-                style={{ position: "unset", margin: "auto" }}
+              {/* user section data  */}
+              <section id="invite-card-opacity-layer-160"></section>
+              <section id="invite-card-opacity-layer-123"></section>
+              <section id="invite-card-opacity-layer-87"></section>
+
+              <div>
+                {/* event title section ----------- */}
+                <section
+                  className="event_title_data_event_invite_card_multiple_speakers"
+                  style={{ position: "unset", margin: "auto" }}
+                >
+                  <h3>{data?.sname}</h3>
+
+                  <span>Hosted by {allCreatorInfo?.name}</span>
+                </section>
+              </div>
+
+              {/* event date and time section ----------- */}
+              <div
+                style={{
+                  position: "absolute",
+                  right: "32px",
+                  alignItems: "flex-end",
+                }}
               >
-                <h3>{data?.sname}</h3>
-
-                <span>Hosted by {allCreatorInfo?.name}</span>
-              </section>
-            </div>
-
-            {/* event date and time section ----------- */}
-            <div
-              style={{
-                position: "absolute",
-                right: "32px",
-                alignItems: "flex-end",
-              }}
-            >
-              <section className="event_date_data_event_invite_card">
-                <span>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="vuesax/linear/calendar">
-                      <g id="vuesax/linear/calendar_2">
-                        <g id="calendar">
-                          <path
-                            id="Vector"
-                            d="M8 2V5"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            id="Vector_2"
-                            d="M16 2V5"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            id="Vector_3"
-                            d="M3.5 9.08997H20.5"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            id="Vector_4"
-                            d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            id="Vector_5"
-                            d="M15.6947 13.7H15.7037"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            id="Vector_6"
-                            d="M15.6947 16.7H15.7037"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            id="Vector_7"
-                            d="M11.9955 13.7H12.0045"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            id="Vector_8"
-                            d="M11.9955 16.7H12.0045"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            id="Vector_9"
-                            d="M8.29431 13.7H8.30329"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            id="Vector_10"
-                            d="M8.29431 16.7H8.30329"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
+                <section className="event_date_data_event_invite_card">
+                  <span>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g id="vuesax/linear/calendar">
+                        <g id="vuesax/linear/calendar_2">
+                          <g id="calendar">
+                            <path
+                              id="Vector"
+                              d="M8 2V5"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-miterlimit="10"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              id="Vector_2"
+                              d="M16 2V5"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-miterlimit="10"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              id="Vector_3"
+                              d="M3.5 9.08997H20.5"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-miterlimit="10"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              id="Vector_4"
+                              d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-miterlimit="10"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              id="Vector_5"
+                              d="M15.6947 13.7H15.7037"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              id="Vector_6"
+                              d="M15.6947 16.7H15.7037"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              id="Vector_7"
+                              d="M11.9955 13.7H12.0045"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              id="Vector_8"
+                              d="M11.9955 16.7H12.0045"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              id="Vector_9"
+                              d="M8.29431 13.7H8.30329"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              id="Vector_10"
+                              d="M8.29431 16.7H8.30329"
+                              stroke="white"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
                         </g>
                       </g>
-                    </g>
-                  </svg>{" "}
-                  {getDate(data?.date)}
-                </span>
+                    </svg>{" "}
+                    {getDate(data?.date)}
+                  </span>
 
-                <span>
-                  {" "}
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="ci:clock">
-                      <path
-                        id="Vector"
-                        d="M12 7V12H17M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12C21 14.3869 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.3869 21 12 21Z"
-                        stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </g>
-                  </svg>
-                  {convertTime(data?.startTime) +
-                    "-" +
-                    convertTime(data?.endTime)}
-                </span>
-              </section>
-
-              {/* event speaker section ----------- */}
-              <section className="event_invite_multiple_speakers_details_section">
-                <h4
-                  style={{
-                    left:
-                      speakersArray.length > 0
-                        ? (speakersArray?.length - 1) * 5 + "px"
-                        : "",
-                  }}
-                >
-                  Speakers
-                </h4>
-                <section>
-                  {speakersArray?.map((speaker, index) => {
-                    return (
-                      <div
-                        key={index}
-                        style={{
-                          left: `${
-                            (speakersArray.length - (index + 1)) * 10
-                          }px`,
-                          zIndex: `${(speakersArray.length - (index + 1)) * 4}`,
-                        }}
-                      >
-                        <div>
-                          <img
-                            id={`speakersBannerImage${index}`}
-                            src={
-                              speakersImagesArray[index]
-                                ? URL.createObjectURL(
-                                    speakersImagesArray[index]
-                                  )
-                                : (speaker?.isCreator && allCreatorInfo?.profile) ? `${host}/api/file/proxyImage?imageUrl=${allCreatorInfo?.profile}`
-                                : PNGIMG
-                            }
-                            alt=""
-                          />
-                        </div>
-                        <span>{speaker?.name}</span>
-                      </div>
-                    );
-                  })}
+                  <span>
+                    {" "}
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g id="ci:clock">
+                        <path
+                          id="Vector"
+                          d="M12 7V12H17M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12C21 14.3869 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.3869 21 12 21Z"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                    </svg>
+                    {convertTime(data?.startTime) +
+                      "-" +
+                      convertTime(data?.endTime)}
+                  </span>
                 </section>
-              </section>
-            </div>
-          </div>
-        </section>
 
-        <section className="default_options_sections">
-            <section>
-              <button onClick={()=>{setOpenBanner(false)}}>Close</button>
-            </section>
+                {/* event speaker section ----------- */}
+                <section className="event_invite_multiple_speakers_details_section">
+                  <h4
+                    style={{
+                      left:
+                        speakersArray.length > 0
+                          ? (speakersArray?.length - 1) * 5 + "px"
+                          : "",
+                    }}
+                  >
+                    Speakers
+                  </h4>
+                  <section>
+                    {speakersArray?.map((speaker, index) => {
+                      return (
+                        <div
+                          key={index}
+                          style={{
+                            left: `${
+                              (speakersArray.length - (index + 1)) * 10
+                            }px`,
+                            zIndex: `${
+                              (speakersArray.length - (index + 1)) * 4
+                            }`,
+                          }}
+                        >
+                          <div>
+                            <img
+                              id={`speakersBannerImage${index}`}
+                              src={
+                                speakersImagesArray[index]
+                                  ? URL.createObjectURL(
+                                      speakersImagesArray[index]
+                                    )
+                                  : speaker?.isCreator &&
+                                    allCreatorInfo?.profile
+                                  ? `${host}/api/file/proxyImage?imageUrl=${allCreatorInfo?.profile}`
+                                  : PNGIMG
+                              }
+                              alt=""
+                            />
+                          </div>
+                          <span>{speaker?.name}</span>
+                        </div>
+                      );
+                    })}
+                  </section>
+                </section>
+              </div>
+            </div>
           </section>
 
+          <section className="default_options_sections">
+            <section>
+              <button
+                onClick={() => {
+                  setOpenBanner(false);
+                }}
+              >
+                Close
+              </button>
+            </section>
+          </section>
         </div>
       </div>
 
@@ -488,6 +554,41 @@ const CreateEvent = ({ progress, crating,allCreatorInfo,cemail }) => {
             {/* Fourth Page ---- */}
             {currentPage === 4 && (
               <FourthPage
+                setCurrentPage={setCurrentPage}
+                setScrollPreviewSection={setScrollPreviewSection}
+                setOpenLoading={setOpenLoading}
+                progress={progress}
+                draftEventId={draftEventId}
+                imagesArray={imagesArray}
+                videoArray={videoArray}
+                setImagesArray={setImagesArray}
+                setVideoArray={setVideoArray}
+                titles={titles}
+                setTitles={setTitles}
+                wants={wants}
+                setWants={setWants}
+              />
+            )}
+            {/* Fourth Page ---- */}
+            {currentPage === 5 && (
+              <FifthPage
+                setCurrentPage={setCurrentPage}
+                setScrollPreviewSection={setScrollPreviewSection}
+                setOpenLoading={setOpenLoading}
+                progress={progress}
+                draftEventId={draftEventId}
+                setshowPopup={setshowPopup}
+                testimonialArray={testimonialArray}
+                setTestimonialArray={setTestimonialArray}
+                wants={wants}
+                setWants={setWants}
+                titles={titles}
+                setTitles={setTitles}
+              />
+            )}
+            {/* Fourth Page ---- */}
+            {currentPage === 6 && (
+              <SixthPage
                 data={data}
                 setdata={setdata}
                 setCurrentPage={setCurrentPage}
@@ -529,6 +630,11 @@ const CreateEvent = ({ progress, crating,allCreatorInfo,cemail }) => {
                       speakersArray={speakersArray}
                       speakersImagesArray={speakersImagesArray}
                       isSpeaker={isSpeaker}
+                      imagesArray={imagesArray}
+                      videoArray={videoArray}
+                      titles={titles}
+                      testimonialArray={testimonialArray}
+                      wants={wants}
                     />
                   </section>
                 </div>

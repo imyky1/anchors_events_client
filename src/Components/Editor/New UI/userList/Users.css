@@ -1,0 +1,38 @@
+.service_category_selection_buttons{
+    display: flex;
+    gap: 20px;
+}
+.service_category_header_breaker{
+    width: 100%;
+    border: 1px solid #475569;
+    margin: 20px 0;
+}
+.service_export_csv_button{
+    margin: 10px 0;
+}
+.service_category_selection_buttons > .Selected > button{
+    background-color: #FF5C5C;
+    color: #F8FAFC;
+}
+.service_export_csv_button button{
+    width: auto;
+    height: 32px;
+    padding: 8px 12px 8px 12px;
+    border: 1px solid #94A3B8;
+    color: #94A3B8;
+    background: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.service_export_csv_button button > a{
+    color: #94A3B8;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}

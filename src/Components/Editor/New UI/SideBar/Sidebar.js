@@ -13,11 +13,14 @@ import mixpanel from "mixpanel-browser";
 import PNGIMG from "../../../../Utils/Images/default_user.png";
 import { TooltipBox } from "../Create Services/InputComponents/fields_Labels";
 import { siteControlContext } from "../../../../Context/SiteControlsState";
+import { MdOutlineUpgrade } from "react-icons/md";
+import { linkedinContext } from "../../../../Context/LinkedinState";
 
 function Sidebar({ userData, moreInfo, alternateInfo }) {
   const localtion = useLocation();
   const navigate = useNavigate();
   const { shortSidebar } = useContext(siteControlContext);
+  const {verifiedData} = useContext(linkedinContext)
 
   const [showPopup, setshowPopup] = useState(false); // handle profile warn feature ---------------------
 
@@ -96,15 +99,11 @@ function Sidebar({ userData, moreInfo, alternateInfo }) {
                     </div>
                   </div>
                 </section>
-                {/* <span
-               onClick={() => {
-                 window.open(`/${userData?.slug}`);
-                 mixpanel.track("Public profile link");
-               }}
-             >
-               <img src={Globe} alt="" />
-               &nbsp;&nbsp;Public Profile
-             </span> */}
+               {verifiedData?.planActivated && <p>Plan : {verifiedData?.planActivated?.planID?.name}</p>}
+
+                {/* <button onClick={()=>{navigate("/pricing"); mixpanel.track("Upgrade")}}>
+                <MdOutlineUpgrade />Upgrade
+                </button> */}
               </div>
               <section
                 className="sidebar_navigation"

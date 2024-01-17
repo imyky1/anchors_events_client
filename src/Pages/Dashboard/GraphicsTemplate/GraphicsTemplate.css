@@ -1,0 +1,1361 @@
+/* @font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter-Black.ttf') format('truetype');
+    font-weight: 900; 
+    font-style: normal; 
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter-Bold.ttf') format('truetype');
+    font-weight: 700; 
+    font-style: normal; 
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter-ExtraBold.ttf') format('truetype');
+    font-weight: 800; 
+    font-style: normal; 
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter-ExtraLight.ttf') format('truetype');
+    font-weight: 200; 
+    font-style: normal; 
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter-Light.ttf') format('truetype');
+    font-weight: 300; 
+    font-style: normal; 
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter-Medium.ttf') format('truetype');
+    font-weight: 500; 
+    font-style: normal; 
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter-Regular.ttf') format('truetype');
+    font-weight: 400; 
+    font-style: normal; 
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter-SemiBold.ttf') format('truetype');
+    font-weight: 600; 
+    font-style: normal; 
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter-Thin.ttf') format('truetype');
+    font-weight: 100; 
+    font-style: normal; 
+  } */
+.GraphicContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: 1000px;
+  background-color: #1c212e;
+}
+.GraphicContainer_header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.GraphicContainer_header h1 {
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #e2e8f0;
+}
+.GraphicContainer_header h2 {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #94a3b8;
+}
+.GraphicContainer_color_select_container {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5%;
+  /* justify-content: space-around; */
+}
+.colorPicker_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.GraphicContainer_color_select_container label {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #cbd5e1;
+}
+input[type="color" i] {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+.GraphicContainer_reset_button {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  width: 162px;
+  height: 40px;
+  top: 89px;
+  left: 970px;
+  gap: 20px;
+  background-color: transparent;
+  border: 1px solid #34d399;
+  gap: 10px;
+  color: #34d399;
+  border-radius: 4px;
+}
+.GraphicContainer_breaker {
+  margin: 20px 0 30px 0;
+  width: 100%;
+  border: 1px solid #475569;
+}
+.GraphicContainer_content_container {
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+.GraphicContainer_content_choose_platform {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* justify-content: center; */
+}
+.GraphicContainer_content_choose_platform h1 {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #94a3b8;
+}
+.GraphicContainer_content_choose_platform button {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  width: 165px;
+  height: 41px;
+  border-radius: 4px;
+  gap: 8px;
+  background: #262a36;
+  border: transparent;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #F8FAFC;
+}
+.GraphicContainer_content_choose_platform .GraphicContainer_content_selected_Button{
+    background: #FF5C5C;
+}
+
+
+.GraphicContainer_content_html_posters{
+  display: flex;
+  position: relative;
+}
+
+.GraphicContainer_content_html_posters h1{
+  color: #CBD5E1;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 54px;
+}
+.GraphicContainer_content_html_posters button{
+  cursor: pointer;
+  width: 749px;
+  height: 156px;
+  background: transparent;
+  border: 4px solid #FF5C5C;
+  border-radius: 16px;
+  color: #FF5C5C;
+  font-size: 50px;
+  font-weight: 100;
+  line-height: 50.52px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.WAposter-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  top: -625px;
+  left: 50px;
+  background-color: #0e001c;
+  transform: scale(0.3);
+  padding: 50px 50px 50px 50px;
+  gap: 66px;
+  border-radius: 20px;
+}
+.WA_message_poster-container{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  top: -437px;
+  left:-280px;
+  transform: scale(0.3);
+  background-color: #0e001c;
+  padding: 50px 50px 50px 50px;
+  gap: 66px;
+  border-radius: 20px;
+}
+.IG_poster-container{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: -830px;
+  left: -65px;
+  background-color: #0e001c;
+  transform: scale(0.3);
+  padding: 50px 50px 50px 50px;
+  gap: 66px;
+  border-radius: 20px;
+}
+.Ig_message_poster-container{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: -507px;
+  left:-280px;
+  transform: scale(0.3);
+  background-color: #0e001c;
+  padding: 50px 50px 50px 50px;
+  gap: 66px;
+  border-radius: 20px;
+}
+.Linkedin_poster_container{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: -377px;
+  left:-420px;
+  transform: scale(0.3);
+  background-color: #0e001c;
+  padding: 50px 50px 50px 50px;
+  gap: 66px;
+  border-radius: 20px;
+}
+
+.Whatsapp_poster {
+    position: relative;
+    background: linear-gradient(180deg, #373737 0%, #0e001c 100%);
+    min-width: 750px;
+    min-height: 1334px;
+    max-width: 750px;
+    max-height: 1334px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    overflow: hidden;
+  }
+  .Whatsapp_poster .imgComponentContainer {
+    width: 100%;
+    height: 177.18px;
+    overflow: hidden;
+    display: flex;
+  }
+  .Whatsapp_poster .imgComponent1 {
+    overflow: hidden;
+    position: absolute;
+    width: 158px;
+    height: 84px;
+    left: -5px;
+    top: -3px;
+    /* margin-left: -67px; */
+  }
+  .Whatsapp_poster .imgComponent4{
+    position: absolute;
+    width: 73.23px;
+    height: 73.07px;
+    top: 122px;
+    left: 199px;
+  }
+  .Whatsapp_poster .imgComponent3 {
+    position:absolute;
+    width: 177.18px;
+    height: 177.18px;
+    top: 1px;
+    margin-left: 620.16px;
+    border: 1px;
+  }
+  .Whatsapp_poster .imgComponent2 {
+    position: absolute;
+    width: 177.18px;
+    height: 177.18px;
+    /* top: 150.97px; */
+    margin-left: 573.18px;
+    border: 1px;
+    /* rotate: 126.74; */
+  }
+  .Whatsapp_poster .event_type {
+    width: 203px;
+    height: 48px;
+    margin-top: 0px;
+    left: 274px;
+    font-family:  'Inter', sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    opacity: 0.8;
+    line-height: 48.41px;
+    letter-spacing: 0.09em;
+    text-align: left;
+    /* background: #EEEEEE; */
+  }
+  .Whatsapp_poster h1 {
+    text-align: center;
+    margin-top: 0;
+    width: 574px;
+    min-height: 180px;
+    font-family:  'Inter', sans-serif;
+    line-height: 80px;
+    font-size: 60px;
+    font-weight: 700;
+  }
+  .Whatsapp_poster > .date_time {
+    display: flex;
+    margin-top: 50px;
+  }
+  .Whatsapp_poster .date_time .date_container #date,
+  .Whatsapp_poster .date_time .date_container #Month {
+    width: 120px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    /* border: 0.1px solid black; */
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+  .Whatsapp_poster .date_time .date_container #date {
+    background-color: #121212;
+    border-radius: 0px 0px 20px 20px;
+    height: 60px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .Whatsapp_poster .date_time .date_container #Month {
+    background-color: #ff5c5c;
+    border-radius: 20px 20px 0px 0px;
+  }
+  .Whatsapp_poster .time_container {
+    margin-left: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;;
+    line-height: 29px;
+    gap: 8px;
+    font-weight: 700;
+  }
+  .Whatsapp_poster .time_container .day{
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .Whatsapp_poster .time_container .time{
+    opacity: 0.8;
+    /* width: auto; */
+  }
+  .Whatsapp_poster .few_seats{
+  position: relative;
+  margin-top: 50px;
+  width: auto;
+  height: 52px;
+  border-radius: 30px;
+  background-color: #ff5c5c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 28px;
+  letter-spacing: 0.09em;
+  font-family: 'Inter', sans-serif;;
+  font-size: 18px;
+  font-weight: 700;
+  }
+  .Whatsapp_poster .imgComponent5{
+    width: 17px;
+    height: 21px;
+    padding: 3.5px, 5.85px, 3.5px, 5.82px;
+    position: absolute;
+    left: 30.82px;
+    top: 15.5px;
+  }
+  .Whatsapp_poster .speaker_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+  }
+  .Whatsapp_poster .speaker_container .image_container {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+  .Whatsapp_poster .image_container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    position: absolute;
+    top: 50%; /* Adjust the object position vertically */
+    left: 50%; /* Adjust the object position horizontally */
+    transform: translate(-50%, -50%); /* Center the image */
+  }
+  .Whatsapp_poster .speaker_container .H6 {
+    width: 99px;
+    height: 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    opacity: 0.6;
+    line-height: 28px;
+    letter-spacing: 0.09em;
+    text-align: center;
+    color: #bdbdbd;
+    margin: 20px 0 0 0;
+  }
+  .Whatsapp_poster .speaker_container h3 {
+    width: auto;
+    height: 34px;
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 34px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin: 10px 0 0 0;
+  }
+  .Whatsapp_poster .speaker_container h4 {
+    width: 266px;
+    height: 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #bdbdbd;
+    opacity: 0.7;
+    margin: 10px 0 0 0;
+  }
+  
+  .Instagram_poster {
+    position: relative;
+    background: linear-gradient(180deg, #373737 0%, #0e001c 100%);
+    min-width: 1080px;
+    min-height: 1920.96px;
+    max-width: 1080px;
+    max-height: 1920.96px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    overflow: hidden;
+  }
+  .Instagram_poster .imgComponentContainer {
+    width: 100%;
+    height: 177.18px;
+    overflow: hidden;
+    display: flex;
+  }
+  .Instagram_poster .imgComponent1 {
+    overflow: hidden;
+    position: absolute;
+    width: 216px;
+    height: 104px;
+    margin-left: -17px;
+  }
+  .Instagram_poster .imgComponent4{
+    position: absolute;
+    width: 104.23px;
+    height: 104.07px;
+    top: 209px;
+    left: 268px;
+  }
+  .Instagram_poster .imgComponent3 {
+    position:absolute;
+    width: 177.18px;
+    height: 177.18px;
+    top: -4.44px;
+    margin-left: 924.16px;
+    border: 1px;
+  }
+  .Instagram_poster .imgComponent2 {
+    position: absolute;
+    width: 420.18px;
+    height: 320.18px;
+    top: -8.97px;
+    margin-left: 861.18px;
+    border: 1px;
+    /* rotate: 126.74; */
+  }
+  .Instagram_poster .event_type {
+    width: 203px;
+    height: 48px;
+    margin-top: 70px;
+    left: 274px;
+    font-family:  'Inter', sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 48px;
+    opacity: 0.8;
+    letter-spacing: 0.09em;
+    text-align: left;
+    /* background: #EEEEEE; */
+  }
+  .Instagram_poster h1 {
+    text-align: center;
+    margin-top: 30px;
+    width: 740px;
+    min-height: 270px;
+    font-family: 'Inter', sans-serif;
+    font-size: 70px;
+    line-height: 90px;
+    font-weight: 700;
+  }
+  .Instagram_poster > .date_time {
+    display: flex;
+    margin-top: 50px;
+  }
+  .Instagram_poster .date_time .date_container #date,
+  .Instagram_poster .date_time .date_container #Month {
+    width: 120px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    /* border: 0.1px solid black; */
+    align-items: center;
+    font-family:  'Inter', sans-serif;
+    font-size: 30px;
+    line-height: 36px;
+    font-weight: 700;
+  }
+  .Instagram_poster .date_time .date_container #date {
+    background-color: #121212;
+    border-radius: 0px 0px 20px 20px;
+  }
+  .Instagram_poster .date_time .date_container #Month {
+    height: 48px;
+    background-color: #ff5c5c;
+    border-radius: 20px 20px 0px 0px;
+    font-size: 20px;
+    line-height: 24.2px;
+  }
+  .Instagram_poster .time_container {
+    margin-left: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    font-family: 'Inter', sans-serif;;
+    font-size: 30px;
+    font-weight: 700;
+    gap: 8px;
+  }
+  .Instagram_poster .time_container .time{
+    opacity: 0.8;
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .Instagram_poster .few_seats {
+    margin-top: 60px;
+    width: 549px;
+    height: 60px;
+    border-radius: 30px;
+    padding: 12px, 30px, 12px, 30px;
+    background-color: #ff5c5c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 26px;
+    opacity: 0.95;
+    font-family: 'Inter', sans-serif;;
+    line-height: 28px;
+    letter-spacing: 0.09em;
+    font-weight: 700;
+  }
+  .Instagram_poster .imgComponent5{
+    width: 21px;
+    height: 27px;
+    position: absolute;
+    left: 36.82px;
+    top: 14px;
+  }
+  .Instagram_poster .speaker_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 180px;
+  }
+  .Instagram_poster .speaker_container .image_container {
+    width: 360px;
+    height: 360px;
+    border: 1px solid black;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+  }
+  .Instagram_poster .image_container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    position: absolute;
+    top: 50%; /* Adjust the object position vertically */
+    left: 50%; /* Adjust the object position horizontally */
+    transform: translate(-50%, -50%); /* Center the image */
+  }
+  .Instagram_poster .speaker_container h6 {
+    width: 197px;
+    height: 48px;
+    font-family: 'Inter', sans-serif;
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 28px;
+    letter-spacing: 0.09em;
+    text-align: center;
+    color: #bdbdbd;
+    opacity: 0.6;
+    margin: 80px 0 0px 0;
+  }
+  .Instagram_poster .speaker_container h3 {
+    width: auto;
+    height: 58px;
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 34px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin: 10px 0 0 0;
+  }
+  .Instagram_poster .speaker_container h4 {
+    width: 478px;
+    height: 44px;
+    font-family:  'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #bdbdbd;
+    margin: 10px 0;
+    opacity: 0.6;
+  }
+  
+  
+  .Whastsapp_mssg_poster {
+    position: relative;
+    background: linear-gradient(180deg, #373737 0%, #0e001c 100%);
+    min-width: 800px;
+    min-height: 800px;
+    max-width: 800px;
+    max-height: 800px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    overflow: hidden;
+  }
+  .Whastsapp_mssg_poster .imgComponentContainer {
+    position: relative;
+    width: 100%;
+    height: 60.18px;
+    /* overflow: hidden; */
+    display: flex;
+  }
+  .Whastsapp_mssg_poster .imgComponent1 {
+    overflow: hidden;
+    position: absolute;
+    width: 104px;
+    height: 60px;
+    /* margin-left: -67px; */
+  }
+  .Whastsapp_mssg_poster .imgComponent4{
+    position: absolute;
+    width: 59.13px;
+    height: 44.07px;
+    top: 111px;
+    left: 190px;
+  }
+  .Whastsapp_mssg_poster .imgComponent3 {
+    position:absolute;
+    width: 114.18px;
+    height: 104.18px;
+    top: 275.44px;
+    left: 718px;
+    transform: rotate(90deg);
+    /* margin-left: 964.16px; */
+    border: 1px;
+  }
+  .Whastsapp_mssg_poster .imgComponent2 {
+    position: absolute;
+    width: 180.18px;
+    height: 140.18px;
+    /* top: 150.97px; */
+    margin-left: 654.18px;
+    border: 1px;
+    /* rotate: 126.74; */
+  }
+  .Whastsapp_mssg_poster .event_type {
+    width: 122px;
+    height: 29px;
+    margin-top: 71px;
+    margin-left: 70px;
+    left: 274px;
+    font-family:'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 48px;
+    letter-spacing: 0.09em;
+    opacity: 0.8;
+    text-align: left;
+    /* background: #EEEEEE; */
+  }
+  .Whastsapp_mssg_poster h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 70px;
+    width: 584px;
+    min-height: 180px;
+    text-align: start;
+    font-family: 'Inter', sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+  }
+  .Whastsapp_mssg_poster  .date_time {
+    display: flex;
+    margin-top: 210px;
+    margin-left: 70px;
+    width: 288px;
+  }
+  .Whastsapp_mssg_poster .date_time .date_container #date,
+  .Whastsapp_mssg_poster .date_time .date_container #Month {
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    /* border: 0.1px solid black; */
+    align-items: center;
+    font-family:  'Inter', sans-serif;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+  .Whastsapp_mssg_poster .date_time .date_container #date {
+    height: 52px;
+    background-color: #121212;
+    border-radius: 0px 0px 20px 20px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .Whastsapp_mssg_poster .date_time .date_container #Month {
+    background-color: #ff5c5c;
+    border-radius: 20px 20px 0px 0px;
+  }
+  .Whastsapp_mssg_poster .time_container {
+    width: 180px;
+    height: 62px;
+    margin-top: 9px;
+    margin-left: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;;
+    line-height: 24.2px;
+    font-weight: 700;
+    gap: 8px;
+  }
+  .Whastsapp_mssg_poster .time_container .day{
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .Whastsapp_mssg_poster .time_container .time{
+    opacity: 0.8;
+    width: auto;
+  }
+  .Whastsapp_mssg_poster .few_seats {
+    margin-top:30px;
+    margin-left: 70px;
+    width: 264px;
+    padding: 6px 20px 6px 20px;
+    height: 34px;
+    border-radius: 30px;
+    background-color: #ff5c5c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;;
+    letter-spacing: 0.09em;
+    line-height: 28px;
+    opacity: 0.95;
+    font-weight: 600;
+    position: relative;
+  }
+  .Whastsapp_mssg_poster .imgComponent5{
+    width: 14px;
+    height: 18px;
+    position: absolute;
+    top: 13px;
+    left: 25px;
+  }
+  .Whastsapp_mssg_poster .speaker_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-right: 80px;
+  }
+  .Whastsapp_mssg_poster .speaker_container .image_container {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+  }
+  .Whastsapp_mssg_poster .image_container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    position: absolute;
+    top: 50%; /* Adjust the object position vertically */
+    left: 50%; /* Adjust the object position horizontally */
+    transform: translate(-50%, -50%); /* Center the image */
+  }
+  .Whastsapp_mssg_poster .speaker_container h6 {
+    width: 79px;
+    height: 28px;
+    font-family:  'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 28px;
+    letter-spacing: 0.09em;
+    text-align: center;
+    color: #bdbdbd;
+    opacity: 0.6;
+    margin: 10px 0 0px 0;
+  }
+  .Whastsapp_mssg_poster .speaker_container h3 {
+    width: auto;
+    height: 24px;
+    font-family:  'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin: 2px 0 0px 0;
+  }
+  .Whastsapp_mssg_poster .speaker_container h4 {
+    width: 213px;
+    height: 19px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.36px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #bdbdbd;
+    opacity: 0.6;
+    margin: 5px 0;
+  }
+  
+  .Linkedin {
+    position: relative;
+    background: linear-gradient(180deg, #373737 0%, #0e001c 100%);
+    min-width: 1200px;
+    min-height: 628px;
+    max-width: 120px;
+    max-height: 628px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    overflow: hidden;
+  }
+  .Linkedin .imgComponentContainer {
+    position: relative;
+    width: 100%;
+    height: 60.18px;
+    /* overflow: hidden; */
+    display: flex;
+  }
+  .Linkedin .imgComponent1 {
+    overflow: hidden;
+    position: absolute;
+    width: 216px;
+    height: 104px;
+    left: 646px;
+    top:-60px
+  }
+  .Linkedin .imgComponent4{
+    position: absolute;
+    width: 59.13px;
+    height: 44.07px;
+    top: 121px;
+    left: 210px;
+  }
+  .Linkedin .imgComponent3 .imgComponent1{
+    position:absolute;
+    width: 216.18px;
+    height: 104.18px;
+    top: 577.44px;
+    left: 82px;
+    transform: rotate(180deg);
+    /* margin-left: 964.16px; */
+    border: 1px;
+  }
+  .Linkedin .imgComponent2 {
+    position: absolute;
+    width: 180.18px;
+    top:-27px;
+    left: -20px;
+    height: 140.18px;
+    transform: rotate(-90deg);
+  }
+  .Linkedin .event_type {
+    opacity: 0.8;
+    margin-top: 89px;
+    margin-left: 70px;
+    margin-bottom: 0;
+    font-family:  'Inter', sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 33.89px;
+    letter-spacing: 0.09em;
+    text-align: left;
+  }
+  .Linkedin h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 70px;
+    margin-bottom: 0;
+    width: 607px;
+    min-height: 183px;
+    text-align: start;
+    font-family:  'Inter', sans-serif;
+    font-size: 50px;
+    line-height: 60.51px;
+    font-weight: 700;
+  }
+  .Linkedin  .date_time {
+    display: flex;
+    /* margin-top: 170px; */
+    margin-left: 70px;
+    width: 265px;
+  }
+  .Linkedin .date_time .date_container #date,
+  .Linkedin .date_time .date_container #Month {
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    /* border: 0.1px solid black; */
+    align-items: center;
+    font-family:  'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .Linkedin .date_time .date_container #date {
+    height: 52px;
+    background-color: #121212;
+    border-radius: 0px 0px 20px 20px;
+  }
+  .Linkedin .date_time .date_container #Month {
+    background-color: #ff5c5c;
+    border-radius: 20px 20px 0px 0px;
+  }
+  .Linkedin .time_container {
+    width: 145px;
+    height: 62px;
+    margin-top: 9px;
+    margin-right: 18px;
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    font-family: 'Inter', sans-serif;;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 24px;
+  }
+  .Linkedin .time_container .day{
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .Linkedin .time_container .time{
+    opacity: 0.8;
+  }
+  .Linkedin .few_seats {
+    margin-top: 70px;
+    margin-left: 70px;
+    width: 356px;
+    padding: 8px 24px 8px 24px;
+    height: 44px;
+    border-radius: 30px;
+    background-color: #ff5c5c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;;
+    font-size: 18px;
+    line-height: 28px;
+    opacity: 0.95;
+    font-weight: 600;
+    letter-spacing: 1.9px;
+    position: relative;
+  }
+  .Linkedin .imgComponent5{
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 15px;
+    left: 30px;
+  }
+  .Linkedin .speaker_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 70px;
+    margin-top: 50px;
+    gap: 12px;
+  }
+  .Linkedin .speaker_container .image_container {
+    width: 220px;
+    height: 220px;
+    border: 1px solid black;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+  }
+  .Linkedin .image_container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    position: absolute;
+    top: 50%; /* Adjust the object position vertically */
+    left: 50%; /* Adjust the object position horizontally */
+    transform: translate(-50%, -50%); /* Center the image */
+  }
+  .Linkedin .speaker_container h6 {
+    /* width: 79px; */
+    height: 28px;
+    font-family:  'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 28px;
+    letter-spacing: 0.09em;
+    text-align: center;
+    color: #bdbdbd;
+    margin: 10px 0 0px 0;
+    opacity: 0.6;
+  }
+  .Linkedin .speaker_container h3 {
+    width: auto;
+    height: 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin: 2px 0 0px 0;
+  }
+  .Linkedin .speaker_container h4 {
+    width: 213px;
+    height: 19px;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24.36px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #bdbdbd;
+    margin: 5px 0;
+    opacity: 0.6;
+  }
+  
+  .Instagram_message_poster {
+    position: relative;
+    background: linear-gradient(180deg, #373737 0%, #0e001c 100%);
+    min-width: 800px;
+    min-height: 1000px;
+    max-width: 800px;
+    max-height: 1000px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    overflow: hidden;
+  }
+  .Instagram_message_poster .imgComponentContainer {
+    position: relative;
+    width: 100%;
+    height: 60.18px;
+    /* overflow: hidden; */
+    display: flex;
+  }
+  .Instagram_message_poster .imgComponent1 {
+    overflow: hidden;
+    position: absolute;
+    width: 216px;
+    height: 60px;
+    left: -60px;
+    top: -22px;
+    /* margin-left: 67px; */
+  }
+  .Instagram_message_poster .imgComponent4{
+    position: absolute;
+    width: 59.13px;
+    height: 44.07px;
+    top: 184px;
+    left: 177px;
+  }
+  .Instagram_message_poster .imgComponent3 .imgComponent2 {
+    position:absolute;
+    width: 177.18px;
+    height: 177.18px;
+    top: 848.44px;
+    margin-left: 0px;
+    left: -70px;
+    transform: rotate(-180deg);
+    /* margin-left: 964.16px; */
+    border: 1px;
+  }
+  .Instagram_message_poster .imgComponent2 {
+    position: absolute;
+    width: 320.18px;
+    height: 320.18px;
+    top: -30.97px;
+    left: 704.18px;
+    border: 1px;
+    /* rotate: 126.74; */
+  }
+  .Instagram_message_poster .event_type {
+    width: 102px;
+    height: 24px;
+    margin-top: 164px;
+    margin-left: 70px;
+    left: 274px;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    opacity: 0.8;
+    letter-spacing: 0.09em;
+    text-align: left;
+    /* background: #EEEEEE; */
+  }
+  .Instagram_message_poster h1 {
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 70px;
+    width: 580px;
+    min-height: 240px;
+    text-align: start;
+    font-family: 'Inter', sans-serif;
+    font-size: 60px;
+    line-height: 80px;
+    font-weight: 700;
+  }
+  .Instagram_message_poster  .date_time {
+    display: flex;
+    margin-top: 40px;
+    margin-left: 70px;
+    width: 288px;
+  }
+  .Instagram_message_poster .date_time .date_container #date,
+  .Instagram_message_poster .date_time .date_container #Month {
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    /* border: 0.1px solid black; */
+    align-items: center;
+    font-family:  'Inter', sans-serif;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+  .Instagram_message_poster .date_time .date_container #date {
+    background-color: #121212;
+    border-radius: 0px 0px 20px 20px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .Instagram_message_poster .date_time .date_container #Month {
+    background-color: #ff5c5c;
+    border-radius: 20px 20px 0px 0px;
+  }
+  .Instagram_message_poster .time_container {
+    width: 180px;
+    height: 62px;
+    margin-top: 9px;
+    margin-left: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    font-family: 'Inter', sans-serif;;
+    font-size: 20px;
+    line-height: 24.2px;
+    font-weight: 700;
+    gap: 8px;
+  }
+  .Instagram_message_poster .time_container .day{
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .Instagram_message_poster .time_container .time{
+    opacity: 0.8;
+  }
+  .Instagram_message_poster .few_seats {
+    margin-top:80px;
+    margin-left: 70px;
+    width: 264px;
+    padding: 0px 20px 0px 20px;
+    height: 40px;
+    border-radius: 30px;
+    background-color: #ff5c5c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;;
+    font-size: 14px;
+    letter-spacing: 0.09em;
+    line-height: 28px;
+    font-weight: 600;
+    opacity: 0.95;
+    position: relative;
+  }
+  .Instagram_message_poster .imgComponent5{
+    width: 14px;
+    height: 18px;
+    position: absolute;
+    top: 10px;
+    left: 25px;
+  }
+  .Instagram_message_poster .speaker_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-right: 80px;
+  }
+  .Instagram_message_poster .speaker_container .image_container {
+    width: 160px;
+    height: 160px;
+    border: 1px solid black;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+  }
+  .Instagram_message_poster .image_container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    position: absolute;
+    top: 50%; /* Adjust the object position vertically */
+    left: 50%; /* Adjust the object position horizontally */
+    transform: translate(-50%, -50%); /* Center the image */
+  }
+  .Instagram_message_poster .speaker_container h6 {
+    width: 79px;
+    height: 28px;
+    font-family:  'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 28px;
+    letter-spacing: 0.09em;
+    text-align: center;
+    color: #bdbdbd;
+    opacity: 0.6;
+    margin: 10px 0 0px 0;
+  }
+  .Instagram_message_poster .speaker_container h3 {
+    width: auto;
+    height: 24px;
+    font-family:  'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin: 4px 0 0px 0;
+  }
+  .Instagram_message_poster .speaker_container h4 {
+    width: 213px;
+    height: 19px;
+    font-family:  'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.36px;
+    letter-spacing: 0em;
+    opacity: 0.6;
+    text-align: center;
+    color: #bdbdbd;
+    margin: 5px 0;
+  }

@@ -92,13 +92,18 @@ line-height: 17px; /* 85% */
 .steps_checker_create_event {
   border-radius: 4px;
   background: #292929;
-  padding: 12px 20px;
+  padding: 12px 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
   width: 100%;
   box-sizing: border-box;
+  overflow-x: auto;
+  min-width: 100px;
+}
+
+.steps_checker_create_event::-webkit-scrollbar{
+  display: none;
 }
 
 .steps_checker_create_event > section {
@@ -138,6 +143,7 @@ line-height: 17px; /* 85% */
 
 .steps_checker_create_event > div {
   width: 104px;
+  min-width: 104px;
   height: 1px;
   background: var(--Natural-400, #bdbdbd);
   position: relative;

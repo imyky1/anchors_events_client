@@ -83,7 +83,6 @@ const PaymentState = (props) => {
     } catch (error) {}
   };
 
-
   // update or create the payment informations ---------------------
   const fillPaymentinformation = async (name, acNumber, ifsc) => {
     try {
@@ -129,6 +128,31 @@ const PaymentState = (props) => {
     }
   };
 
+
+  // plans -----------------------------------------------------------------------
+
+  const SelectNewEventPlan = async (planName) => {
+    try {
+      const response = await fetch(`${host}/api/plan/event/selectPlan`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+          "jwt-token": localStorage.getItem("jwtToken"),
+        },
+        body: JSON.stringify({
+          planName:planName
+        })
+      });
+      const json = await response.json();
+      return json;
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <paymentContext.Provider
       value={{
@@ -137,7 +161,8 @@ const PaymentState = (props) => {
         checkfororder,
         fetchPaymentinformation,
         fillPaymentinformation,
-        informLarkBot
+        informLarkBot,
+        SelectNewEventPlan
       }}
     >
       {props.children}

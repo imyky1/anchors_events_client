@@ -2,16 +2,24 @@ import React, { useContext, useEffect, useState } from "react";
 import "./ServiceList.css";
 import ServiceContext from "../../../../Context/services/serviceContext";
 import { SuperSEO } from "react-super-seo";
-import UserIcon from "./Icons/User.svg";
-import ChartIcon from "./Icons/Chart-pie.svg";
-import Option from "./Icons/Option.svg";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { LoadTwo } from "../../../Modals/Loading";
 import ChangeStatusModal, {
   ChangeStatus,
 } from "../../../Modals/ServiceSuccess/Modal2";
-import { Button2, Button4 } from "../Create Services/InputComponents/buttons";
+import {
+  Button2,
+  Button4,
+  Button5,
+} from "../Create Services/InputComponents/buttons";
+import { IoMdAdd } from "react-icons/io";
+import { TbCertificate } from "react-icons/tb";
+import { FaRegCopy } from "react-icons/fa";
+import { IoMdOpen } from "react-icons/io";
+import { RiDraftFill } from "react-icons/ri";
+import HelpModal from "../../../Modals/ModalType01/HelpModal";
+// import { LuCalendarClock } from "react-icons/lu";
 import {
   AiOutlineCalendar,
   AiOutlineClockCircle,
@@ -33,8 +41,6 @@ import {
   BiStats,
   BiShow,
 } from "react-icons/bi";
-import { TbSend } from "react-icons/tb";
-import { HiDownload } from "react-icons/hi";
 import { MdDateRange } from "react-icons/md";
 import mixpanel from "mixpanel-browser";
 import {
@@ -81,6 +87,7 @@ const ContentCard = ({
   isPaid,
   ssp,
   startDate,
+  meetlink,
   time,
   selected,
   registrations,
@@ -101,11 +108,17 @@ const ContentCard = ({
   setOpenDeleteModal,
   certificateData,
   setCertificatePreviewData,
+  isLatestEvent,
 }) => {
   const navigate = useNavigate();
 
   const [statusForCurrent, setStatusForCurrent] = useState(status);
-
+  // State to manage the visibility of the popup
+  const [isJoiningLinkPopupVisible, setJoiningLinkPopupVisibility] =
+    useState(false);
+  const toggleJoiningLinkPopup = () => {
+    setJoiningLinkPopupVisibility(!isJoiningLinkPopupVisible);
+  };
   const openOptionsPopup = (i) => {
     document.getElementById(`servicelist_options${i}`).style.display = "flex";
     setOpenOption(i);
@@ -165,272 +178,279 @@ const ContentCard = ({
   };
 
   const getDateTime = () => {
-    let dateStr = new Date(selected === "events" ? createdOn : date);
+    let dateStr = new Date(createdOn);
     return dateStr.toLocaleString();
+  };
+  const getEventStatusText = () => {
+    const currentDate = new Date();
+    if (isLatestEvent) {
+      return "Latest Event";
+    } else if (statusForCurrent === 3) {
+      return "Draft Event";
+    } else if (currentDate < new Date(startDate)) {
+      return "Upcoming Event";
+    } else {
+      return "Past Event";
+    }
+  };
+  const getEventIcon = () => {
+    const currentDate = new Date();
+    if (isLatestEvent) {
+      return <MdDateRange />;
+    } else if (statusForCurrent === 2) {
+      return <RiDraftFill />;
+    } else if (currentDate < new Date(startDate)) {
+      return <MdDateRange />;
+    } else {
+      return <RiDraftFill />;
+    }
+  };
+  const getBackground = () => {
+    const currentDate = new Date();
+    if (isLatestEvent) {
+      return "#3460DC";
+    } else if (statusForCurrent === 2) {
+      return "#1E293B";
+    } else if (currentDate < new Date(startDate)) {
+      return "#047857";
+    } else {
+      return "#B45309";
+    }
+  };
+  const formatEventDateTime = (inputDate) => {
+    const dateOptions = {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      timeZoneName: "short",
+    };
+
+    const formattedDate = new Date(inputDate).toLocaleString(
+      "en-IN",
+      dateOptions
+    );
+    return formattedDate.replace(/,/g, "");
   };
 
   return (
-    <div className="mycontent_card_for_service">
-      <img
-        src={mobileSimg ?? simg}
-        alt=""
-        onClick={() => {
-          selected === "events"
-            ? window.open(`https://www.anchors.in/e/${slug}`)
-            : window.open(`https://www.anchors.in/s/${slug}`);
-        }}
+    <>
+      <HelpModal
+        open={isJoiningLinkPopupVisible}
+        toClose={() => toggleJoiningLinkPopup()}
+        content={meetlink}
+        type={stype}
       />
-      <section>
-        <div
-          style={{
-            display: "flex",
-            gap: window.screen.width > 600 ? "16px" : "8px",
-            flexDirection: "column",
-            width: "100%",
-          }}
-        >
-          <h2
-            onClick={() => {
-              selected === "events"
-                ? window.open(`https://www.anchors.in/e/${slug}`)
-                : window.open(`https://www.anchors.in/s/${slug}`);
-            }}
+
+      <div className="mycontent_card_for_service">
+        <div className="mycontnet_card_header_buttons">
+          <div
+            style={{ background: getBackground() }}
+            className="mycontent_card_flags"
           >
-            {sname}
-          </h2>
-
-          <div className="props_mycontent_card_service">
-            <section>
-              <p
-                style={{ cursor: "pointer" }}
+            {getEventIcon()}
+            {getEventStatusText()}
+          </div>
+          <div className="mycontent_card_right_buttons">
+            {certificateData ? (
+              <Button5
                 onClick={() => {
-                  mixpanel.track("Downloads");
-                  selected === "events"
-                    ? !dummyData.EventDummy &&
-                      registrations !== 0 &&
-                      window.open(
-                        `/dashboard/viewUserDetails/${slug}?type=event`,
-                        "_blank"
-                      )
-                    : !dummyData.ServiceDummy &&
-                      downloads !== 0 &&
-                      window.open(
-                        `/dashboard/viewUserDetails/${slug}`,
-                        "_blank"
-                      );
+                  mixpanel.track("Certificate Preview");
+                  setCertificatePreviewData({
+                    open: true,
+                    certificateData,
+                    eventData: {
+                      sname: sname,
+                      date: startDate,
+                    },
+                  });
                 }}
-              >
-                Sales :
-                <span>{selected === "events" ? registrations : downloads}</span>
-              </p>
-              <p>
-                Earnings : <span>{earning}</span>
-              </p>
-              <p>
-                Created On :<span>{getDateTime()}</span>
-              </p>
-
-              {selected === "events" &&
-                (certificateData ? (
-                  <button
-                    onClick={() => {
-                      mixpanel.track("Certificate Preview");
-                      setCertificatePreviewData({
-                        open: true,
-                        certificateData,
-                        eventData: {
-                          sname: sname,
-                          date: startDate,
-                        },
-                      });
-                    }}
-                  >
-                    <BiShow /> Certificate Preview
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      mixpanel.track("Customise Certificate");
-                      navigate(`/dashboard/eventCertificates/${slug}`);
-                    }}
-                  >
-                    <BsFillBrushFill /> Customise Certificate
-                  </button>
-                ))}
-            </section>
-
-            <div className="buttons_div_section_mycontent_card">
-              <button
+                height={"33px"}
+                rightIcon={<TbCertificate />}
+                text={"Certificate Preview"}
+              ></Button5>
+            ) : (
+              <Button5
                 onClick={() => {
-                  mixpanel.track("Tracking Link");
-                  toast.info("Copied Link Successfully");
-                  navigator.clipboard.writeText(copyURL);
+                  mixpanel.track("Customise Certificate");
+                  navigate(`/dashboard/eventCertificates/${slug}`);
                 }}
-              >
-                Tracking Link <IoCopyOutline />
-              </button>
-
-              <button
-                onClick={() => {
-                  const pattern = /go\.anchors\.in/;
-                  selected === "events"
-                    ? // ? setShareModalData({
-                      //     open: true,
-                      //     sname: sname,
-                      //     slug: slug,
-                      //     simg: simg,
-                      //     isEvent: selected === "events",
-                      //     eventCode: eventCode,
-                      //     link: copyURL
-                      //       ? pattern.test(copyURL)
-                      //         ? copyURL
-                      //         : selected === "events"
-                      //         ? `https://www.anchors.in/e/${slug}`
-                      //         : `https://www.anchors.in/s/${slug}`
-                      //       : selected === "events"
-                      //       ? `https://www.anchors.in/e/${slug}`
-                      //       : `https://www.anchors.in/s/${slug}`,
-                      //   })
-                      window.open(`/dashboard/shareTemplate/${slug}?type=event`)
-                    : window.open(`/dashboard/shareTemplate/${slug}`);
-                }}
-              >
-                Sharing Template <TbSend />
-              </button>
-
-              <button
-                onClick={() => {
-                  mixpanel.track("Analysis");
-                  selected === "events"
-                    ? !dummyData.EventDummy &&
-                      window.open(
-                        `/dashboard/serviceStats/${slug}?type=event`,
-                        "_blank"
-                      )
-                    : !dummyData.ServiceDummy &&
-                      window.open(`/dashboard/serviceStats/${slug}`, "_blank");
-                }}
-              >
-                {window.screen.width > 600 ? (
-                  <>
-                    {" "}
-                    <BiStats /> Detailed Service Analysis{" "}
-                  </>
-                ) : (
-                  <>
-                    Detailed Service Analysis <BiStats />{" "}
-                  </>
-                )}
-              </button>
+                height={"33px"}
+                rightIcon={<TbCertificate />}
+                text={"Customise Certificate"}
+              ></Button5>
+            )}
+            {status === 1 && <Button5
+              height={"33px"}
+              text={copyURL?.slice(0, 18)}
+              onClick={() => {
+                mixpanel.track("Tracking Link");
+                toast.info("Copied Link Successfully");
+                navigator.clipboard.writeText(copyURL);
+              }}
+              icon={<FaRegCopy />}
+            ></Button5>}
+            <div
+              className="mycontent_card_right_joining_buttons"
+              style={{ display: isLatestEvent ? "flex" : "none" }}
+            >
+              <Button5
+                height={"33px"}
+                text={stype === 0 ? "Venue Address" : "Joining Link"}
+                onClick={() => toggleJoiningLinkPopup()}
+                rightIcon={<IoMdOpen />}
+              ></Button5>
             </div>
           </div>
         </div>
 
-        {window.screen.width > 600 && (
-          <BiDotsVerticalRounded
+        <div className="mycontent_card_content">
+          <section className="mycontent_card_content_image">
+            <img
+              src={mobileSimg ?? simg}
+              alt=""
+              onClick={() => {
+               window.open(`https://www.anchors.in/e/${slug}`)
+              }}
+            />
+            <div
+              style={{
+                fontSize: "12px",
+                fontWeight: "400",
+                lineHeight: "14.52px",
+                color: "#94A3B8",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                mixpanel.track("Analysis");
+                !dummyData.EventDummy &&
+                  window.open(
+                    `/dashboard/serviceStats/${slug}?type=event`,
+                    "_blank"
+                  );
+              }}
+            >
+              Detailed Analysis <IoMdOpen />
+            </div>
+          </section>
+          <section className="mycontent_card_content_time">
+            <div
+              onClick={() => {
+                window.open(`https://www.anchors.in/e/${slug}`)
+              }}
+              style={{
+                color: "#94A3B8",
+                textAlign: "left",
+                width: "254px",
+                cursor: "pointer",
+              }}
+            >
+              {sname}
+            </div>
+            <div
+              style={{
+                height: "24px",
+                width: "211px",
+                background: "#262A36",
+                borderRadius: "4px",
+                display: "flex",
+                gap: "8px",
+                color: "#E2E8F0",
+                fontSize: "12px",
+                padding: "4px 8px 4px 8px",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <MdDateRange />
+              {
+                <>
+                  {formatEventDateTime(new Date(startDate)).slice(0, 11)} |{" "}
+                  {time?.startTime} : {time?.endTime}
+                </>
+              }
+            </div>
+          </section>
+          <section className="mycontent_card_content_Registration">
+            <h3
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                mixpanel.track("Downloads");
+                selected === "events"
+                  ? !dummyData.EventDummy &&
+                    registrations !== 0 &&
+                    window.open(
+                      `/dashboard/viewUserDetails/${slug}?type=event`,
+                      "_blank"
+                    )
+                  : !dummyData.ServiceDummy &&
+                    downloads !== 0 &&
+                    window.open(`/dashboard/viewUserDetails/${slug}`, "_blank");
+              }}
+            >
+              Registration
+            </h3>
+            <h1>{registrations}</h1>
+          </section>
+          <section className="mycontent_card_content_Event Price">
+            <h3>Event Price</h3>
+            <h1>{ssp}</h1>
+          </section>
+          <section className="mycontent_card_content_Earning">
+            <h3>Earning</h3>
+            <h1>{earning}</h1>
+          </section>
+          <section className="mycontent_card_content_Created On">
+            <h3>Created On</h3>
+            <h1>{getDateTime()}</h1>
+          </section>
+        </div>
+        <div className="mycontnet_card_footer_buttons">
+          <Button5
             onClick={() => {
-              setCurrSelected({ copyURL, status, _id, selected });
-              selected === "events"
-                ? !dummyData.EventDummy && openOptionsPopup(i + 1)
-                : !dummyData.ServiceDummy && openOptionsPopup(i + 1);
+              mixpanel.track("Downloads");
+              !dummyData.EventDummy &&
+                window.open(
+                  `/dashboard/viewUserDetails/${slug}?type=event`,
+                  "_blank"
+                );
             }}
-          />
-        )}
-
-        {/* content card_popup */}
-        <div
-          className="servicelist_optionspopup"
-          id={`servicelist_options${i + 1}`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="servicelist_wrap">
-            <div className="servicelist_popuptop">
-              {(selected !== "events" || new Date(startDate) > new Date()) && (
-                <div
-                  className="modaloptions_servicelist"
-                  onClick={() => {
-                    selected === "events"
-                      ? navigate(`/dashboard/editevent/${slug}`)
-                      : navigate(
-                          `/dashboard/editservice/${slug}/${
-                            stype === 2
-                              ? "video"
-                              : stype === 1
-                              ? "excel"
-                              : "pdf"
-                          }`
-                        );
-                  }}
-                >
-                  Edit {selected === "events" ? "Event" : "Service"}
-                </div>
-              )}
-
-              {selected !== "events" && (
-                <div
-                  className="modaloptions_servicelist"
-                  onClick={() => {
-                    navigate(
-                      `/dashboard/createservice?type=${
-                        stype === 2 ? "video" : stype === 1 ? "excel" : "pdf"
-                      }&duplicate=${slug}`
-                    );
-                    mixpanel.track("Duplicate Service", {
-                      service: slug,
-                    });
-                  }}
-                >
-                  Duplicate Service
-                </div>
-              )}
-              {/* <div
-                                  className="modaloptions_servicelist"
-                                  onClick={() => {
-                                    setCurrSelected(elem);
-                                    setOpenModel2(true);
-                                  }}
-                                >
-                                  Notify Users
-                                </div> */}
-              <div
-                className="modaloptions_servicelist"
-                onClick={() => {
-                  setOpenDeleteModal(true);
-                  removeOptionPopup();
-                }}
-              >
-                Delete Service
-              </div>
-              {selected !== "events" && (
-                <div
-                  className="modaloptions_servicelist"
-                  onClick={() => {
-                    selected === "events"
-                      ? navigate(`/dashboard/servicereviews/${slug}?type=event`)
-                      : navigate(`/dashboard/servicereviews/${slug}`);
-                  }}
-                >
-                  User Reviews
-                </div>
-              )}
-              <div className="modaloptions_servicelist_status">
-                Active Status
-                <span onClick={() => handleCheckClick()}>
-                  <label className="switch_type_01">
-                    <input
-                      id={`checkbox_${i + 1}`}
-                      type="checkbox"
-                      checked={statusForCurrent}
-                    />
-                    <span className="slider_type_01 round_type_01"></span>
-                  </label>
-                </span>
-              </div>
-            </div>
-          </div>
+            height={"33px"}
+            text={"Registered Users"}
+            icon={<IoMdOpen />}
+          ></Button5>
+          <Button5
+            onClick={() => {
+              mixpanel.track("Downloads");
+              !dummyData.EventDummy &&
+                window.open(
+                  `/dashboard/viewUserDetails/${slug}?type=event&category=Abandoned_Cart`,
+                  "_blank"
+                );
+            }}
+            height={"33px"}
+            text={"Abandoned Cart Users"}
+            icon={<IoMdOpen />}
+          ></Button5>
+          <Button5
+            height={"33px"}
+            text={"Email & WA Triggers"}
+            icon={<IoMdOpen />}
+          ></Button5>
+          <Button5
+            onClick={() => {
+              mixpanel.track("Downloads");
+              !dummyData.EventDummy &&
+                window.open(`/dashboard/graphicstemplate/${slug}`, "_blank");
+            }}
+            height={"33px"}
+            text={"Marketing Graphics"}
+            icon={<IoMdOpen />}
+          ></Button5>
         </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
 };
 
@@ -743,6 +763,7 @@ function ServiceDetailPage(props) {
     getalleventsLiveandUpcoming,
     latestEvents,
   } = useContext(ServiceContext);
+
   const [revArray, setrevArray] = useState([]);
   const [selected, setSelected] = useState("events");
   const [isHoveredTooltip, setIsHoveredTooltip] = useState(false);
@@ -754,6 +775,7 @@ function ServiceDetailPage(props) {
     link: "",
     simg: "",
   });
+
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [certificatePreviewData, setCertificatePreviewData] = useState({
     open: false,
@@ -783,52 +805,11 @@ function ServiceDetailPage(props) {
     setServicesEarningData({ ...services?.ServicesEarning });
 
     let list = services?.res;
-    if (selected === "pdf") {
-      setrevArray(
-        list?.filter((e) => {
-          return e?.stype === 0;
-        })
-      );
-    } else if (selected === "excel") {
-      setrevArray(
-        list?.filter((e) => {
-          return e?.stype === 1;
-        })
-      );
-    } else if (selected === "video") {
-      setrevArray(
-        list?.filter((e) => {
-          return e?.stype === 2;
-        })
-      );
-    } else if (selected === "events") {
-      setrevArray(services?.events);
-    } else {
-      setrevArray(list);
-    }
-  }, [services, selected]);
+    setrevArray(services?.events);
+  }, [services]);
 
   const [OpenOption, setOpenOption] = useState(0);
 
-  const getDatelist = (date) => {
-    let ll = date?.slice(0, date.toString().length - 5);
-    const datenew = ll?.split("T");
-    if (datenew) {
-      return datenew[0];
-    }
-  };
-
-  const getDatelist2 = (date) => {
-    let ll = date?.slice(0, date.toString().length - 5);
-    const datenew = ll?.split("T");
-    if (datenew) {
-      return datenew[1];
-    }
-  };
-  const openOptionsPopup = (i) => {
-    document.getElementById(`servicelist_options${i}`).style.display = "flex";
-    setOpenOption(i);
-  };
   const removeOptionPopup = () => {
     if (OpenOption !== 0) {
       revArray.map((elem, i) => {
@@ -843,10 +824,35 @@ function ServiceDetailPage(props) {
     }
   };
 
+  const earliestEvent = latestEvents?.UpcomingEvents?.reduce(
+    (earliest, current) => {
+      const earliestStartDate = new Date(earliest.startDate);
+      const currentStartDate = new Date(current.startDate);
+
+      return currentStartDate < earliestStartDate ? current : earliest;
+    },
+    latestEvents?.UpcomingEvents[0]
+  );
+
   const navigate = useNavigate();
-  const [openModel, setOpenModel] = useState(false); // change status modal -----------
-  const [changeStatus, setChangeStatus] = useState(1); // current status of changed element --------------
-  const [currselected, setCurrSelected] = useState(null); // selected options of a which service / event --------------
+  const [openModel, setOpenModel] = useState(false);
+  const [changeStatus, setChangeStatus] = useState(1);
+  const [currselected, setCurrSelected] = useState(null);
+  const [PastEvents, SetPastEvents] = useState(null);
+  const [DraftEvents, setDraftEvents] = useState(null);
+  const [category, setCategory] = useState("All");
+  useEffect(() => {
+    const past = revArray?.filter(
+      (item) => new Date(item.startDate) < Date.now()
+    );
+    SetPastEvents(past);
+    const draft = revArray?.filter((item) => item.status === 3);
+    setDraftEvents(draft);
+  }, [revArray]);
+
+  const handleCategory = (category) => {
+    setCategory(category);
+  };
 
   const handleCheckClick = async (elem) => {
     setCurrSelected(elem);
@@ -855,11 +861,7 @@ function ServiceDetailPage(props) {
     if (elem.status) {
       // means now it is checked ------------
       setChangeStatus(0);
-      const success = await deleteService(
-        elem._id,
-        0,
-        selected === "events" ? "event" : "document"
-      ); // changing status of the service / eevent
+      const success = await deleteService(elem._id, 0, "event"); // changing status of the service / eevent
       if (success) {
         setOpenModel(true);
         props.progress(100);
@@ -873,11 +875,7 @@ function ServiceDetailPage(props) {
     } else {
       // means now it is unchecked-----------------
       setChangeStatus(1);
-      const success = await deleteService(
-        elem._id,
-        1,
-        selected === "events" ? "event" : "document"
-      );
+      const success = await deleteService(elem._id, 1, "event");
       if (success) {
         setOpenModel(true);
         props.progress(100);
@@ -890,6 +888,28 @@ function ServiceDetailPage(props) {
       }
     }
   };
+
+  const getRenderArray = () => {
+    switch (category) {
+      case "All":
+        return services?.events?.sort(function (a, b) {
+          return new Date(b.startDate) - new Date(a.startDate);
+        });
+      case "Upcoming":
+        return latestEvents?.UpcomingEvents?.sort(function (a, b) {
+          return new Date(a.startDate) - new Date(b.startDate);
+        });
+      case "Past":
+        return PastEvents;
+      case "Draft":
+        // Logic to filter and return draft events/services
+        return DraftEvents;
+      default:
+        return revArray;
+    }
+  };
+
+  const renderArray = getRenderArray();
 
   return (
     <>
@@ -953,40 +973,68 @@ function ServiceDetailPage(props) {
 
         {window.screen.width > 600 && (
           <>
-            <h1 className="headers_section_paymentInfo">My Events</h1>
-            <span className="servicelist_wrap_span">
-              Manage all your Events
-            </span>
-            <div className="servicelist-categories"></div>
+            <div className="servicelist-headers_section">
+              <h1 className="headers_section_paymentInfo">My Events</h1>
+              <span className="servicelist_wrap_create_button">
+                <Button5
+                  onClick={() => {
+                    navigate("/dashboard/createevent");
+                  }}
+                  height={"44px"}
+                  text={"Create New Event"}
+                  rightIcon={<IoMdAdd />}
+                >
+                  <IoMdAdd />
+                </Button5>
+              </span>
+              <div className="servicelist-categories"></div>
+            </div>
           </>
         )}
-
-        <EventsSectionData
-          liveData={latestEvents?.LiveEvents}
-          upcomingData={latestEvents?.UpcomingEvents}
-        />
-
+        <section className="content_cards_selection_button">
+          <button
+            className={category === "All" ? "Selected" : ""}
+            onClick={() => {
+              handleCategory("All");
+            }}
+          >{`ALL(${services?.events?.length})`}</button>
+          <button
+            className={category === "Upcoming" ? "Selected" : ""}
+            onClick={() => {
+              handleCategory("Upcoming");
+            }}
+          >{`Upcoming(${latestEvents?.UpcomingEvents?.length})`}</button>
+          <button
+            className={category === "Past" ? "Selected" : ""}
+            onClick={() => {
+              handleCategory("Past");
+            }}
+          >{`Past(${PastEvents?.length})`}</button>
+          <button
+            className={category === "Draft" ? "Selected" : ""}
+            onClick={() => {
+              handleCategory("Draft");
+            }}
+          >{`Draft(${DraftEvents?.length})`}</button>
+        </section>
+        <div className="content_cards_breaker"></div>
         <section
           className="content_cards_main_wrapper_servicelist"
           onMouseEnter={() => {
-            (selected === "events"
-              ? dummyData?.EventDummy
-              : dummyData?.ServiceDummy) && setIsHoveredTooltip(true);
+            dummyData?.EventDummy && setIsHoveredTooltip(true);
           }}
           onMouseLeave={() => {
-            (selected === "events"
-              ? dummyData?.EventDummy
-              : dummyData?.ServiceDummy) && setIsHoveredTooltip(false);
+            dummyData?.EventDummy && setIsHoveredTooltip(false);
           }}
         >
-          {revArray?.map((elem, i) => {
-            return (
+          {renderArray !== PastEvents &&
+            renderArray !== DraftEvents &&
+            earliestEvent && (
               <ContentCard
-                {...elem}
-                i={i}
+                {...earliestEvent}
+                i={-1}
                 dummyData={dummyData}
                 // setShareModalData={setShareModalData}
-                selected={selected}
                 setOpenOption={setOpenOption}
                 setCurrSelected={setCurrSelected}
                 setChangeStatus={setChangeStatus}
@@ -994,33 +1042,47 @@ function ServiceDetailPage(props) {
                 setOpenModel={setOpenModel}
                 OpenOption={OpenOption}
                 revArray={revArray}
-                earning={ServicesEarningData[elem?._id] ?? 0}
+                earning={ServicesEarningData[earliestEvent?._id] ?? 0}
                 setOpenDeleteModal={setOpenDeleteModal}
                 setCertificatePreviewData={setCertificatePreviewData}
+                isLatestEvent={true}
               />
+            )}
+          {renderArray?.map((elem, i) => {
+            return (
+              earliestEvent._id !== elem?._id && (
+                <ContentCard
+                  {...elem}
+                  i={i}
+                  dummyData={dummyData}
+                  // setShareModalData={setShareModalData}
+                  setOpenOption={setOpenOption}
+                  setCurrSelected={setCurrSelected}
+                  setChangeStatus={setChangeStatus}
+                  deleteService={deleteService}
+                  setOpenModel={setOpenModel}
+                  OpenOption={OpenOption}
+                  revArray={revArray}
+                  earning={ServicesEarningData[elem?._id] ?? 0}
+                  setOpenDeleteModal={setOpenDeleteModal}
+                  setCertificatePreviewData={setCertificatePreviewData}
+                  isLatestEvent={false}
+                />
+              )
             );
           })}
 
-          {(selected === "events"
-            ? dummyData?.EventDummy
-            : dummyData?.ServiceDummy) &&
-            isHoveredTooltip && (
-              <div className="opacity-layer-over-table">
-                The current table contains sample data, and this is the way in
-                which your data will be presented.
-              </div>
-            )}
+          {dummyData?.EventDummy && isHoveredTooltip && (
+            <div className="opacity-layer-over-table">
+              The current table contains sample data, and this is the way in
+              which your data will be presented.
+            </div>
+          )}
         </section>
 
         <div className="servicelist-table">
-          {(selected === "events"
-            ? dummyData?.EventDummy
-            : dummyData?.ServiceDummy) && (
+          {dummyData?.EventDummy && (
             <div className="cta_dummy_data">
-              {/* <span>
-                The current table contains sample data, and this is the way in
-                which your data will be presented.
-              </span> */}
               <Button2
                 text={
                   selected === "events"
@@ -1038,7 +1100,7 @@ function ServiceDetailPage(props) {
       </div>
       <ToastContainer />
 
-      <SuperSEO title="Anchors - Services" />
+      <SuperSEO title="Anchors - Events" />
     </>
   );
 }

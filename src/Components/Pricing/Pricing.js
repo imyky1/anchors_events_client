@@ -1,11 +1,11 @@
 import React from "react";
-import { CardDesign, FAQs } from "./Pricing copy";
 import { ToastContainer } from "react-toastify";
 import MainNewFooter from "../Footer/Footer";
 import { SuperSEO } from "react-super-seo";
 import { EventsNavbar } from "../Layouts/Navbar Creator/Navbar";
 import { MdDone } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import "./Pricing.css";
 
 const FAQDetails = [
   {
@@ -31,11 +31,6 @@ const FAQDetails = [
 ];
 
 const PricingTableData = [
-  // {
-  //   title: "Host free events",
-  //   free: true,
-  //   paid: true,
-  // },
   {
     title: "Referral benefit feature",
     free: true,
@@ -72,6 +67,44 @@ const PricingTableData = [
     paid: true,
   },
 ];
+
+const FAQs = ({ data }) => {
+  const handleClick = (e) => {
+    let accordionItemHeader = document.getElementById(e.target.id);
+    accordionItemHeader.classList.toggle("active");
+    const accordionItemBody = accordionItemHeader.nextElementSibling;
+    if (accordionItemHeader.classList.contains("active")) {
+      accordionItemBody.style.maxHeight = accordionItemBody.scrollHeight + "px";
+    } else {
+      accordionItemBody.style.maxHeight = 0;
+    }
+  };
+
+  return (
+    <div className="faq_pricing_wrapper">
+      <h1 className="faq_pricing_text01">Frequently Asked Question</h1>
+      <div className="accordion">
+        {data?.map((e, i) => {
+          return (
+            <div className="accordion-item" key={i}>
+              <div
+                className="accordion-item-header"
+                onClick={handleClick}
+                id={`FAQ${i}`}
+              >
+                {e?.question}
+              </div>
+              <div className="accordion-item-body">
+                <div className="accordion-item-body-content">{e?.answer}</div>
+              </div>
+              {/* <!-- /.accordion-item-body --> */}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const TablePricing = () => {
   const navigate = useNavigate()

@@ -11,6 +11,8 @@ const LinkedinState = (props) => {
   const [loginInfo, setloginInfo] = useState({});
   const [truecallervalue, settruecallervalue] = useState({});
 
+  const [verifiedData, setVerifiedData] = useState(null);
+
   const creatorLinkedinLogin = async () => {
     fetch(`${host}/login/creator/success`, {
       method: "GET",
@@ -143,7 +145,6 @@ const LinkedinState = (props) => {
         localStorage.setItem("jwtToken", res.jwtToken);
         localStorage.setItem("c_id", res.slug);
         window.open("/dashboard", "_self");
-
       } else {
         toast.error("Login Failed! Please Try Again", {
           position: "top-center",
@@ -165,26 +166,25 @@ const LinkedinState = (props) => {
     }
   };
 
-
   // login for manual email process -----------------
-  const CreatorLoginThoughEmail = async (
-    email,
-  ) => {
+  const CreatorLoginThoughEmail = async (email) => {
     try {
-      const response = await fetch(`${host}/api/creator/eventSide/loginCreatorThroughEmail`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-        body: JSON.stringify({
-          email
-        }),
-      });
+      const response = await fetch(
+        `${host}/api/creator/eventSide/loginCreatorThroughEmail`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: JSON.stringify({
+            email,
+          }),
+        }
+      );
       const res = await response.json();
       return res;
-
     } catch (error) {
       console.error(error);
       toast.info("Some error occured!!", {
@@ -196,7 +196,6 @@ const LinkedinState = (props) => {
       }, 1500);
     }
   };
-
 
   // get slug count for creator
   const getslugcountcreator = async (slug) => {
@@ -495,6 +494,53 @@ const LinkedinState = (props) => {
     return json;
   };
 
+  // check and verify the user login ------------------------
+  const checkAndGetUserData = async () => {
+    const response = await fetch(`${host}/login/event/verifyAndGetUser`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+        "jwt-token": localStorage.getItem("jwtToken"),
+      },
+    });
+    const res = await response.json();
+
+    // no problem in accessing i.e user is verified
+    if (res?.success) {
+      setVerifiedData({
+        data: res?.data,
+        planActivated: res?.planActivated,
+      });
+    } else {
+      if (res?.logout) {
+        // logout the user ----------------
+        localStorage.removeItem("isUser");
+        localStorage.removeItem("jwtToken");
+        localStorage.removeItem("from");
+        localStorage.removeItem("url");
+        localStorage.removeItem("user");
+        localStorage.removeItem("c_id");
+        mixpanel.reset();
+        navigate("/");
+
+        toast.info("You are not allowed, Please login again!!!", {
+          position: "top-center",
+          autoClose: 1500,
+        });
+      } else {
+        toast.error(
+          "Some error occured in verifying userdata, Please login again!!!",
+          {
+            position: "top-center",
+            autoClose: 1500,
+          }
+        );
+      }
+    }
+  };
+
   return (
     <linkedinContext.Provider
       value={{
@@ -508,7 +554,9 @@ const LinkedinState = (props) => {
         loginInfo,
         truecallervalue,
         registerCreatorLogin,
-        CreatorLoginThoughEmail
+        CreatorLoginThoughEmail,
+        checkAndGetUserData,
+        verifiedData
       }}
     >
       {props.children}

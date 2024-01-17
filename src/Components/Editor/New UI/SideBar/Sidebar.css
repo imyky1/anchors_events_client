@@ -3,7 +3,7 @@
 .sidebar_main_box {
   width: 268px;
   min-width: 244px;
-  background: #121212;
+  background:#131825;
   height: 100vh;
   position: sticky;
   left: 0;
@@ -56,6 +56,38 @@
   width: 100%;
   box-sizing: border-box;
   justify-content: space-between;
+}
+
+.sidebar_main_box > div > div > p {
+  color: #f59e0b;
+  text-align: center;
+  font-family: "Inter";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.sidebar_main_box > div > div > button {
+  border-radius: 4px;
+  background: var(--Secondary-400, #3460dc);
+
+  color: #fff;
+  text-align: center;
+  font-family: "Inter";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 10px 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px auto;
+  margin-top: 20px;
 }
 
 .sidebar_main_box > div > div > span img {
@@ -114,7 +146,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: 25px;
+  margin-top: 15px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 10px;
 }
@@ -292,10 +324,9 @@
   }
 }
 
-
 /*  sidebar 2 css */
 
-.sidebar2_main_box{
+.sidebar2_main_box {
   background: #121212;
   height: 100vh;
   position: sticky;
@@ -305,15 +336,15 @@
   padding-left: 16px;
   box-sizing: border-box;
   padding-top: 13px;
-  padding:20px;
+  padding: 20px;
 }
 
-.sidebar2_main_box > div > img{
+.sidebar2_main_box > div > img {
   width: 20px;
   cursor: pointer;
 }
 
-.sidebar2_navigation{
+.sidebar2_navigation {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -321,8 +352,7 @@
   gap: 8px;
 }
 
-
-.sidebar2_main_box > div{
+.sidebar2_main_box > div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -330,8 +360,7 @@
   gap: 20px;
 }
 
-
-.sidebar2_navigation_normal{
+.sidebar2_navigation_normal {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -344,16 +373,15 @@
   position: relative;
 }
 
-.sidebar2_navigation_normal > img{
+.sidebar2_navigation_normal > img {
   width: 20px;
   height: 20px;
 }
 
-.sidebar2_navigation_normal:hover{
+.sidebar2_navigation_normal:hover {
   background-color: #212121;
 }
 
-
-.sidebar2_navigation_active{
+.sidebar2_navigation_active {
   background-color: #212121 !important;
 }

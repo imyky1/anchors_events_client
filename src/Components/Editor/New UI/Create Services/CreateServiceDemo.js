@@ -1,4 +1,3 @@
-
 import "../EditProfile/Preview.css";
 import "../Sample Page/Event.css";
 import { useEffect, useRef, useState } from "react";
@@ -14,7 +13,13 @@ import {
 import { GoClock } from "react-icons/go";
 import { CiCalendarDate } from "react-icons/ci";
 import { IoIosArrowRoundForward, IoMdStar } from "react-icons/io";
-
+import { BsQuote } from "react-icons/bs";
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+// import required modules
+import { Navigation, Pagination } from "swiper/modules";
 
 const SpeakerCard = ({
   name,
@@ -61,7 +66,7 @@ const SpeakerCard = ({
           fontSize: "12px",
           lineHeight: "18px",
           width: "80%",
-          overflowWrap: "break-word"
+          overflowWrap: "break-word",
         }}
       >
         {designation}
@@ -80,6 +85,22 @@ const SpeakerCard = ({
     </div>
   );
 };
+
+function getYouTubeVideoId(url) {
+  // Regular expression to match YouTube video URL patterns
+  const regex = /[?&]v=([^?&]+)/;
+
+  // Extract video ID from the URL using the regular expression
+  const match = url.match(regex);
+
+  // Check if a match is found
+  if (match && match[1]) {
+    return match[1];
+  } else {
+    // Return null if no match is found
+    return null;
+  }
+}
 
 const CreateEventDemo = ({
   sname,
@@ -100,7 +121,11 @@ const CreateEventDemo = ({
   speakersArray,
   speakersImagesArray,
   scrollToSection,
-
+  imagesArray,
+  videoArray,
+  titles,
+  testimonialArray,
+  wants,
 }) => {
   const [isVisibleFloater, setIsVisibleFloater] = useState(false); // for floater visibility
   const targetRef = useRef(null);
@@ -113,6 +138,10 @@ const CreateEventDemo = ({
     desc: "#aboutEventPageDemo",
     speakers: "#speakersEventPageDemo",
     benefits: "#benefitsEventPage",
+    video:"#videoEventPageDemo",
+    images:"#imageEventPageDemo",
+    testimonial:"#testimonialEventPageDemo",
+
   };
 
   useEffect(() => {
@@ -231,50 +260,93 @@ const CreateEventDemo = ({
           {/*  hoc in event page ------------ */}
           <div
             className="hoc1_wrraper_event_page"
-            style={{ padding: "0 4%" }}
+            style={{ padding: "20px 4%" }}
             id="topPageEvent"
           >
             <section
               className="main_header_component_event_page"
-              style={{ gap: "20px", paddingBottom: "0", paddingTop: "13vh" }}
+              style={{
+                flexDirection: "column-reverse",
+                gap: "20px",
+                padding: "initial",
+                height: "unset",
+              }}
             >
-              <h1
-                className="text_type01_event_page"
+              <section
                 style={{
-                  fontSize: "40px",
-                  lineHeight: "40px",
+                  alignItems: "center",
+                  gap: "20px",
+                  textAlign: "center",
                 }}
               >
-                {sname?.length > 0 ? sname : "Lorem ipsum dolor sit amet."}
-              </h1>
+                <h1
+                  className="text_type01_event_page"
+                  style={{
+                    fontSize: "40px",
+                    lineHeight: "40px",
+                  }}
+                >
+                  {sname?.length > 0 ? sname : "Lorem ipsum dolor sit amet."}
+                </h1>
 
-              <span
-                className="text_type02_event_page"
-                style={{ fontSize: "16px" }}
-              >
-                by {cname}
-              </span>
+                <span
+                  className="text_type02_event_page"
+                  style={{ fontSize: "16px" }}
+                >
+                  by {cname}
+                </span>
 
-              <button
-                className="button_01_event_page"
-                onClick={() => {
-                  const section = document.getElementById("eventDetails");
-                  section.scrollIntoView({ behavior: "smooth" });
-                }}
+                <button
+                  className="button_01_event_page"
+                  onClick={() => {
+                    const section = document.getElementById("eventDetails");
+                    section.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  style={{
+                    fontSize: "16px",
+                    marginBottom: "19vh",
+                    marginTop: "14vh",
+                    padding: "16px 24px",
+                  }}
+                >
+                  View Event Details
+                </button>
+              </section>
+
+              {/* <div
                 style={{
-                  fontSize: "16px",
-                  marginBottom: "19vh",
-                  marginTop: "14vh",
-                  padding: "16px 24px",
+                  position: "relative",
+                  width: "max-content",
                 }}
               >
-                View Event Details
-              </button>
+                <span
+                  style={{
+                    left: "6px",
+                    top: "-54px",
+                  }}
+                ></span>
+                <img
+                  src={"https://www.anchors.in:5000/api/file/youtube.png"}
+                  alt=""
+                  style={{
+                    width: "260px",
+                  }}
+                />
+                <span
+                  style={{
+                    right: "39px",
+                    bottom: "-40px",
+                  }}
+                ></span>
+              </div> */}
 
               <BsArrowDown
                 color="#94A3B8"
                 size={40}
                 className="arrow_button_sample_page"
+                style={{
+                  left: "auto",
+                }}
               />
             </section>
           </div>
@@ -286,7 +358,7 @@ const CreateEventDemo = ({
             id="eventDetails"
             style={{
               gap: "20px",
-              padding: "0 4%",
+              padding: "20px 4%",
             }}
           >
             <section
@@ -294,7 +366,6 @@ const CreateEventDemo = ({
               style={{
                 flexDirection: "column",
                 gap: "40px",
-                margin: "20px 0",
               }}
             >
               <div
@@ -484,7 +555,10 @@ const CreateEventDemo = ({
           </div>
 
           {/*  hoc in event page -----x------ */}
-          <div className="hoc1_wrraper_event_page" style={{ padding: "0 4%" }}>
+          <div
+            className="hoc1_wrraper_event_page"
+            style={{ padding: "20px 4%" }}
+          >
             <section
               className="description_event_page_wrapper"
               id="aboutEventPageDemo"
@@ -504,14 +578,176 @@ const CreateEventDemo = ({
                 }}
               ></div>
             </section>
+
+            {/* video display section ---------------------------- */}
+            {Object.values(videoArray).filter((e) => {
+              return e;
+            })?.length > 0 && wants?.video && (
+              <section className="video_section_event_page_wrapper"  id="videoEventPageDemo">
+                <h3 className="text_type07_event_page" style={{ fontSize: "20px" }}>{titles?.video}</h3>
+
+                <div>
+                  <Swiper
+                    slidesPerView={"auto"}
+                    centeredSlides={true}
+                    spaceBetween={30}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    modules={[Pagination, Navigation]}
+                    className="mySwiper"
+                  >
+                    {Object.values(videoArray)
+                      .filter((e) => {
+                        return e;
+                      })
+                      ?.map((video, index) => {
+                        return (
+                          <SwiperSlide>
+                            <div className="video_box_event_page">
+                              {video?.includes("youtube") &&
+                                <iframe
+                                  width={262}
+                                  height={160}
+                                  src={`https://www.youtube.com/embed/${getYouTubeVideoId(
+                                    video
+                                  )}`}
+                                  title="YouTube video player"
+                                  frameBorder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowFullScreen
+                                ></iframe>}
+                            </div>
+                          </SwiperSlide>
+                        );
+                      })}
+                  </Swiper>
+                </div>
+              </section>
+            )}
           </div>
+
+          {/*  hoc1 in event page ------------ */}
+          {((Object.values(imagesArray).filter((e) => {
+            return e;
+          })?.length > 0 && wants?.image) ||
+            (testimonialArray?.length > 0 && wants?.testimonial))&& (
+            <div
+              className="hoc2_wrraper_event_page"
+              style={{
+                gap: "20px",
+                padding: "20px 16px",
+              }}
+            >
+              {Object.values(imagesArray).filter((e) => {
+                return e;
+              })?.length > 0 && (
+                <section className="images_section_event_page_wrapper" id="imageEventPageDemo">
+                  <h3 className="text_type07_event_page" style={{ fontSize: "20px" }}>{titles?.image}</h3>
+
+                  <div>
+                    <Swiper
+                      slidesPerView={1}
+                      spaceBetween={30}
+                      pagination={{
+                        clickable: true,
+                      }}
+                      modules={[Pagination]}
+                      className="mySwiper"
+                    >
+                      {Object.values(imagesArray)
+                        .filter((e) => {
+                          return e;
+                        })
+                        ?.map((image, index) => {
+                          return (
+                            <SwiperSlide key={`imageectra${index}`}>
+                              <img
+                                src={image ? URL.createObjectURL(image) : ""}
+                                alt=""
+                                style={{
+                                  height: "160px",
+                                  width: "261px",
+                                }}
+                              />
+                            </SwiperSlide>
+                          );
+                        })}
+                    </Swiper>
+                  </div>
+                </section>
+              )}
+
+              {testimonialArray?.length !== 0 && wants?.testimonial && (
+                <section className="testimonial_section_event_page_wrapper" id="testimonialEventPageDemo">
+                  <h3 className="text_type07_event_page" style={{ fontSize: "20px" }}>{titles?.testimonial}</h3>
+
+                  <div>
+                    <Swiper
+                       slidesPerView={1}
+                      spaceBetween={30}
+                      pagination={{
+                        clickable: true,
+                      }}
+                      modules={[Pagination]}
+                      className="mySwiper"
+                    >
+                      {testimonialArray
+                        ?.filter((e) => {return e?.type})
+                        ?.map((data, i) => {
+                          return (
+                            <SwiperSlide>
+                              {data?.type === "Image" ? (
+                                <img
+                                  src={data?.image instanceof Blob ? URL.createObjectURL(data?.image) : ""}
+                                  alt=""
+                                  style={{
+                                    width:"100%",
+                                    height:"160px"
+                                  }}
+                                />
+                              ) : data?.type === "Text" ? (
+                                <div className="testimonial_card_wrapper_event_page" style={{
+                                  width:"100%",
+                                  height:"160px"
+                                }}>
+                                  <BsQuote />
+                                  <p>{data?.review}</p>
+
+                                  <span>{data?.username}</span>
+
+                                </div>
+                              ) : data?.type === "Video" ? 
+                                data?.videoLink?.includes("youtube") &&
+                                  <iframe
+                                    width={250}
+                                    height={160}
+                                    src={`https://www.youtube.com/embed/${getYouTubeVideoId(
+                                      data?.videoLink
+                                    )}`}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                  ></iframe>
+                               : null}
+                            </SwiperSlide>
+                          );
+                        })}
+                      )
+                    </Swiper>
+                  </div>
+                </section>
+              )}
+            </div>
+          )}
 
           {/*  hoc2 in event page ------------ */}
           <div
-            className="hoc2_wrraper_event_page"
+            className="hoc1_wrraper_event_page"
             style={{
               gap: "20px",
-              padding: "0 4%",
+              padding: "20px 4%",
             }}
           >
             <section
@@ -533,27 +769,35 @@ const CreateEventDemo = ({
                   gap: "20px",
                 }}
               >
-                  {speakersArray?.map((speaker, index) => {
-                    return (
-                      <SpeakerCard
-                        {...speaker}
-                        profile={
-                          speakersImagesArray[index]
-                            ? URL.createObjectURL(speakersImagesArray[index])
-                            : speaker?.isCreator
-                            ? cprofile
-                            : PNGIMG
-                        }
-                        optionalProfile={cprofile}
-                        rating={speaker?.isCreator && crating}
-                        key={index}
-                        sno={index + 1}
-                      />
-                    );
-                  })}
+                {speakersArray?.map((speaker, index) => {
+                  return (
+                    <SpeakerCard
+                      {...speaker}
+                      profile={
+                        speakersImagesArray[index]
+                          ? URL.createObjectURL(speakersImagesArray[index])
+                          : speaker?.isCreator
+                          ? cprofile
+                          : PNGIMG
+                      }
+                      optionalProfile={cprofile}
+                      rating={speaker?.isCreator && crating}
+                      key={index}
+                      sno={index + 1}
+                    />
+                  );
+                })}
               </div>
             </section>
+          </div>
 
+          <div
+            className="hoc2_wrraper_event_page"
+            style={{
+              gap: "20px",
+              padding: "20px 16px",
+            }}
+          >
             <section
               className="benefits_event_page_wrapper"
               style={{

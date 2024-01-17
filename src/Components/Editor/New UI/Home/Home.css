@@ -16,8 +16,9 @@
   width: 100%;
   background: #121212;
   height: 100%;
-  /* overflow-y: auto; */
+  overflow-y: auto;
   min-height: 93vh;
+  background: var(--Dark-Mode-Dark-Mode-800, #1C212E);
 }
 
 .logo_nonSideBar{
