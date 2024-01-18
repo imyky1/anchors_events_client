@@ -523,15 +523,23 @@ const LinkedinState = (props) => {
         localStorage.removeItem("user");
         localStorage.removeItem("c_id");
         mixpanel.reset();
-        navigate("/");
-
-        toast.info("You are not allowed, Please login again!!!", {
+        
+        toast.info(res?.error, {
           position: "top-center",
-          autoClose: 1500,
+          autoClose: 2500,
         });
+
+        setTimeout(() => {
+          if(res?.inviteOnly){
+            window.open("https://www.anchors.in","_self")
+          }
+          else{
+            navigate("/");
+          }
+        }, 2500);
+
       } else {
-        toast.error(
-          "Some error occured in verifying userdata, Please login again!!!",
+        toast.error(res?.error,
           {
             position: "top-center",
             autoClose: 1500,

@@ -32,23 +32,14 @@ import {
   BsTelegram,
   BsWhatsapp,
   BsArrowLeftShort,
-  BsFillBrushFill,
 } from "react-icons/bs";
-import {
-  BiCoinStack,
-  BiDotsVerticalRounded,
-  BiRupee,
-  BiStats,
-  BiShow,
-} from "react-icons/bi";
 import { MdDateRange } from "react-icons/md";
 import mixpanel from "mixpanel-browser";
 import {
   LinkedinShareButton,
   TelegramShareButton,
-  WhatsappShareButton,
 } from "react-share";
-import { IoCopy, IoCopyOutline } from "react-icons/io5";
+import { IoCopy} from "react-icons/io5";
 import { Certificate } from "../../../EventCertifcates/SelectCertificate";
 import { DeleteModal } from "../../../Modals/Logout_Model";
 
@@ -858,10 +849,10 @@ function ServiceDetailPage(props) {
     setCurrSelected(elem);
     removeOptionPopup(); // removes popup ------------------------------
     props.progress(0);
-    if (elem.status) {
+    if (elem?.status) {
       // means now it is checked ------------
       setChangeStatus(0);
-      const success = await deleteService(elem._id, 0, "event"); // changing status of the service / eevent
+      const success = await deleteService(elem?._id, 0, "event"); // changing status of the service / eevent
       if (success) {
         setOpenModel(true);
         props.progress(100);
@@ -875,7 +866,7 @@ function ServiceDetailPage(props) {
     } else {
       // means now it is unchecked-----------------
       setChangeStatus(1);
-      const success = await deleteService(elem._id, 1, "event");
+      const success = await deleteService(elem?._id, 1, "event");
       if (success) {
         setOpenModel(true);
         props.progress(100);
@@ -893,11 +884,11 @@ function ServiceDetailPage(props) {
     switch (category) {
       case "All":
         return services?.events?.sort(function (a, b) {
-          return new Date(b.startDate) - new Date(a.startDate);
+          return new Date(b?.startDate) - new Date(a?.startDate);
         });
       case "Upcoming":
         return latestEvents?.UpcomingEvents?.sort(function (a, b) {
-          return new Date(a.startDate) - new Date(b.startDate);
+          return new Date(a?.startDate) - new Date(b?.startDate);
         });
       case "Past":
         return PastEvents;
@@ -1050,7 +1041,7 @@ function ServiceDetailPage(props) {
             )}
           {renderArray?.map((elem, i) => {
             return (
-              earliestEvent._id !== elem?._id && (
+              earliestEvent?._id !== elem?._id && (
                 <ContentCard
                   {...elem}
                   i={i}
