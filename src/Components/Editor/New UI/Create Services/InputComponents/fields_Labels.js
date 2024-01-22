@@ -9,6 +9,7 @@ import { HiOutlineUpload } from "react-icons/hi";
 import { TfiReload } from "react-icons/tfi";
 import { AiFillInfoCircle } from "react-icons/ai";
 import DatePicker from "react-datepicker";
+import DOMPurify from 'dompurify';
 
 import "react-datepicker/dist/react-datepicker.css";
 Quill.register("modules/imageResize", ImageResize);
@@ -92,7 +93,7 @@ function EditorText01(props) {
     // Normal type -1 text field used in create
     <div className="textfiled_container_01">
       <>
-        <span className="label_type_04">
+        <span className="label_type_01">
           {props?.label}{" "}
           {props?.helperText && (
             <AiFillInfoCircle
@@ -126,9 +127,9 @@ function EditorText01(props) {
             props?.boxTooltip && setOpenTip(false);
           }}
           theme="snow"
-          value={props?.Content}
+          value={DOMPurify.sanitize(props?.Content)}
           onChange={(e) => {
-            props?.setContent(e);
+            props?.setContent(DOMPurify.sanitize(e));
           }}
           className="quill-editor"
           placeholder={props?.placeholder}
@@ -362,7 +363,7 @@ function fields_Labels4(props) {
       {props.icons && (
         <i
           style={{
-            color: "gray",
+            color: "#94A3B8",
           }}
         >
           {props?.icons}

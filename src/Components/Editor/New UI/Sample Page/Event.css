@@ -111,6 +111,7 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  word-break: break-word;
 }
 
 .video_section_event_page_wrapper > div {
@@ -128,6 +129,7 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  word-wrap: break-word;
 }
 
 .images_section_event_page_wrapper > div {
@@ -161,7 +163,6 @@
 }
 
 .testimonial_card_wrapper_event_page{
-  height: 195px;
   width: 25vw;
   border-radius: 4px;
   background:  #131825;
@@ -176,16 +177,20 @@
   align-items: center;
   padding: 16px;
   box-sizing: border-box;
+  width: 100%;
+  min-height: 195px;
 }
 
 
 
 .testimonial_card_wrapper_event_page > p{
-  height: 92px;
+  height: auto;
   margin-top: 20px;
   margin-bottom: 10px;
   overflow: auto;
   font-size: 12px;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .testimonial_card_wrapper_event_page > span{
@@ -570,6 +575,8 @@
   font: inherit !important;
   background-color: inherit !important;
   color: inherit !important;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .benefits_div_event_page li {

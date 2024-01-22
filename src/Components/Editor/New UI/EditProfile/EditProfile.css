@@ -3,7 +3,7 @@
   align-items: flex-start;
   width: 100%;
   margin-left: 6%;
-  background: #121212;
+  background: #1c212e;
   position: relative;
 }
 
@@ -21,17 +21,28 @@
 .personalinfo_top {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 8px;
   margin-bottom: 3vh;
   position: relative;
   width: 100%;
 }
 .personalinfo_top > h1 {
-  color: #f8f8f8;
+  color: #f8fafc;
   font-family: "Inter";
   font-size: 24px;
   font-style: normal;
+  font-weight: 600;
 }
+.personalinfo_top > h3 {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #94a3b8;
+}
+
 .personalinfo_top span {
   font-weight: 300;
   font-size: 16px;
@@ -40,9 +51,11 @@
 .personalinfo_photosection {
   display: flex;
   flex-direction: column;
+  height: auto;
   /* gap: 2vh;
   margin-bottom: 4vh; */
 }
+
 .personalinfo_buttonupload {
   background-color: black;
   color: white;
@@ -50,13 +63,38 @@
   border-radius: 10px;
   cursor: pointer;
 }
-
+.profile_info_frame_dummy_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  gap: 5px;
+  background-color: #1e293b;
+  color: #94a3b8;
+  border-radius: 50%;
+  color: var(--Neutral-Gray-400, #94a3b8);
+  text-align: center;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+}
+.profile_info_frame_dummy_container svg {
+  height: 24px;
+  width: 24px;
+}
 .personalinfo_photocontainer {
   display: flex;
+  flex-direction: column;
   gap: 2vw;
   justify-content: flex-start;
   align-items: baseline;
-  height: 110px;
+  height: auto;
+  margin-bottom: 10px;
 }
 .personalinfo_photo {
   width: 80px;
@@ -73,21 +111,90 @@
   width: 100%;
 }
 
-.perosnalinfo_leftform {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
+.perosnalinfo_pageName {
+  /* display: grid;
+  grid-template-columns: repeat(2,1fr); */
   gap: 20px;
   width: 100%;
 }
-
+.personalinfo_chooseStyle {
+  width: 450px;
+  margin-top: 10px;
+}
+.personalinfo_style_button {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  align-items: center;
+  gap: 9px;
+  margin: 10px 0 20px 0;
+  width: 100%;
+}
 .perosnalinfo_leftform > div {
   margin-bottom: 30px;
 }
-.perosnalinfo_rightform {
+.perosnalinfo_customize_url {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   width: 100%;
+}
+.perosnalinfo_customize_url label {
+  color: var(--Neutral-Gray-400, #94a3b8);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.perosnalinfo_customize_url_wrapper {
+  display: flex;
+  padding: 12px 20px;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 5px;
+  border: 0.5px solid var(--Neutral-Gray-600, #475569);
+  margin: 10px 0 20px 0;
+  color: var(--Neutral-Gray-600, #475569);
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.perosnalinfo_customize_url_wrapper input {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  height: 100%;
+  color: var(--Neutral-Gray-200, #e2e8f0);
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.perosnalinfo_customize_url_wrapper > input:focus {
+  outline: none;
+}
+.perosnalinfo_customize_url_wrapper > input::placeholder {
+  color: var(--Neutral-Gray-200, #e2e8f0);
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.perosnalinfo_tagline{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+.personalinfo_support_info{
+  display: grid;
+  grid-template-columns:repeat(2,1fr);
+  grid-column-gap:20px;
+  margin-bottom: 20px;
 }
 .perosnalinfo_rightform > div {
   margin-bottom: 30px;
@@ -97,7 +204,8 @@
   display: flex;
   flex-direction: column;
   gap: 1vh;
-  margin-bottom: 5vh;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .personalinfo_aboutmeinput {
@@ -131,8 +239,31 @@
 }
 .personalinfo_socialwrap > h2 {
   color: #f8f8f8;
-  font-family: "Inter";
+  font-family: Inter;
   font-size: 24px;
+  font-weight: 600;
+  line-height: 29px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.personalinfo_sociallinks_wrapper{
+  background-color: #262A36;
+  padding: 20px;
+  gap: 20px;
+  border-radius: 8px;
+}
+.personalinfo_sociallinks_wrapper > h2{
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #94A3B8;
+}
+.personalinfo_sociallinks_row{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
 }
 
 .personalinfo_socialwrap span {
@@ -160,7 +291,6 @@
   justify-content: flex-end;
   align-items: center;
 }
-
 
 .edit_profile_sample_page_button {
   padding: 12px 24px;
@@ -239,31 +369,29 @@
   bottom: 2px;
 }
 
-
-@media (max-width:600px){
-
-  .edit_profile_outside_wrapper{
+@media (max-width: 600px) {
+  .edit_profile_outside_wrapper {
     margin: unset;
     flex-direction: column;
   }
 
-  .edit_profile_outside_wrapper_left{
+  .edit_profile_outside_wrapper_left {
     width: 92%;
     margin: 0 auto;
   }
 
-  .personalinfo_wrap{
+  .personalinfo_wrap {
     width: 100%;
     padding: unset;
     padding-bottom: 60px;
     padding-top: 20px;
   }
 
-  .personalinfo_photocontainer{
+  .personalinfo_photocontainer {
     justify-content: center;
   }
 
-  .personalinfo_savebutton{
+  .personalinfo_savebutton {
     background-color: #121212;
     position: fixed;
     bottom: 0;
@@ -273,25 +401,23 @@
     box-sizing: border-box;
   }
 
-  .personalinfo_savebutton > div{
+  .personalinfo_savebutton > div {
     width: 100%;
   }
 
-  .personalinfo_socialwrap{
+  .personalinfo_socialwrap {
     padding-top: 20px;
   }
 
-  .personalinfo_socialwrap > h2{
+  .personalinfo_socialwrap > h2 {
     font-size: 16px;
   }
 
-  .personalinfo_socialwrap_01{
+  .personalinfo_socialwrap_01 {
     width: 100%;
   }
 
-  .personalinfo_sociallinks{
+  .personalinfo_sociallinks {
     grid-template-columns: 1fr 0.1fr;
   }
-
-
 }

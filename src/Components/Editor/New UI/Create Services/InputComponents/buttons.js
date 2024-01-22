@@ -70,7 +70,7 @@ function Buttons4(props) {
     <div style={{display:"flex",alignItems:"center",gap:"10px", position:'relative'}}>
       <button
         className="button_04_css"
-        style={props?.height && { height: props?.height }}
+        style={{height:props?.height ?props?.height : "" , width:props?.width ? props?.width :"", fontFamily:props?.fontFamily ?props?.fontFamily :"", fontSize:props?.fontSize ? props?.fontSize:""}}
         onClick={props.onClick}
       >
         {props.rightIcon && props.rightIcon}
@@ -102,7 +102,7 @@ function Buttons5(props) {
     <div className={props?.className} style={{display:"flex",alignItems:"center",gap:"10px", position:'relative'}}>
       <button
         className="button_05_css"
-        style={props?.height && { height: props?.height} }
+        style={{height:props?.height ? props?.height : "" , width:props?.width ? props?.width :"", fontFamily:props?.fontFamily ?props?.fontFamily :"", fontSize:props?.fontSize ? props?.fontSize:""}}
         onClick={props.onClick}
       >
         {props.rightIcon && props.rightIcon}

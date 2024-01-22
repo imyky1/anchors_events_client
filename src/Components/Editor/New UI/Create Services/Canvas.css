@@ -344,6 +344,7 @@
   line-height: normal;
   letter-spacing: 0.56px;
   width: 95%;
+  word-wrap: break-word;
 }
 
 .event_title_data_event_invite_card_multiple_speakers > span {
@@ -479,6 +480,8 @@
   font-weight: bolder;
   line-height: normal;
   letter-spacing: 0.56px;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .event_title_data_event_invite_card > span {

@@ -22,6 +22,7 @@ const CreatorState = (props) => {
 
   // ROUTE 3 : UPDATE/Create User Info
   const setCreatorInfo = async (info) => {
+    console.log(info)
     const response = await fetch(
       `${host}/api/creator/eventside/update/info`,
 
@@ -35,6 +36,9 @@ const CreatorState = (props) => {
         },
         body: JSON.stringify({
           name: info.name,
+          pageName : info.pageName,
+          pageUrl : info.pageUrl,
+          email:info.email,
           phone: info.phone,
           aboutMe: info.aboutMe,
           tagLine: info.tagLine,
@@ -46,8 +50,10 @@ const CreatorState = (props) => {
           fbLink: info.fbLink,
           teleLink: info.teleLink,
           topmateLink: info.topmateLink,
+          websiteLink: info.websiteLink,
           dob: info.dob,
-          verifiedNumber:info.verifiedNumber
+          verifiedNumber:info.verifiedNumber,
+          slug:info.slug
         }),
       }
     );

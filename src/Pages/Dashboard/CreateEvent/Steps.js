@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./Steps.css";
-
+import DOMPurify from 'dompurify';
 import {
   Button1,
   Button3,
@@ -114,6 +114,7 @@ const AddSpeakerCard = ({
         <UploadField3
           label="Profile Picture"
           id={`speakerImage${isSpeaker ? index : index - 1}`}
+          required={true}
           info="File size limit - 15MB, Formats - jpg, jpeg, png"
           FileType=".jpg,.png,.jpeg"
           onChange={() => {
@@ -734,10 +735,12 @@ export const FirstPage = ({
   setOpenLoading,
   progress,
   setDraftEventId,
+  draftEventId
 }) => {
   const [openSampleContent, setOpenSampleContent] = useState(false);
 
   const { addEvent } = useContext(ServiceContext);
+  // console.log(set)
 
   const handleChange = (e) => {
     setdata({ ...data, [e?.target?.name]: e?.target?.value });
@@ -765,6 +768,7 @@ export const FirstPage = ({
         maxCapacity: data?.eventSeatCapacity,
         meetlink: data?.meetlink,
         stagesCompleted: 1,
+        eventID : draftEventId
       });
 
       if (json?.success) {
@@ -1291,7 +1295,7 @@ export const SecondPage = ({
         // save the data and then proceed ---------
         onSubmit();
       } else {
-        toast.info("Include speaker details, including names and taglines.", {
+        toast.info("Include speaker details, including names, Profile pic and taglines.", {
           position: "top-center",
           autoClose: 3000,
         });

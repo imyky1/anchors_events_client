@@ -956,8 +956,8 @@ const ServiceStats2 = (props) => {
                   <span
                     onClick={() => {
                       serviceType === "download"
-                        ? window.open(`/s/${slug}`)
-                        : window.open(`/e/${slug}`);
+                        ? window.open(`https://www.anchors.in/s/${slug}`)
+                        : window.open(`https://www.anchors.in/e/${slug}`);
                     }}
                   >
                     {serviceType === "download"

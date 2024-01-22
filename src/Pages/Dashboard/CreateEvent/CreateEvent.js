@@ -510,6 +510,7 @@ const CreateEvent = ({ progress, crating, allCreatorInfo, cemail }) => {
                 setdata={setdata}
                 setScrollPreviewSection={setScrollPreviewSection}
                 setDraftEventId={setDraftEventId}
+                draftEventId={draftEventId}
                 setOpenLoading={setOpenLoading}
                 progress={progress}
               />

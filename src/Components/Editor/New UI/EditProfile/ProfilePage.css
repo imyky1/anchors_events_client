@@ -16,6 +16,11 @@
   margin-bottom: 50px;
   min-height: 85vh;
 }
+.live_demo_navbar_section img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+}
 
 /* text type creator profile page */
 

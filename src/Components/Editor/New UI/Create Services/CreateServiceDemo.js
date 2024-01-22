@@ -279,15 +279,17 @@ const CreateEventDemo = ({
                   textAlign: "center",
                 }}
               >
-                <h1
+                <div
                   className="text_type01_event_page"
                   style={{
                     fontSize: "40px",
                     lineHeight: "40px",
+                    width:'280px',
+                    wordWrap:'break-word'
                   }}
                 >
                   {sname?.length > 0 ? sname : "Lorem ipsum dolor sit amet."}
-                </h1>
+                </div>
 
                 <span
                   className="text_type02_event_page"
@@ -509,7 +511,7 @@ const CreateEventDemo = ({
                       </span>
                       <span
                         className="text_type04_event_page"
-                        style={{ fontSize: "14px" }}
+                        style={{ fontSize: "14px",width:'200px',wordWrap:'break-word' }}
                       >
                         {meetlink}
                       </span>
@@ -575,6 +577,7 @@ const CreateEventDemo = ({
                 ref={aboutEventPage}
                 style={{
                   fontSize: "14px",
+                  wordBreak:'break-word'
                 }}
               ></div>
             </section>
@@ -641,7 +644,7 @@ const CreateEventDemo = ({
             >
               {Object.values(imagesArray).filter((e) => {
                 return e;
-              })?.length > 0 && (
+              })?.length > 0 && wants?.image &&(
                 <section className="images_section_event_page_wrapper" id="imageEventPageDemo">
                   <h3 className="text_type07_event_page" style={{ fontSize: "20px" }}>{titles?.image}</h3>
 
@@ -709,9 +712,10 @@ const CreateEventDemo = ({
                               ) : data?.type === "Text" ? (
                                 <div className="testimonial_card_wrapper_event_page" style={{
                                   width:"100%",
-                                  height:"160px"
+                                  
                                 }}>
                                   <BsQuote />
+                                  <p>{data?.title}</p>
                                   <p>{data?.review}</p>
 
                                   <span>{data?.username}</span>

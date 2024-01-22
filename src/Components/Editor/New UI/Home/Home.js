@@ -32,6 +32,7 @@ import mixpanel from "mixpanel-browser";
 import logo from "../../../../Utils/Images/logo-invite-only.png";
 import SelectCertificate from "../../../EventCertifcates/SelectCertificate";
 import GraphicsTemplate from "../../../../Pages/Dashboard/GraphicsTemplate/GraphicsTemplate";
+import EditSuccess from "../EditProfile/EditSuccess";
 
 function Home(props) {
   const location = useLocation();
@@ -514,6 +515,15 @@ function Home(props) {
                       path="editprofile"
                       element={
                         <EditProfile
+                          progress={props.progress}
+                          moreInfo={{ ...creatorData, Rating }}
+                        />
+                      }
+                    />
+                    <Route
+                      path="setup/success"
+                      element={
+                        <EditSuccess
                           progress={props.progress}
                           moreInfo={{ ...creatorData, Rating }}
                         />

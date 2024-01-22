@@ -108,9 +108,9 @@ const LinkedinState = (props) => {
       let slugurl = name.split(" ").join("");
       const count = await getslugcountcreator(slugurl.toLowerCase());
       let slugurl2 =
-        count === 0
+        count?.count === 0
           ? slugurl.toLowerCase()
-          : slugurl.toLowerCase().concat("", `${count}`);
+          : slugurl.toLowerCase().concat("", `${count?.count}`);
 
       const response = await fetch(`${host}/api/creator/eventSide/newCreator`, {
         method: "POST",
@@ -198,18 +198,18 @@ const LinkedinState = (props) => {
   };
 
   // get slug count for creator
-  const getslugcountcreator = async (slug) => {
+  const getslugcountcreator = async (slug,creatorID) => {
     const response = await fetch(`${host}/api/creator/getslugcount`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+
       },
-      body: JSON.stringify({ slug: slug }),
+      body: JSON.stringify({ slug: slug,creatorID:creatorID }),
     });
     const json = await response.json();
-
     if (json.success) {
-      return json.count;
+      return json;
     } else {
       console.log("Some error Occured");
     }
@@ -564,7 +564,8 @@ const LinkedinState = (props) => {
         registerCreatorLogin,
         CreatorLoginThoughEmail,
         checkAndGetUserData,
-        verifiedData
+        verifiedData,
+        getslugcountcreator
       }}
     >
       {props.children}

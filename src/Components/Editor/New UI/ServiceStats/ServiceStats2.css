@@ -149,7 +149,8 @@
   align-items: flex-start;
   gap: 24px;
   width: 100%;
-  height: 160px;
+  height: auto;
+  word-break: break-word;
 }
 .serivce_heading_01 > img {
   width: 320px;

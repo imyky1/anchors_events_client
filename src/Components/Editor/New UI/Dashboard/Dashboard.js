@@ -91,7 +91,7 @@ const DashboardStepper = ({ setOpenFirstTimeModal, reviews }) => {
           console.log("Congrats");
           setTimeout(() => {
             // window.location.reload()
-            setLoadConfetti(false);
+            setLoadConfetti(e);
           }, 5000);
         }
       });

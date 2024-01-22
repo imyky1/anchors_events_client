@@ -620,6 +620,7 @@ color: #F8FAFC;
   justify-content: space-between;
   position: relative;
   height: 160px;
+  word-break: break-all;
   width: 100%;
 }
 
@@ -720,6 +721,7 @@ color: #F8FAFC;
   padding: 20px;
   border-right: 1px solid #262A36;
   color: #94A3B8;
+  word-wrap: break-word;
   gap: 10px;
 }
 .mycontent_card_content .mycontent_card_content_image{
@@ -755,6 +757,12 @@ letter-spacing: 0em;
 text-align: left;
 }
 .mycontnet_card_footer_buttons{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 20px;
+}
+.mycontnet_card_footer_buttons_2{
   display: flex;
   width: 100%;
   justify-content: flex-end;

@@ -39,8 +39,10 @@
 }
 
 .live_demo_navbar_section > img{
-    height: 25px;
-    width: 91.741px;
+    width: 30px;
+    height: 30.741px;
+    border-radius: 50%;
+    background: #121212;
 }
 
 .live_demo_navbar_section > button{
@@ -58,20 +60,25 @@
 }
 
 .live_demo_main_creator_details{
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 10px;
     width: 100%;
+    background: linear-gradient(180deg, #3E3E3E 0%, rgba(18, 18, 18, 0.00) 100%);
 }
 
 .live_demo_main_creator_details > img{
-    border-radius: 8px;
+    border-radius: 50%;
     height: 121px;
     width: 122px;
-    min-width: 122px;
-    
+    min-width: 122px; 
 }
-
+.live_demo_main_creator_details > p{
+    text-align: center;
+    margin: 0;
+}
 .live_demo_main_creator_details > div{
     align-items: flex-start;
     display: flex;
@@ -89,6 +96,13 @@
     font-weight: 400;
     gap: 2px;
     line-height: normal;
+}
+.about_section_new_creator_profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #171E25;
 }
 
 /* Text types --------- */

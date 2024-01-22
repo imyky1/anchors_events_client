@@ -34,14 +34,14 @@ import {
   BsArrowLeftShort,
 } from "react-icons/bs";
 import { MdDateRange } from "react-icons/md";
+import { IoRadioOutline } from "react-icons/io5";
+import { GiBackwardTime } from "react-icons/gi";
 import mixpanel from "mixpanel-browser";
-import {
-  LinkedinShareButton,
-  TelegramShareButton,
-} from "react-share";
-import { IoCopy} from "react-icons/io5";
+import { LinkedinShareButton, TelegramShareButton } from "react-share";
+import { IoCopy } from "react-icons/io5";
 import { Certificate } from "../../../EventCertifcates/SelectCertificate";
 import { DeleteModal } from "../../../Modals/Logout_Model";
+
 
 const CertitficatePreview = ({ certificateData, eventData, onClose }) => {
   return (
@@ -100,10 +100,9 @@ const ContentCard = ({
   certificateData,
   setCertificatePreviewData,
   isLatestEvent,
+  isLiveEvent
 }) => {
   const navigate = useNavigate();
-
-  const [statusForCurrent, setStatusForCurrent] = useState(status);
   // State to manage the visibility of the popup
   const [isJoiningLinkPopupVisible, setJoiningLinkPopupVisibility] =
     useState(false);
@@ -129,56 +128,69 @@ const ContentCard = ({
     }
   };
 
-  const handleCheckClick = async () => {
-    removeOptionPopup(); // removes popup ------------------------------
-    if (statusForCurrent === 1) {
-      // means now it is checked ------------
-      setChangeStatus(0);
-      const success = await deleteService(
-        _id,
-        0,
-        selected === "events" ? "event" : "document"
-      ); // changing status of the service / eevent
-      if (success) {
-        setOpenModel(true);
-        setStatusForCurrent(0); // manually changing its value--------------
-      } else {
-        toast.error("Some error occured", {
-          position: "top-center",
-          autoClose: 2000,
-        });
-      }
-    } else {
-      // means now it is unchecked-----------------
-      setChangeStatus(1);
-      const success = await deleteService(
-        _id,
-        1,
-        selected === "events" ? "event" : "document"
-      );
-      if (success) {
-        setOpenModel(true);
-        setStatusForCurrent(1); // manually changing its value--------------
-      } else {
-        toast.error("Some error occured", {
-          position: "top-center",
-          autoClose: 2000,
-        });
-      }
-    }
-  };
+  // const handleCheckClick = async () => {
+  //   removeOptionPopup(); // removes popup ------------------------------
+  //   if (status === 1) {
+  //     // means now it is checked ------------
+  //     setChangeStatus(0);
+  //     const success = await deleteService(
+  //       _id,
+  //       0,
+  //       selected === "events" ? "event" : "document"
+  //     ); // changing status of the service / eevent
+  //     if (success) {
+  //       setOpenModel(true);
+  //       setstatus(0); // manually changing its value--------------
+  //     } else {
+  //       toast.error("Some error occured", {
+  //         position: "top-center",
+  //         autoClose: 2000,
+  //       });
+  //     }
+  //   } else {
+  //     // means now it is unchecked-----------------
+  //     setChangeStatus(1);
+  //     const success = await deleteService(
+  //       _id,
+  //       1,
+  //       selected === "events" ? "event" : "document"
+  //     );
+  //     if (success) {
+  //       setOpenModel(true);
+  //       setstatus(1); // manually changing its value--------------
+  //     } else {
+  //       toast.error("Some error occured", {
+  //         position: "top-center",
+  //         autoClose: 2000,
+  //       });
+  //     }
+  //   }
+  // };
 
   const getDateTime = () => {
     let dateStr = new Date(createdOn);
-    return dateStr.toLocaleString();
+    return dateStr.toString().slice(0, 16);
   };
+  const startd = new Date(startDate);
+  startd.setHours(
+        time?.startTime?.split(":")[0],
+        time?.startTime?.split(":")[1]
+      );
+  const endd = new Date(startDate);
+  endd.setHours(
+        time?.endTime?.split(":")[0],
+        time?.endTime?.split(":")[1]
+      );
+
   const getEventStatusText = () => {
     const currentDate = new Date();
-    if (isLatestEvent) {
+    if(isLiveEvent){
+      return "Live"
+    }else if (isLatestEvent) {
       return "Latest Event";
-    } else if (statusForCurrent === 3) {
+    } else if (status === 3) {
       return "Draft Event";
-    } else if (currentDate < new Date(startDate)) {
+    } else if (currentDate < startd) {
       return "Upcoming Event";
     } else {
       return "Past Event";
@@ -186,23 +198,27 @@ const ContentCard = ({
   };
   const getEventIcon = () => {
     const currentDate = new Date();
-    if (isLatestEvent) {
+    if(isLiveEvent){
+      return <IoRadioOutline />;
+    }else if (isLatestEvent) {
       return <MdDateRange />;
-    } else if (statusForCurrent === 2) {
+    } else if (status === 3) {
       return <RiDraftFill />;
-    } else if (currentDate < new Date(startDate)) {
+    } else if (currentDate < startd) {
       return <MdDateRange />;
     } else {
-      return <RiDraftFill />;
+      return <GiBackwardTime />;
     }
   };
   const getBackground = () => {
     const currentDate = new Date();
-    if (isLatestEvent) {
+    if(isLiveEvent){
+      return "#FF0000"
+    }else if (isLatestEvent) {
       return "#3460DC";
-    } else if (statusForCurrent === 2) {
+    } else if (status === 3) {
       return "#1E293B";
-    } else if (currentDate < new Date(startDate)) {
+    } else if (currentDate < startd) {
       return "#047857";
     } else {
       return "#B45309";
@@ -244,47 +260,51 @@ const ContentCard = ({
             {getEventStatusText()}
           </div>
           <div className="mycontent_card_right_buttons">
-            {certificateData ? (
+            {certificateData
+              ? status === 1 && (
+                  <Button5
+                    onClick={() => {
+                      mixpanel.track("Certificate Preview");
+                      setCertificatePreviewData({
+                        open: true,
+                        certificateData,
+                        eventData: {
+                          sname: sname,
+                          date: startDate,
+                        },
+                      });
+                    }}
+                    height={"33px"}
+                    rightIcon={<TbCertificate />}
+                    text={"Certificate Preview"}
+                  ></Button5>
+                )
+              : status === 1 && (
+                  <Button5
+                    onClick={() => {
+                      mixpanel.track("Customise Certificate");
+                      navigate(`/dashboard/eventCertificates/${slug}`);
+                    }}
+                    height={"33px"}
+                    rightIcon={<TbCertificate />}
+                    text={"Customise Certificate"}
+                  ></Button5>
+                )}
+            {status === 1 && (
               <Button5
-                onClick={() => {
-                  mixpanel.track("Certificate Preview");
-                  setCertificatePreviewData({
-                    open: true,
-                    certificateData,
-                    eventData: {
-                      sname: sname,
-                      date: startDate,
-                    },
-                  });
-                }}
                 height={"33px"}
-                rightIcon={<TbCertificate />}
-                text={"Certificate Preview"}
-              ></Button5>
-            ) : (
-              <Button5
+                text={copyURL?.slice(0, 18)}
                 onClick={() => {
-                  mixpanel.track("Customise Certificate");
-                  navigate(`/dashboard/eventCertificates/${slug}`);
+                  mixpanel.track("Tracking Link");
+                  toast.info("Copied Link Successfully");
+                  navigator.clipboard.writeText(copyURL);
                 }}
-                height={"33px"}
-                rightIcon={<TbCertificate />}
-                text={"Customise Certificate"}
+                icon={<FaRegCopy />}
               ></Button5>
             )}
-            {status === 1 && <Button5
-              height={"33px"}
-              text={copyURL?.slice(0, 18)}
-              onClick={() => {
-                mixpanel.track("Tracking Link");
-                toast.info("Copied Link Successfully");
-                navigator.clipboard.writeText(copyURL);
-              }}
-              icon={<FaRegCopy />}
-            ></Button5>}
             <div
               className="mycontent_card_right_joining_buttons"
-              style={{ display: isLatestEvent ? "flex" : "none" }}
+              style={{ display: isLatestEvent || isLiveEvent ? "flex" : "none" }}
             >
               <Button5
                 height={"33px"}
@@ -302,7 +322,12 @@ const ContentCard = ({
               src={mobileSimg ?? simg}
               alt=""
               onClick={() => {
-               window.open(`https://www.anchors.in/e/${slug}`)
+                status === 1
+                  ? window.open(`https://www.anchors.in/e/${slug}`)
+                  : window.open(
+                      `/dashboard/createevent/?eventId=${_id}`,
+                      "_blank"
+                    );
               }}
             />
             <div
@@ -322,13 +347,24 @@ const ContentCard = ({
                   );
               }}
             >
-              Detailed Analysis <IoMdOpen />
+              {status === 1 ? (
+                <>
+                  "Detailed Analysis" <IoMdOpen />
+                </>
+              ) : (
+                ""
+              )}
             </div>
           </section>
           <section className="mycontent_card_content_time">
             <div
               onClick={() => {
-                window.open(`https://www.anchors.in/e/${slug}`)
+                status === 1
+                  ? window.open(`https://www.anchors.in/e/${slug}`)
+                  : window.open(
+                      `/dashboard/createevent/?eventId=${_id}`,
+                      "_blank"
+                    );
               }}
               style={{
                 color: "#94A3B8",
@@ -339,107 +375,150 @@ const ContentCard = ({
             >
               {sname}
             </div>
-            <div
-              style={{
-                height: "24px",
-                width: "211px",
-                background: "#262A36",
-                borderRadius: "4px",
-                display: "flex",
-                gap: "8px",
-                color: "#E2E8F0",
-                fontSize: "12px",
-                padding: "4px 8px 4px 8px",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <MdDateRange />
-              {
-                <>
-                  {formatEventDateTime(new Date(startDate)).slice(0, 11)} |{" "}
-                  {time?.startTime} : {time?.endTime}
-                </>
-              }
-            </div>
+            {status === 1 && (
+              <div
+                style={{
+                  height: "24px",
+                  width: "211px",
+                  background: "#262A36",
+                  borderRadius: "4px",
+                  display: "flex",
+                  gap: "8px",
+                  color: "#E2E8F0",
+                  fontSize: "12px",
+                  padding: "4px 8px 4px 8px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <MdDateRange />
+                {
+                  <>
+                    {formatEventDateTime(new Date(startDate)).slice(0, 11)} |{" "}
+                    {time?.startTime} : {time?.endTime}
+                  </>
+                }
+              </div>
+            )}
           </section>
-          <section className="mycontent_card_content_Registration">
-            <h3
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                mixpanel.track("Downloads");
-                selected === "events"
-                  ? !dummyData.EventDummy &&
-                    registrations !== 0 &&
-                    window.open(
-                      `/dashboard/viewUserDetails/${slug}?type=event`,
-                      "_blank"
-                    )
-                  : !dummyData.ServiceDummy &&
-                    downloads !== 0 &&
-                    window.open(`/dashboard/viewUserDetails/${slug}`, "_blank");
-              }}
-            >
-              Registration
-            </h3>
-            <h1>{registrations}</h1>
-          </section>
-          <section className="mycontent_card_content_Event Price">
-            <h3>Event Price</h3>
-            <h1>{ssp}</h1>
-          </section>
-          <section className="mycontent_card_content_Earning">
-            <h3>Earning</h3>
-            <h1>{earning}</h1>
-          </section>
+          {status === 1 && (
+            <>
+              <section className="mycontent_card_content_Registration">
+                <h3
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    mixpanel.track("Downloads");
+                    selected === "events"
+                      ? !dummyData.EventDummy &&
+                        registrations !== 0 &&
+                        window.open(
+                          `/dashboard/viewUserDetails/${slug}?type=event`,
+                          "_blank"
+                        )
+                      : !dummyData.ServiceDummy &&
+                        downloads !== 0 &&
+                        window.open(
+                          `/dashboard/viewUserDetails/${slug}`,
+                          "_blank"
+                        );
+                  }}
+                >
+                  Registration
+                </h3>
+                <h1>{registrations}</h1>
+              </section>
+              <section className="mycontent_card_content_Event Price">
+                <h3>Event Price</h3>
+                <h1>{ssp}</h1>
+              </section>
+              <section className="mycontent_card_content_Earning">
+                <h3>Earning</h3>
+                <h1>{earning}</h1>
+              </section>
+            </>
+          )}
           <section className="mycontent_card_content_Created On">
-            <h3>Created On</h3>
+            <h3>{status === 1 ? "Created On" : "Drafted On"}</h3>
             <h1>{getDateTime()}</h1>
           </section>
         </div>
-        <div className="mycontnet_card_footer_buttons">
-          <Button5
-            onClick={() => {
-              mixpanel.track("Downloads");
-              !dummyData.EventDummy &&
-                window.open(
-                  `/dashboard/viewUserDetails/${slug}?type=event`,
-                  "_blank"
-                );
-            }}
-            height={"33px"}
-            text={"Registered Users"}
-            icon={<IoMdOpen />}
-          ></Button5>
-          <Button5
-            onClick={() => {
-              mixpanel.track("Downloads");
-              !dummyData.EventDummy &&
-                window.open(
-                  `/dashboard/viewUserDetails/${slug}?type=event&category=Abandoned_Cart`,
-                  "_blank"
-                );
-            }}
-            height={"33px"}
-            text={"Abandoned Cart Users"}
-            icon={<IoMdOpen />}
-          ></Button5>
-          <Button5
-            height={"33px"}
-            text={"Email & WA Triggers"}
-            icon={<IoMdOpen />}
-          ></Button5>
-          <Button5
-            onClick={() => {
-              mixpanel.track("Downloads");
-              !dummyData.EventDummy &&
-                window.open(`/dashboard/graphicstemplate/${slug}`, "_blank");
-            }}
-            height={"33px"}
-            text={"Marketing Graphics"}
-            icon={<IoMdOpen />}
-          ></Button5>
-        </div>
+        {status === 1 ? (
+          <>
+            <div className="mycontnet_card_footer_buttons">
+              <Button5
+                onClick={() => {
+                  mixpanel.track("Opened Registerd users");
+                  !dummyData.EventDummy &&
+                    window.open(
+                      `/dashboard/viewUserDetails/${slug}?type=event`,
+                      "_blank"
+                    );
+                }}
+                height={"33px"}
+                text={"Registered Users"}
+                icon={<IoMdOpen />}
+              ></Button5>
+              <Button5
+                onClick={() => {
+                  mixpanel.track("Opened Abandoned Cart");
+                  !dummyData.EventDummy &&
+                    window.open(
+                      `/dashboard/viewUserDetails/${slug}?type=event&category=Abandoned_Cart`,
+                      "_blank"
+                    );
+                }}
+                height={"33px"}
+                text={"Abandoned Cart Users"}
+                icon={<IoMdOpen />}
+              ></Button5>
+              <Button5
+                height={"33px"}
+                onClick={() => {
+                  mixpanel.track("Opened Email & WA Triggers");
+                  !dummyData.EventDummy &&
+                    window.open(
+                      `/dashboard/viewUserDetails/${slug}?type=event&category=Activity_Email_WA`,
+                      "_blank"
+                    );
+                }}
+                text={"Email & WA Triggers"}
+                icon={<IoMdOpen />}
+              ></Button5>
+              <Button5
+                onClick={() => {
+                  mixpanel.track("opended graphics template");
+                  !dummyData.EventDummy &&
+                    window.open(
+                      `/dashboard/graphicstemplate/${slug}`,
+                      "_blank"
+                    );
+                }}
+                height={"33px"}
+                text={"Marketing Graphics"}
+                icon={<IoMdOpen />}
+              ></Button5>
+            </div>{" "}
+          </>
+        ) : (
+          <>
+            {" "}
+            <div className="mycontnet_card_footer_buttons_2">
+              <Button4
+                onClick={() => {
+                  mixpanel.track("Continue Editing");
+                  !dummyData.EventDummy &&
+                    window.open(
+                      `/dashboard/createevent?draft=${_id}`,
+                      "_blank"
+                    );
+                }}
+                height={"33px"}
+                text={"Continue Editing"}
+                icon={<IoMdOpen />}
+              ></Button4>
+            </div>{" "}
+          </>
+        )}
       </div>
     </>
   );
@@ -776,6 +855,14 @@ function ServiceDetailPage(props) {
     EventDummy: false,
   });
 
+  const navigate = useNavigate();
+  const [openModel, setOpenModel] = useState(false);
+  const [changeStatus, setChangeStatus] = useState(1);
+  const [currselected, setCurrSelected] = useState(null);
+  const [PastEvents, SetPastEvents] = useState(null);
+  const [DraftEvents, setDraftEvents] = useState(null);
+  const [category, setCategory] = useState("All");
+
   useEffect(() => {
     setOpenLoading(true);
 
@@ -818,26 +905,33 @@ function ServiceDetailPage(props) {
   const earliestEvent = latestEvents?.UpcomingEvents?.reduce(
     (earliest, current) => {
       const earliestStartDate = new Date(earliest.startDate);
+      earliestStartDate.setHours(
+       earliest?.time?.startTime?.split(":")[0],
+        earliest?.time?.startTime?.split(":")[1]
+      );
       const currentStartDate = new Date(current.startDate);
-
+      currentStartDate.setHours(
+        current?.time?.startTime?.split(":")[0],
+         current?.time?.startTime?.split(":")[1]
+       ); 
       return currentStartDate < earliestStartDate ? current : earliest;
     },
     latestEvents?.UpcomingEvents[0]
   );
+  
 
-  const navigate = useNavigate();
-  const [openModel, setOpenModel] = useState(false);
-  const [changeStatus, setChangeStatus] = useState(1);
-  const [currselected, setCurrSelected] = useState(null);
-  const [PastEvents, SetPastEvents] = useState(null);
-  const [DraftEvents, setDraftEvents] = useState(null);
-  const [category, setCategory] = useState("All");
+ 
   useEffect(() => {
-    const past = revArray?.filter(
-      (item) => new Date(item.startDate) < Date.now()
-    );
+    const past = revArray?.filter((item) => {
+      const d = new Date(item?.startDate);
+      d.setHours(
+        item?.time?.startTime?.split(":")[0],
+        item?.time?.startTime?.split(":")[1]
+      );
+      return item?.status ===1 && item?._id !== latestEvents?.LiveEvents?.[0]?._id  && d < new Date();
+    });
     SetPastEvents(past);
-    const draft = revArray?.filter((item) => item.status === 3);
+    const draft = revArray?.filter((item) => item?.status === 3);
     setDraftEvents(draft);
   }, [revArray]);
 
@@ -901,7 +995,10 @@ function ServiceDetailPage(props) {
   };
 
   const renderArray = getRenderArray();
-
+  // console.log(PastEvents);
+  // console.log(DraftEvents);
+  // console.log(latestEvents?.LiveEvents)
+  // console.log(earliestEvent)
   return (
     <>
       {openDeleteModal && (
@@ -988,7 +1085,9 @@ function ServiceDetailPage(props) {
             onClick={() => {
               handleCategory("All");
             }}
-          >{`ALL(${services?.events?.length})`}</button>
+          >{`ALL(${
+            services?.events?.[0] !== null ? services?.events?.length : 0
+          })`}</button>
           <button
             className={category === "Upcoming" ? "Selected" : ""}
             onClick={() => {
@@ -1019,6 +1118,28 @@ function ServiceDetailPage(props) {
           }}
         >
           {renderArray !== PastEvents &&
+            renderArray !== DraftEvents && latestEvents?.LiveEvents?.map((elem,i)=>{
+                return <ContentCard 
+                {...elem} 
+                 i={i}
+                 dummyData={dummyData}
+                 // setShareModalData={setShareModalData}
+                 setOpenOption={setOpenOption}
+                 setCurrSelected={setCurrSelected}
+                 setChangeStatus={setChangeStatus}
+                 deleteService={deleteService}
+                 setOpenModel={setOpenModel}
+                 OpenOption={OpenOption}
+                 revArray={revArray}
+                 earning={ServicesEarningData[elem?._id] ?? 0}
+                 setOpenDeleteModal={setOpenDeleteModal}
+                 setCertificatePreviewData={setCertificatePreviewData}
+                 isLatestEvent={false}
+                 isLiveEvent={true}
+               />
+              })     
+          }
+          {renderArray !== PastEvents &&
             renderArray !== DraftEvents &&
             earliestEvent && (
               <ContentCard
@@ -1037,11 +1158,12 @@ function ServiceDetailPage(props) {
                 setOpenDeleteModal={setOpenDeleteModal}
                 setCertificatePreviewData={setCertificatePreviewData}
                 isLatestEvent={true}
+                isLiveEvent={false}
               />
             )}
           {renderArray?.map((elem, i) => {
             return (
-              earliestEvent?._id !== elem?._id && (
+              (earliestEvent?._id !== elem?._id) && (elem?._id !== latestEvents?.LiveEvents?.[0]?._id) && (
                 <ContentCard
                   {...elem}
                   i={i}
@@ -1058,6 +1180,7 @@ function ServiceDetailPage(props) {
                   setOpenDeleteModal={setOpenDeleteModal}
                   setCertificatePreviewData={setCertificatePreviewData}
                   isLatestEvent={false}
+                  isLiveEvent={false}
                 />
               )
             );

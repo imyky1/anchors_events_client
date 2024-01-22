@@ -7,13 +7,15 @@ import linkedinIcon from "../../../../Utils/Icons/linkedin.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import PNGIMG from "../../../../Utils/Images/default_user.png";
 import { RiStarSFill } from "react-icons/ri";
-import "./ProfilePage.css"
+import "./ProfilePage.css";
 
 import "./Preview.css";
 import { useEffect } from "react";
 
 const PreviewDemo = ({
   profile,
+  pageName,
+  email,
   name,
   tagLine,
   linkedInLink,
@@ -28,7 +30,6 @@ const PreviewDemo = ({
   newImage,
   about,
 }) => {
-  
   useEffect(() => {
     let doc = document.querySelector("#about_creator_profile_live_demo");
     if (doc) {
@@ -37,38 +38,47 @@ const PreviewDemo = ({
     }
   }, [about]);
 
-
   return (
     <div className="perview_demo_mobile_view_edit_profile">
       <div>
         {/* Navbar */}
         <section className="live_demo_navbar_section">
           <img
-            src={require("../../../../Utils/Images/logo-invite-only.png")}
-            alt=""
-          />
-
-          <button>Sign Up</button>
-        </section>
-
-        <section className="live_demo_main_creator_details">
-          <LazyLoadImage
             src={newImage ?? profile}
-            alt={name}
+            alt=""
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
               currentTarget.src = PNGIMG;
             }}
           />
 
+          <button>Login</button>
+        </section>
+
+        <section className="live_demo_main_creator_details">
+          <LazyLoadImage
+            src={newImage ?? profile}
+            alt={pageName}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src = PNGIMG;
+            }}
+          />
+          <h1
+            className="text_creator_profile_page-01"
+            style={{ fontSize: "24px" }}
+          >
+            {pageName}
+          </h1>
+          <p
+            className="text_creator_profile_page-02"
+            style={{ fontSize: "15px", width: "100%", wordWrap: "break-word" }}
+          >
+            {tagLine}
+          </p>
+
           <div>
-            <h1
-              className="text_creator_profile_page-01"
-              style={{ fontSize: "24px" }}
-            >
-              {name}
-            </h1>
-            {Rating && (
+            {/* {Rating && (
               <span>
                 {" "}
                 <RiStarSFill
@@ -77,21 +87,16 @@ const PreviewDemo = ({
                   color="rgba(255, 214, 0, 1)"
                 />{" "}
                 {Rating}/5
-                <span style={{color: "gray"}}>{Reviews !== 0 && `(${Reviews})`}</span>
+                <span style={{ color: "gray" }}>
+                  {Reviews !== 0 && `(${Reviews})`}
+                </span>
               </span>
-            )}
+            )} */}
           </div>
         </section>
 
         {/* Deatils section for mobile --------- */}
         <section>
-          <p
-            className="text_creator_profile_page-02"
-            style={{ fontSize: "15px",width:"100%",wordWrap:"break-word",margin:"10px 0" }}
-          >
-            {tagLine}
-          </p>
-
           <div
             className="social-icons-new-creator-page"
             style={{ gap: "8px", marginTop: "10px" }}
@@ -156,7 +161,7 @@ const PreviewDemo = ({
         {/* About Section ------------- */}
         <section
           className="about_section_new_creator_profile"
-          style={{ marginTop: "31px" , marginBottom:"120px" }}
+          style={{ marginTop: "31px", marginBottom: "120px" }}
         >
           <h2
             className="text_creator_profile_page-03"
@@ -168,7 +173,7 @@ const PreviewDemo = ({
           <p
             className="text_creator_profile_page-04"
             id="about_creator_profile_live_demo"
-            style={{ fontSize: "12px",width:"100%",wordWrap:"break-word" }}
+            style={{ fontSize: "12px", width: "100%", wordWrap: "break-word" }}
           >
             {about
               ? (document.getElementById(
