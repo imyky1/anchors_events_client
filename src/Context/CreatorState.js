@@ -53,7 +53,8 @@ const CreatorState = (props) => {
           websiteLink: info.websiteLink,
           dob: info.dob,
           verifiedNumber:info.verifiedNumber,
-          slug:info.slug
+          slug:info.slug,
+          style:info.style
         }),
       }
     );
@@ -332,8 +333,9 @@ const CreatorState = (props) => {
       }),
     });
     const json = await response.json();
+    
     if (json.success) {
-      console.log(json)
+      
       setallUserDetails(json.users);
     } else {
       //  toastify error

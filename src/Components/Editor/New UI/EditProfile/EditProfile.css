@@ -330,6 +330,7 @@
   padding-left: 40px;
   box-sizing: border-box;
   padding-top: 40px;
+  overflow-y: auto;
 }
 
 .live_preview_modal_design {

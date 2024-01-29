@@ -54,6 +54,7 @@
   -webkit-user-select: none;
   margin-top: 40px;
   position: relative;
+  overflow-x: auto;
 }
 
 .servicelist-categories2 {

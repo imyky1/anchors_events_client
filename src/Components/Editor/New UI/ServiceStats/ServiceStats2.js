@@ -233,7 +233,7 @@ const TableRef = ({ totalrefer, referdata,isPaidEvent }) => {
             return [
               val.rank,
               val.name,
-              <span style={isPaidEvent ? {} : {filter:"blur(6px)"}}>{isPaidEvent ? val.email : "xxxxxxxxxxxx"}</span>,
+              val.email,
               val.registerdate,
               val.joinedfromrefer,
               val.amount,

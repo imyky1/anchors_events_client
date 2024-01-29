@@ -575,7 +575,7 @@
   font: inherit !important;
   background-color: inherit !important;
   color: inherit !important;
-  width: 100%;
+  /* width: 100%; */
   word-wrap: break-word;
 }
 

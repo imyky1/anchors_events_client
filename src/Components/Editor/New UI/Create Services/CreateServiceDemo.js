@@ -45,7 +45,7 @@ const SpeakerCard = ({
 
       <section style={{ gap: "16px" }}>
         <img
-          src={isCreator ? optionalProfile : profile ?? optionalProfile}
+          src={isCreator ? profile ? profile : optionalProfile : profile ?? optionalProfile}
           alt=""
           onError={({ currentTarget }) => {
             currentTarget.onerror = null; // prevents looping
@@ -138,10 +138,9 @@ const CreateEventDemo = ({
     desc: "#aboutEventPageDemo",
     speakers: "#speakersEventPageDemo",
     benefits: "#benefitsEventPage",
-    video:"#videoEventPageDemo",
-    images:"#imageEventPageDemo",
-    testimonial:"#testimonialEventPageDemo",
-
+    video: "#videoEventPageDemo",
+    images: "#imageEventPageDemo",
+    testimonial: "#testimonialEventPageDemo",
   };
 
   useEffect(() => {
@@ -179,6 +178,14 @@ const CreateEventDemo = ({
         "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere fugit nesciunt repudiandae quo ullam aspernatur corrupti, eaque accusantium expedita non reprehenderit voluptatum assumenda laborum aperiam eum laudan";
     }
   }, [benefits]);
+  const handleReviewChnage = (review)=>{
+        console.log(review)
+        let doc = document.querySelector("#testimonial_card_review");
+        if (doc) {
+          doc.innerHTML = "";
+          doc.innerHTML = review;
+        }
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -232,8 +239,8 @@ const CreateEventDemo = ({
     <div
       className="perview_demo_mobile_view_edit_profile"
       style={{
-        left: "3px",
-        width: "98%",
+        left: "17px",
+        width: "90%",
         borderRadius: "37px",
       }}
     >
@@ -246,6 +253,7 @@ const CreateEventDemo = ({
         {/* Navbar */}
         <section className="live_demo_navbar_section">
           <img
+            style={{ width: "auto", height: "17px", borderRadius: "unset" }}
             src={require("../../../../Utils/Images/logo-invite-only.png")}
             alt=""
           />
@@ -284,8 +292,8 @@ const CreateEventDemo = ({
                   style={{
                     fontSize: "40px",
                     lineHeight: "40px",
-                    width:'280px',
-                    wordWrap:'break-word'
+                    width: "280px",
+                    wordWrap: "break-word",
                   }}
                 >
                   {sname?.length > 0 ? sname : "Lorem ipsum dolor sit amet."}
@@ -511,7 +519,11 @@ const CreateEventDemo = ({
                       </span>
                       <span
                         className="text_type04_event_page"
-                        style={{ fontSize: "14px",width:'200px',wordWrap:'break-word' }}
+                        style={{
+                          fontSize: "14px",
+                          width: "200px",
+                          wordWrap: "break-word",
+                        }}
                       >
                         {meetlink}
                       </span>
@@ -577,7 +589,7 @@ const CreateEventDemo = ({
                 ref={aboutEventPage}
                 style={{
                   fontSize: "14px",
-                  wordBreak:'break-word'
+                  wordBreak: "break-word",
                 }}
               ></div>
             </section>
@@ -585,56 +597,67 @@ const CreateEventDemo = ({
             {/* video display section ---------------------------- */}
             {Object.values(videoArray).filter((e) => {
               return e;
-            })?.length > 0 && wants?.video && (
-              <section className="video_section_event_page_wrapper"  id="videoEventPageDemo">
-                <h3 className="text_type07_event_page" style={{ fontSize: "20px" }}>{titles?.video}</h3>
-
-                <div>
-                  <Swiper
-                    slidesPerView={"auto"}
-                    centeredSlides={true}
-                    spaceBetween={30}
-                    pagination={{
-                      clickable: true,
-                    }}
-                    modules={[Pagination, Navigation]}
-                    className="mySwiper"
+            })?.length > 0 &&
+              wants?.video && (
+                <section
+                  className="video_section_event_page_wrapper"
+                  id="videoEventPageDemo"
+                >
+                  <h3
+                    className="text_type07_event_page"
+                    style={{ fontSize: "20px" }}
                   >
-                    {Object.values(videoArray)
-                      .filter((e) => {
-                        return e;
-                      })
-                      ?.map((video, index) => {
-                        return (
-                          <SwiperSlide>
-                            <div className="video_box_event_page">
-                              {video?.includes("youtube") &&
-                                <iframe
-                                  width={262}
-                                  height={160}
-                                  src={`https://www.youtube.com/embed/${getYouTubeVideoId(
-                                    video
-                                  )}`}
-                                  title="YouTube video player"
-                                  frameBorder="0"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                  allowFullScreen
-                                ></iframe>}
-                            </div>
-                          </SwiperSlide>
-                        );
-                      })}
-                  </Swiper>
-                </div>
-              </section>
-            )}
+                    {titles?.video}
+                  </h3>
+
+                  <div>
+                    <Swiper
+                      slidesPerView={"auto"}
+                      centeredSlides={true}
+                      spaceBetween={30}
+                      pagination={{
+                        clickable: true,
+                      }}
+                      modules={[Pagination, Navigation]}
+                      className="mySwiper"
+                    >
+                      {Object.values(videoArray)
+                        .filter((e) => {
+                          return e;
+                        })
+                        ?.map((video, index) => {
+                          return (
+                            <SwiperSlide>
+                              <div className="video_box_event_page">
+                                {video?.includes("youtube") && (
+                                  <iframe
+                                    width={262}
+                                    height={160}
+                                    src={`https://www.youtube.com/embed/${getYouTubeVideoId(
+                                      video
+                                    )}`}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                  ></iframe>
+                                )}
+                              </div>
+                            </SwiperSlide>
+                          );
+                        })}
+                    </Swiper>
+                  </div>
+                </section>
+              )}
           </div>
 
           {/*  hoc1 in event page ------------ */}
           {((Object.values(imagesArray).filter((e) => {
             return e;
-          })?.length > 0 && wants?.image) ||
-            (testimonialArray?.length > 0 && wants?.testimonial))&& (
+          })?.length > 0 &&
+            wants?.image) ||
+            (testimonialArray?.length > 0 && wants?.testimonial)) && (
             <div
               className="hoc2_wrraper_event_page"
               style={{
@@ -644,9 +667,63 @@ const CreateEventDemo = ({
             >
               {Object.values(imagesArray).filter((e) => {
                 return e;
-              })?.length > 0 && wants?.image &&(
-                <section className="images_section_event_page_wrapper" id="imageEventPageDemo">
-                  <h3 className="text_type07_event_page" style={{ fontSize: "20px" }}>{titles?.image}</h3>
+              })?.length > 0 &&
+                wants?.image && (
+                  <section
+                    className="images_section_event_page_wrapper"
+                    id="imageEventPageDemo"
+                  >
+                    <h3
+                      className="text_type07_event_page"
+                      style={{ fontSize: "20px" }}
+                    >
+                      {titles?.image}
+                    </h3>
+
+                    <div>
+                      <Swiper
+                        slidesPerView={1}
+                        spaceBetween={30}
+                        pagination={{
+                          clickable: true,
+                        }}
+                        modules={[Pagination]}
+                        className="mySwiper"
+                      >
+                        {Object.values(imagesArray)
+                          .filter((e) => {
+                            return e;
+                          })
+                          ?.map((image, index) => {
+                            return (
+                              <SwiperSlide key={`imageectra${index}`}>
+                                <img
+                                  src={image ? URL.createObjectURL(image) : ""}
+                                  alt=""
+                                  style={{
+                                    height: "160px",
+                                    width: "261px",
+                                  }}
+                                />
+                              </SwiperSlide>
+                            );
+                          })}
+                      </Swiper>
+                    </div>
+                  </section>
+                )}
+
+              {testimonialArray?.length !== 0 && wants?.testimonial && (
+                <section
+                  className="testimonial_section_event_page_wrapper"
+                  id="testimonialEventPageDemo"
+                >
+                  <h3
+                    className="text_type07_event_page"
+                    style={{ fontSize: "20px" }}
+                  >
+                    {titles?.testimonial}
+                  </h3>
 
                   <div>
                     <Swiper
@@ -658,71 +735,46 @@ const CreateEventDemo = ({
                       modules={[Pagination]}
                       className="mySwiper"
                     >
-                      {Object.values(imagesArray)
-                        .filter((e) => {
-                          return e;
-                        })
-                        ?.map((image, index) => {
-                          return (
-                            <SwiperSlide key={`imageectra${index}`}>
-                              <img
-                                src={image ? URL.createObjectURL(image) : ""}
-                                alt=""
-                                style={{
-                                  height: "160px",
-                                  width: "261px",
-                                }}
-                              />
-                            </SwiperSlide>
-                          );
-                        })}
-                    </Swiper>
-                  </div>
-                </section>
-              )}
-
-              {testimonialArray?.length !== 0 && wants?.testimonial && (
-                <section className="testimonial_section_event_page_wrapper" id="testimonialEventPageDemo">
-                  <h3 className="text_type07_event_page" style={{ fontSize: "20px" }}>{titles?.testimonial}</h3>
-
-                  <div>
-                    <Swiper
-                       slidesPerView={1}
-                      spaceBetween={30}
-                      pagination={{
-                        clickable: true,
-                      }}
-                      modules={[Pagination]}
-                      className="mySwiper"
-                    >
                       {testimonialArray
-                        ?.filter((e) => {return e?.type})
+                        ?.filter((e) => {
+                          return e?.type;
+                        })
                         ?.map((data, i) => {
+                          console.log(data)
                           return (
                             <SwiperSlide>
                               {data?.type === "Image" ? (
+                                
                                 <img
-                                  src={data?.image instanceof Blob ? URL.createObjectURL(data?.image) : ""}
+                                  src={
+                                    data?.image instanceof Blob
+                                      ? URL.createObjectURL(data?.image)
+                                      : data?.image ? data?.image : ''
+                                  }
                                   alt=""
                                   style={{
-                                    width:"100%",
-                                    height:"160px"
+                                    width: "100%",
+                                    height: "160px",
                                   }}
                                 />
                               ) : data?.type === "Text" ? (
-                                <div className="testimonial_card_wrapper_event_page" style={{
-                                  width:"100%",
-                                  
-                                }}>
+                                <div
+                                  className="testimonial_card_wrapper_event_page"
+                                  style={{
+                                    width: "100%",
+                                  }}
+                                >
                                   <BsQuote />
                                   <p>{data?.title}</p>
-                                  <p>{data?.review}</p>
+                                  
+                                  <p id={`testimonialText${i}`}>{
+                                    document.getElementById(`testimonialText${i}`) ? document.getElementById(`testimonialText${i}`).innerHTML = data?.review : null
+                                  }</p>
 
                                   <span>{data?.username}</span>
-
                                 </div>
-                              ) : data?.type === "Video" ? 
-                                data?.videoLink?.includes("youtube") &&
+                              ) : data?.type === "Video" ? (
+                                data?.videoLink?.includes("youtube") && (
                                   <iframe
                                     width={250}
                                     height={160}
@@ -734,7 +786,8 @@ const CreateEventDemo = ({
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
                                   ></iframe>
-                               : null}
+                                )
+                              ) : null}
                             </SwiperSlide>
                           );
                         })}

@@ -63,9 +63,11 @@ function Users(props) {
 
   const renderdate2 = (date) => {
     let a = new Date(date);
-    let b = a.toISOString();
-    const splity = b.split("T");
-    return splity[1].slice(0, 8);
+    // console.log(a)
+    let b = a.toString();
+    // console.log(b)
+    const splity = b.split(" ");
+    return splity[4].slice(0, 8);
   };
 
   const date = Moment(
@@ -88,7 +90,6 @@ function Users(props) {
   // };
   const handleCategory = (category) =>{
     setCategory(category)
-    console.log(category)
   }
   const totalAmount = allUserDetails.reduce(
     (acc, ele) => acc + (ele?.amount || 0),
@@ -134,7 +135,7 @@ function Users(props) {
   }
   const getGridConfig = () => {
     if (category === "Registered_Users"){
-      return "6% 15% 10% 10% 10% 10% 14% 12% 8%"
+      return "11% 21% 11% 8% 7% 7% 13% 13% 7%"
     }
     else if(category === "Activity_Email_WA"){
       return "6% 15% 10% 10% 10% 10% 14% 12% 8%"
@@ -248,7 +249,7 @@ function Users(props) {
             </div>
             
           </div>
-          <div className="userrequest-table">
+          <div style={{overflowX:'auto'}} className="userrequest-table">
             <Table1
               headArray={getTableHeadArray()}
               bodyArray={allUserDetails?.filter((e)=>{return category === "Registered_Users" ? e?.status === 1 : category === "Abandoned_Cart" ? e?.status === 0 : !e})?.map((elem, i) => {
@@ -290,7 +291,7 @@ function Users(props) {
                         <br></br>
                         {renderdate2(elem?.orderDate)}
                       </span> ,
-                      elem?.status === 0 ? "Unsuccessfull" : "--"
+                      elem?.status === 0 ? "Unsuccessful" : "--"
                     ]:"")
               })}
               gridConfig={

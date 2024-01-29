@@ -119,6 +119,14 @@ const EditProfile = (props) => {
       email: allCreatorInfo?.email || basicNav?.email,
       phone: allCreatorInfo?.phone,
       profile: allCreatorInfo?.profile || basicNav?.photo,
+      style : allCreatorInfo?.style, 
+      linkedInLink : allCreatorInfo?.linkedInLink,
+      ytLink : allCreatorInfo?.ytLink,
+      instaLink:allCreatorInfo?.instaLink,
+      teleLink:allCreatorInfo?.teleLink,
+      websiteLink:allCreatorInfo?.websiteLink,
+      fbLink :allCreatorInfo?.fbLink,
+      twitterLink:allCreatorInfo?.twitterLink
     });
 
     // if (!allCreatorInfo?.name) {
@@ -145,6 +153,7 @@ const EditProfile = (props) => {
     // }
     setPhone(allCreatorInfo?.phone);
     setContent(allCreatorInfo?.aboutMe);
+    setFontStyle(allCreatorInfo?.style)
     // eslint-disable-next-line
   }, [allCreatorInfo]);
 
@@ -356,6 +365,7 @@ const EditProfile = (props) => {
           : basicNav?.photo,
         phone: phone,
         slug: data.pageUrl,
+        style:fontStyle
       };
       const json = await setCreatorInfo(newData);
       if (json?.success) {
@@ -756,22 +766,7 @@ Tip : copy your LinkedIn/Youtube 'about' section ;)`}
                         icons={<AiOutlineLinkedin size={22} />}
                       />
 
-                      {allCreatorInfo?.linkedInLink ? (
-                        <svg
-                          width="18"
-                          height="14"
-                          viewBox="0 0 18 14"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M18 1.99984L6 13.9998L0.5 8.49984L1.91 7.08984L6 11.1698L16.59 0.589844L18 1.99984Z"
-                            fill="white"
-                          />
-                        </svg>
-                      ) : (
-                        ""
-                      )}
+                      
                     </div>
                     <div className="personalinfo_sociallinks">
                       <SocialFields
@@ -783,22 +778,7 @@ Tip : copy your LinkedIn/Youtube 'about' section ;)`}
                         icons={<FiInstagram size={22} />}
                       />
 
-                      {allCreatorInfo?.instaLink ? (
-                        <svg
-                          width="18"
-                          height="14"
-                          viewBox="0 0 18 14"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M18 1.99984L6 13.9998L0.5 8.49984L1.91 7.08984L6 11.1698L16.59 0.589844L18 1.99984Z"
-                            fill="white"
-                          />
-                        </svg>
-                      ) : (
-                        ""
-                      )}
+                      
                     </div>
                   </div>
                   <div className="personalinfo_sociallinks_row">
@@ -812,22 +792,7 @@ Tip : copy your LinkedIn/Youtube 'about' section ;)`}
                         icons={<img src={Twitter} width={22} />}
                       />
 
-                      {allCreatorInfo?.twitterLink ? (
-                        <svg
-                          width="18"
-                          height="14"
-                          viewBox="0 0 18 14"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M18 1.99984L6 13.9998L0.5 8.49984L1.91 7.08984L6 11.1698L16.59 0.589844L18 1.99984Z"
-                            fill="white"
-                          />
-                        </svg>
-                      ) : (
-                        ""
-                      )}
+                      
                     </div>
                     <div className="personalinfo_sociallinks">
                       <SocialFields
@@ -839,22 +804,7 @@ Tip : copy your LinkedIn/Youtube 'about' section ;)`}
                         icons={<CiGlobe size={22} />}
                       />
 
-                      {allCreatorInfo?.websiteLink ? (
-                        <svg
-                          width="18"
-                          height="14"
-                          viewBox="0 0 18 14"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M18 1.99984L6 13.9998L0.5 8.49984L1.91 7.08984L6 11.1698L16.59 0.589844L18 1.99984Z"
-                            fill="white"
-                          />
-                        </svg>
-                      ) : (
-                        ""
-                      )}
+                      
                     </div>
                   </div>
                   <div className="personalinfo_sociallinks_row">
@@ -868,22 +818,7 @@ Tip : copy your LinkedIn/Youtube 'about' section ;)`}
                         icons={<RiTelegramLine size={22} />}
                       />
 
-                      {allCreatorInfo?.teleLink ? (
-                        <svg
-                          width="18"
-                          height="14"
-                          viewBox="0 0 18 14"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M18 1.99984L6 13.9998L0.5 8.49984L1.91 7.08984L6 11.1698L16.59 0.589844L18 1.99984Z"
-                            fill="white"
-                          />
-                        </svg>
-                      ) : (
-                        ""
-                      )}
+                      
                     </div>
                     <div className="personalinfo_sociallinks">
                       <SocialFields
@@ -895,22 +830,7 @@ Tip : copy your LinkedIn/Youtube 'about' section ;)`}
                         icons={<RiYoutubeLine size={22} />}
                       />
 
-                      {allCreatorInfo?.ytLink ? (
-                        <svg
-                          width="18"
-                          height="14"
-                          viewBox="0 0 18 14"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M18 1.99984L6 13.9998L0.5 8.49984L1.91 7.08984L6 11.1698L16.59 0.589844L18 1.99984Z"
-                            fill="white"
-                          />
-                        </svg>
-                      ) : (
-                        ""
-                      )}
+                      
                     </div>
                   </div>
                 </div>
@@ -980,6 +900,7 @@ Tip : copy your LinkedIn/Youtube 'about' section ;)`}
                   {...data}
                   newImage={showimg ?? data?.profile ?? basicNav?.photo}
                   about={Content}
+                  style={fontStyle}
                   {...props?.moreInfo}
                 />
               </section>

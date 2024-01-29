@@ -1,16 +1,45 @@
 import InstagramIcon from "../../../../Utils/Icons/instagram.svg";
-import fbIcon from "../../../../Utils/Icons/fb.svg";
-import TelgramIcon from "../../../../Utils/Icons/telegram.svg";
 import YoutubeIcon from "../../../../Utils/Icons/youtube.svg";
-import topmateIcon from "../../../../Utils/Icons/topmate.svg";
-import linkedinIcon from "../../../../Utils/Icons/linkedin.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import PNGIMG from "../../../../Utils/Images/default_user.png";
-import { RiStarSFill } from "react-icons/ri";
+import { RiTelegramLine } from "react-icons/ri";
+import { CiFacebook } from "react-icons/ci";
+import { IoIosGlobe } from "react-icons/io";
+import { TbBrandLinkedin } from "react-icons/tb";
+import TwitterIcon from "../../../../Utils/Icons/twitter.svg";
+import {
+  AiOutlineArrowRight,
+  AiOutlineClockCircle,
+  AiOutlineDown,
+  AiOutlineUp,
+} from "react-icons/ai";
+
 import "./ProfilePage.css";
 
 import "./Preview.css";
 import { useEffect } from "react";
+const ExtraCard = ({ data, type }) => {
+  return (
+    <div className="host_extra_card_new_profile_page">
+      <div className="host_extra_card_profile_details">
+        <LazyLoadImage src={require("./image 42.png")} alt="" />
+
+        <section>
+          <h2>{"Women’s Health Issues: Reason & Remedies"}</h2>
+          <div>
+            <span>
+              <AiOutlineClockCircle color="#94A3B8" size={14} />
+              21 Jul | 08:00-09:00 PM
+            </span>
+          </div>
+        </section>
+        <span>
+          <AiOutlineArrowRight />
+        </span>
+      </div>
+    </div>
+  );
+};
 
 const PreviewDemo = ({
   profile,
@@ -25,13 +54,15 @@ const PreviewDemo = ({
   ytLink,
   topmateLink,
   teleLink,
+  websiteLink,
   Rating,
   Reviews,
   newImage,
   about,
+  style,
 }) => {
   useEffect(() => {
-    let doc = document.querySelector("#about_creator_profile_live_demo");
+    let doc = document.querySelector("#about_creator_profile");
     if (doc) {
       doc.innerHTML = "";
       doc.innerHTML = about;
@@ -43,145 +74,221 @@ const PreviewDemo = ({
       <div>
         {/* Navbar */}
         <section className="live_demo_navbar_section">
-          <img
-            src={newImage ?? profile}
-            alt=""
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null; // prevents looping
-              currentTarget.src = PNGIMG;
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
             }}
-          />
+          >
+            <img
+              src={newImage ?? profile}
+              alt=""
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = PNGIMG;
+              }}
+            />{" "}
+            <div
+              style={{
+                fontSize: "14px",
+                fontWeight: "600",
+                fontFamily: style || "Inter",
+                color: "#E2E8F0",
+              }}
+            >
+              {pageName ? pageName : ""}
+            </div>
+          </div>
 
           <button>Login</button>
         </section>
+        <div className="host_outerframe_new_creator_page">
+          {/* main details sections ---------------- */}
+          <section className="host_main_creator_details_creator_page">
+            <div
+              style={{
+                paddingTop: "20px",
+                width: "100%",
+                background:
+                  "linear-gradient(180deg, #3E3E3E 0%, rgba(18, 18, 18, 0) 100%)",
+              }}
+            >
+              <LazyLoadImage
+                src={profile}
+                alt={name}
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = PNGIMG;
+                }}
+              />
+            </div>
+            <div>
+              <h1
+                style={{ fontFamily: style }}
+                className="host_text_creator_profile_page-01"
+              >
+                {pageName}
+              </h1>
 
-        <section className="live_demo_main_creator_details">
-          <LazyLoadImage
-            src={newImage ?? profile}
-            alt={pageName}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null; // prevents looping
-              currentTarget.src = PNGIMG;
-            }}
-          />
-          <h1
-            className="text_creator_profile_page-01"
-            style={{ fontSize: "24px" }}
-          >
-            {pageName}
-          </h1>
-          <p
-            className="text_creator_profile_page-02"
-            style={{ fontSize: "15px", width: "100%", wordWrap: "break-word" }}
-          >
-            {tagLine}
-          </p>
+              <p
+                style={{ fontFamily: style }}
+                className="host_text_creator_profile_page-02"
+              >
+                {tagLine}
+              </p>
+              {window.screen.width > 600 && (
+                <>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row-reverse",
+                      width: "max-content",
+                      gap: "20px",
+                    }}
+                  >
+                    <div className="host_social-icons-new-creator-page">
+                      {linkedInLink?.length !== 0 && (
+                        <div>
+                          <TbBrandLinkedin size={24} color="#94A3B8" />
+                        </div>
+                      )}
 
-          <div>
-            {/* {Rating && (
-              <span>
-                {" "}
-                <RiStarSFill
-                  rSFill
-                  size={18}
-                  color="rgba(255, 214, 0, 1)"
-                />{" "}
-                {Rating}/5
-                <span style={{ color: "gray" }}>
-                  {Reviews !== 0 && `(${Reviews})`}
-                </span>
-              </span>
-            )} */}
-          </div>
-        </section>
+                      {fbLink?.length !== 0 && (
+                        <div>
+                          <CiFacebook size={24} color="#94A3B8" />
+                        </div>
+                      )}
 
-        {/* Deatils section for mobile --------- */}
-        <section>
-          <div
-            className="social-icons-new-creator-page"
-            style={{ gap: "8px", marginTop: "10px" }}
-          >
-            {linkedInLink?.length !== 0 && (
-              <div style={{ height: "32px", padding: "8px", width: "32px" }}>
-                <img src={linkedinIcon} alt="" />
+                      {instaLink?.length !== 0 && (
+                        <div>
+                          <img src={InstagramIcon} alt="" />
+                        </div>
+                      )}
+
+                      {teleLink?.length !== 0 && (
+                        <div>
+                          <RiTelegramLine size={24} color="#94A3B8" />
+                        </div>
+                      )}
+
+                      {ytLink?.length !== 0 && (
+                        <div>
+                          <img src={YoutubeIcon} alt="" />
+                        </div>
+                      )}
+
+                      {twitterLink?.length !== 0 && (
+                        <div>
+                          <img src={TwitterIcon} alt="" />
+                        </div>
+                      )}
+                      {websiteLink?.length !== 0 && (
+                        <div>
+                          <IoIosGlobe size={24} color="#94A3B8" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </section>
+          {/* Deatils section for mobile --------- */}
+          {window.screen.width < 600 && (
+            <section style={{ width: "100%" }}>
+              <div className="host_social-icons-new-creator-page">
+                {linkedInLink?.length !== 0 && (
+                  <div>
+                    <TbBrandLinkedin size={24} color="#94A3B8" />
+                  </div>
+                )}
+
+                {fbLink?.length !== 0 && (
+                  <div>
+                    <CiFacebook size={24} color="#94A3B8" />
+                  </div>
+                )}
+
+                {instaLink?.length !== 0 && (
+                  <div>
+                    <img src={InstagramIcon} alt="" />
+                  </div>
+                )}
+
+                {teleLink?.length !== 0 && (
+                  <div>
+                    <RiTelegramLine size={24} color="#94A3B8" />
+                  </div>
+                )}
+
+                {ytLink?.length !== 0 && (
+                  <div>
+                    <img src={YoutubeIcon} alt="" />
+                  </div>
+                )}
+
+                {twitterLink?.length !== 0 && (
+                  <div>
+                    <img src={TwitterIcon} alt="" />
+                  </div>
+                )}
+                {websiteLink?.length !== 0 && (
+                  <div>
+                    <IoIosGlobe size={24} color="#94A3B8" />
+                  </div>
+                )}
               </div>
-            )}
+            </section>
+          )}
+          {/* About Section ------------- */}
+          <section className="host_about_section_new_creator_profile">
+            <h2
+              style={{ fontFamily: style }}
+              className="host_text_creator_profile_page-03"
+            >
+              About
+            </h2>
 
-            {fbLink?.length !== 0 && (
-              <div style={{ height: "32px", padding: "8px", width: "32px" }}>
-                <img src={fbIcon} alt="" />
-              </div>
-            )}
+            <p
+              style={{ fontFamily: style }}
+              className="host_text_creator_profile_page-04"
+              id="about_creator_profile"
+            ></p>
+          </section>
 
-            {instaLink?.length !== 0 && (
-              <div style={{ height: "32px", padding: "8px", width: "32px" }}>
-                <img src={InstagramIcon} alt="" />
-              </div>
-            )}
-
-            {/* {twitterLink?.length !== 0 && (
-              <div style={{ height: "32px", padding: "8px", width: "32px" }}>
-                <img src={InstagramIcon} alt="" />
-              </div>
-            )} */}
-
-            {teleLink?.length !== 0 && (
-              <div style={{ height: "32px", padding: "8px", width: "32px" }}>
-                <img src={TelgramIcon} alt="" />
-              </div>
-            )}
-
-            {ytLink?.length !== 0 && (
-              <div style={{ height: "32px", padding: "8px", width: "32px" }}>
-                <img src={YoutubeIcon} alt="" />
-              </div>
-            )}
-
-            {topmateLink?.length !== 0 && (
-              <div style={{ height: "32px", padding: "8px", width: "32px" }}>
-                <img src={topmateIcon} alt="" />
-              </div>
-            )}
-          </div>
-
-          <button
-            className="button01_new_crator_profile"
+          {/* past and upcoming events section */}
+          <section className="host_past_and_upcoming_section_profile">
+            <button style={{ fontFamily: style }} className={"selected"}>
+              Upcoming Event
+            </button>
+            <button style={{ fontFamily: style }}>Past Event</button>
+          </section>
+          <section
             style={{
-              boxSizing: "border-box",
-              fontSize: "16px",
-              marginTop: "12px",
-              padding: "12px 20px",
-              width: "100%",
+              marginTop:'80px',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
+            className="host_extra_cards_section_new_creator_profile"
           >
-            Request Resource
-          </button>
-        </section>
-
-        {/* About Section ------------- */}
-        <section
-          className="about_section_new_creator_profile"
-          style={{ marginTop: "31px", marginBottom: "120px" }}
-        >
-          <h2
-            className="text_creator_profile_page-03"
-            style={{ fontSize: "20px" }}
-          >
-            About
-          </h2>
-
-          <p
-            className="text_creator_profile_page-04"
-            id="about_creator_profile_live_demo"
-            style={{ fontSize: "12px", width: "100%", wordWrap: "break-word" }}
-          >
-            {about
-              ? (document.getElementById(
-                  "about_creator_profile_live_demo"
-                ).innerHTML = about)
-              : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur ad beatae obcaecati sed iure, cupiditate ratione culpa, libero ducimus nam fugit quos labore non sint saepe iusto itaque laudantium accusamus."}
-          </p>
-        </section>
+            {/* <ExtraCard/>; */}
+            <div
+              style={{
+                color: "white",
+                fontFamily: style || "Inter",
+                fontWeight: "400",
+                fontSize: "16px",
+                lineHeight: "19px",
+                color: "#94A3B8",
+              }}
+            >
+              There no event yet
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );

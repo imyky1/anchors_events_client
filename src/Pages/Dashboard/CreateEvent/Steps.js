@@ -35,6 +35,7 @@ import { PersonalizedInviteeCard } from "../../../Components/Modals/Default Bann
 import { FaPlus } from "react-icons/fa";
 import mixpanel from "mixpanel-browser";
 import ServiceContext from "../../../Context/services/serviceContext";
+import isUrl from 'is-url';
 
 const timeToHours = (time) => {
   return parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]);
@@ -547,7 +548,10 @@ const AddTestimonialCard = ({
     setTestimonialArray((prevArray) => {
       const newArray = [...prevArray];
       let updatedObj = newArray[index];
+      if(e?.target?.name !== 'image'){
+        console.log(e?.target?.name)
       updatedObj[e?.target?.name] = e.target.value;
+      }
       newArray[index] = updatedObj;
       return newArray;
     });
@@ -573,6 +577,7 @@ const AddTestimonialCard = ({
       });
     }
   };
+  console.log(testimonialArray)
 
   return (
     <div className="add_testimonial_card_wrppaer_create_event_01">
@@ -1184,6 +1189,7 @@ export const SecondPage = ({
       });
     }
   };
+
 
   const handleRemoveSpeaker = (indexToRemove) => {
     if (speakersArray?.length > 1) {
@@ -2099,6 +2105,9 @@ export const FifthPage = ({
   };
 
   const saveTestimonialImage = async (element) => {
+    if(isUrl(element)){
+        return element
+    }
     let data1 = new FormData();
     data1.append("file", element);
     let speaker = await UploadEventSpeakersProfile(data1);
